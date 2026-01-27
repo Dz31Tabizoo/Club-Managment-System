@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CMS.DataAccess\CMS.DataAccess.csproj" />
+    <ProjectReference Include="..\MCS.DTOs\MCS.DTOs.csproj" />
+  </ItemGroup>
+
+</Project>
