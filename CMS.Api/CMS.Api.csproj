@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CMS.Business\CMS.Business.csproj" />
-    <ProjectReference Include="..\MCS.DTOs\MCS.DTOs.csproj" />
+    <ProjectReference Include="..\MCS.DTOs\CMS.DTOs.csproj" />
   </ItemGroup>
 
 </Project>
