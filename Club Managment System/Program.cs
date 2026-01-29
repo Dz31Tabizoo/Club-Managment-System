@@ -13,7 +13,8 @@ namespace Club_Managment_System
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            // Connection string 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
             var app = builder.Build();

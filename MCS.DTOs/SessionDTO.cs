@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS.DTOs
 {
-    public class CategoryDTO
+    internal class SessionDTO
     {
-        public int CategoryID { get; set; }
-        public required string CategoryName { get; set; }
     }
 }
