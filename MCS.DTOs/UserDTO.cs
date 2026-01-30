@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace CMS.DTOs
 {
-    internal class UserDTO
+    public class UserDTO
     {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public bool isActive { get; set; }
     }
 }

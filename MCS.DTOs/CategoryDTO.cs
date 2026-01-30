@@ -10,5 +10,8 @@ namespace CMS.DTOs
     {
         public int CategoryID { get; set; }
         public required string CategoryName { get; set; }
+        public int? MinAge { get; set; }
+        public int? MaxAge { get; set; }
+        public decimal MonthlyFee { get; set; }
     }
 }

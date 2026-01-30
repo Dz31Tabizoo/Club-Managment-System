@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CMS.DTOs
 {
-    internal class CoachDTO
+    public class CoachDTO : PersonDTO
     {
+        public string Specialization { get; set; }
+        public decimal salary { get; set; }
+        public bool isActive { get; set; }
     }
 }

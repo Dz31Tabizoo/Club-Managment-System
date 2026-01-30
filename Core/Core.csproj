@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CMS.DataAccess\CMS.DataAccess.csproj" />
-    <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\MCS.DTOs\CMS.DTOs.csproj" />
   </ItemGroup>
 

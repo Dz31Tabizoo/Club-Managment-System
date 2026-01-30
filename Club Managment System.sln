@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36401.2
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Club Managment System", "Club Managment System\Club Managment System.csproj", "{A9A792CC-D5D2-4878-9B6B-5C40519EF15D}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.Business", "CMS.Business\CMS.Business.csproj", "{8BBADFA0-E220-4F02-8EE4-19EAD7D5E06B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.Api", "CMS.Api\CMS.Api.csproj", "{5C6806B9-96DD-4A11-B2AE-3CDF5DCEB333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{64118B23-E695-4614-92F7-12A9D9D5DA09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5C6806B9-96DD-4A11-B2AE-3CDF5DCEB333}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C6806B9-96DD-4A11-B2AE-3CDF5DCEB333}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C6806B9-96DD-4A11-B2AE-3CDF5DCEB333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64118B23-E695-4614-92F7-12A9D9D5DA09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64118B23-E695-4614-92F7-12A9D9D5DA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64118B23-E695-4614-92F7-12A9D9D5DA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64118B23-E695-4614-92F7-12A9D9D5DA09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

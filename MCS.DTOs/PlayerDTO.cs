@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CMS.DTOs
 {
-    internal class PlayerDTO
+    public class PlayerDTO : PersonDTO
     {
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public  bool isActive { get; set; }
     }
 }

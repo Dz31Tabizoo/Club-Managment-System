@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMS.DataAccess.Interfaces
+namespace CMS.Core.Interfaces
 {
     public interface IRoleRepository
     {
