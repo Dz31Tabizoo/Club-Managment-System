@@ -12,9 +12,9 @@ namespace CMS.DataAccess.Repositories
     public abstract class BaseRepository<T>
     {
         protected readonly string _connectionString;
-        protected readonly ILogger<T> _logger;
+        protected readonly ILogger _logger;
 
-        protected BaseRepository(string connectionString, ILogger<T> logger)
+        protected BaseRepository(string connectionString, ILogger logger)
         {
             _connectionString = connectionString;
             _logger = logger;

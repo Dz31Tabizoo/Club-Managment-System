@@ -12,7 +12,7 @@ namespace CMS.DataAccess.Repositories
     public class GenericRepository<T> : BaseRepository<T>, IGenericRepository<T> where T : class
     {
         private readonly string _tableName;
-        public GenericRepository(string connectionString, string tableName, ILogger<T> logger) : base(connectionString, logger)
+        public GenericRepository(string connectionString, string tableName, ILogger logger) : base(connectionString, logger)
         {
             _tableName = tableName;
         }
@@ -32,7 +32,7 @@ namespace CMS.DataAccess.Repositories
             }
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public async Task<T> GetbyIdAsync(int id)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace CMS.DataAccess.Repositories
                 throw;
 
             }
-
-
+        }
+    }
 
 }
