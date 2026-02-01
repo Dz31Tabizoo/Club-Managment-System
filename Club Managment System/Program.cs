@@ -1,4 +1,7 @@
 
+using CMS.DataAccess.Repositories;
+using Core.Interfaces;
+
 namespace Club_Managment_System
 {
     public class Program
@@ -16,6 +19,15 @@ namespace Club_Managment_System
             // Connection string 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+            //Repo Providers
+            builder.Services.AddScoped<IPlayerRepository>(provider =>
+            {
+                // ???? ??? ??? Logger ?????? ???? ??? Repository
+                var logger = provider.GetRequiredService<ILogger<PlayerRepository>>();
+
+                // ???? ???? ????? ????? ??? ??? ??????? ???????
+                return new PlayerRepository(connectionString!, logger);
+            });
 
             var app = builder.Build();
 

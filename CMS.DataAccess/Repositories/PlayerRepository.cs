@@ -24,7 +24,12 @@ namespace CMS.DataAccess.Repositories
 
 
                     using var connection = CreateConnection();
-                return await connection.ExecuteScalarAsync<int>("sp_AddPlayer", player, commandType: System.Data.CommandType.StoredProcedure);
+
+                var parameter = new 
+                {
+                    player.FirstName, player.LastName,player.DateOfBirth,player.Gender,
+                    player.Email,player.Phone,player.Address,player.CategoryID,player.isActive};
+                return await connection.ExecuteScalarAsync<int>("sp_AddPlayer", parameter, commandType: System.Data.CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {
@@ -41,7 +46,7 @@ namespace CMS.DataAccess.Repositories
                 string sql = @"
                        SELECT p.PersonID,p.FirstName, p.LastName,p.DateOfBirth,p.Phone,
                                p.Address,p.Email,p.Email,p.Gender,pl.CategoryID,pl.isActive
-                        FROM Persons p INNER JOIN Players
+                        FROM Persons p INNER JOIN Players pl
                         ON p.PersonID = PlayerID";
                 using var connection = CreateConnection();
                 return await connection.QueryAsync<PlayerDTO>(sql);
@@ -49,7 +54,7 @@ namespace CMS.DataAccess.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,"Faild to load Players With Details");
+                _logger.LogError(ex,"Failed to load Players With Details");
                 throw;
             }
         }
