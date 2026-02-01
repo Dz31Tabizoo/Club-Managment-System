@@ -32,5 +32,26 @@ namespace CMS.DataAccess.Repositories
                 throw;
             }
         }
+    
+        public async Task<IEnumerable<PlayerDTO>> GetAllPlayersWithDetailsAsync()
+        {
+            try
+            {
+                _logger.LogInformation("Getting All Players With Details");
+                string sql = @"
+                       SELECT p.PersonID,p.FirstName, p.LastName,p.DateOfBirth,p.Phone,
+                               p.Address,p.Email,p.Email,p.Gender,pl.CategoryID,pl.isActive
+                        FROM Persons p INNER JOIN Players
+                        ON p.PersonID = PlayerID";
+                using var connection = CreateConnection();
+                return await connection.QueryAsync<PlayerDTO>(sql);
+                
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,"Faild to load Players With Details");
+                throw;
+            }
+        }
     }
 }
