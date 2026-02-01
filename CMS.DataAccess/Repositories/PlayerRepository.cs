@@ -4,6 +4,7 @@ using Dapper;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,5 +59,44 @@ namespace CMS.DataAccess.Repositories
                 throw;
             }
         }
+
+        public async Task<bool> UpdatePlayerAsync(int id, PlayerDTO player)
+        {
+            using var connection = CreateConnection();
+            {
+                var parameters = new
+                {
+                    player.PersonID, 
+                    player.FirstName,
+                    player.LastName,
+                    player.DateOfBirth,
+                    player.Gender,
+                    player.Email,
+                    player.Phone,
+                    player.Address,
+                    player.CategoryID,
+                    player.isActive
+                };
+
+                var affectedRows = await connection.ExecuteAsync(
+                    "sp_UpdatePlayer",
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return affectedRows > 0;
+            }
+        }
+
+        public async Task<bool> DeletePlayerAsync(int id)
+        {
+            using var connection = CreateConnection();
+            // سنقوم فقط بتحديث حالة النشاط إلى "False"
+            string sql = "UPDATE Players SET IsActive = 0 WHERE PlayerID = @id";
+
+            var affectedRows = await connection.ExecuteAsync(sql, new { id });
+            return affectedRows > 0;
+        }
+
     }
 }
