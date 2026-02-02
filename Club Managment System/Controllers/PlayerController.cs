@@ -51,10 +51,14 @@ namespace Club_Managment_System.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Une erreur interne s'est produite.");
+                return StatusCode(500, $"Une erreur interne s'est produite : {ex.Message}");
             }
 
         }
+
+
+
+
 
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -85,6 +89,10 @@ namespace Club_Managment_System.Controllers
         }
 
 
+
+
+
+
         [HttpDelete("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -105,6 +113,23 @@ namespace Club_Managment_System.Controllers
             }
         }
 
+
+
+
+
+
+
+        [HttpGet("{id}",Name = "GetPlayerInfo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetPlayerById(int id)
+        {
+            var player = await _playerRepo.GetByIdAsync(id);
+
+            if (player == null) return NotFound("Not found");
+            
+            return Ok(player);  
+        }
 
     }
 }

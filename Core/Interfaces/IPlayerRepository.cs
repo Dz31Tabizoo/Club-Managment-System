@@ -10,6 +10,7 @@ namespace Core.Interfaces
 {
     public interface IPlayerRepository : IGenericRepository<PlayerDTO>
     {
+
         Task<int> AddPlayerAsync(PlayerDTO player);
         Task<IEnumerable<PlayerDTO>> GetAllPlayersWithDetailsAsync();
         Task<bool>UpdatePlayerAsync(int id,PlayerDTO player);

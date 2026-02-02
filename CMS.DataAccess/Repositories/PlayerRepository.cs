@@ -13,9 +13,11 @@ namespace CMS.DataAccess.Repositories
 {
     public class PlayerRepository : GenericRepository<PlayerDTO>, IPlayerRepository
     {
-        public PlayerRepository(string connectionString,ILogger<PlayerRepository> logger) : base(connectionString , "Players",logger)
+        public PlayerRepository(string connectionString,ILogger<PlayerRepository> logger) : base(connectionString, "Players", "PlayerID",logger)
         {
         }
+
+
 
         public async Task<int> AddPlayerAsync(PlayerDTO player)
         {
@@ -46,9 +48,9 @@ namespace CMS.DataAccess.Repositories
                 _logger.LogInformation("Getting All Players With Details");
                 string sql = @"
                        SELECT p.PersonID,p.FirstName, p.LastName,p.DateOfBirth,p.Phone,
-                               p.Address,p.Email,p.Email,p.Gender,pl.CategoryID,pl.isActive
+                               p.Address,p.Email,p.Gender,pl.CategoryID,pl.isActive
                         FROM Persons p INNER JOIN Players pl
-                        ON p.PersonID = PlayerID";
+                        ON p.PersonID = pl.PlayerID";
                 using var connection = CreateConnection();
                 return await connection.QueryAsync<PlayerDTO>(sql);
                 
@@ -61,30 +63,36 @@ namespace CMS.DataAccess.Repositories
         }
 
         public async Task<bool> UpdatePlayerAsync(int id, PlayerDTO player)
-        {
-            using var connection = CreateConnection();
+        { try
             {
-                var parameters = new
+                using var connection = CreateConnection();
                 {
-                    player.PersonID, 
-                    player.FirstName,
-                    player.LastName,
-                    player.DateOfBirth,
-                    player.Gender,
-                    player.Email,
-                    player.Phone,
-                    player.Address,
-                    player.CategoryID,
-                    player.isActive
-                };
+                    var parameters = new
+                    {
+                        player.PersonID,
+                        player.FirstName,
+                        player.LastName,
+                        player.DateOfBirth,
+                        player.Gender,
+                        player.Email,
+                        player.Phone,
+                        player.Address,
+                        player.CategoryID,
+                        player.isActive
+                    };
 
-                var affectedRows = await connection.ExecuteAsync(
-                    "sp_UpdatePlayer",
-                    parameters,
-                    commandType: CommandType.StoredProcedure
-                );
+                    var affectedRows = await connection.ExecuteAsync(
+                        "sp_UpdatePlayer",
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
 
-                return affectedRows > 0;
+                    return affectedRows > 0;
+                }
+            }catch(Exception ex)
+            {
+                _logger.LogError(ex, "Failed to update Player: {FullName} ",player.FullName);
+                throw;
             }
         }
 
@@ -97,6 +105,5 @@ namespace CMS.DataAccess.Repositories
             var affectedRows = await connection.ExecuteAsync(sql, new { id });
             return affectedRows > 0;
         }
-
     }
 }

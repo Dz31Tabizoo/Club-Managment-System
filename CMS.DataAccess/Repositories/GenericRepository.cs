@@ -6,39 +6,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using System.Data.SqlTypes;
 
 namespace CMS.DataAccess.Repositories
 {
     public class GenericRepository<T> : BaseRepository<T>, IGenericRepository<T> where T : class
     {
         private readonly string _tableName;
-        public GenericRepository(string connectionString, string tableName, ILogger logger) : base(connectionString, logger)
+        private readonly string _idColumn;
+
+        public GenericRepository(string connectionString, string tableName, string idColumn, ILogger logger) : base(connectionString, logger)
         {
             _tableName = tableName;
+            _idColumn = idColumn; 
         }
 
+
+            // return all records of Enumerable<T> 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             try
             {
-                _logger.LogInformation("Attempting to retrive all records from {TableName}", _tableName);
+                _logger.LogInformation("Attempting to retrieve all records from {TableName}", _tableName);
                 using var connection = CreateConnection();
                 return await connection.QueryAsync<T>($"SELECT * FROM {_tableName}");
 
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occured while fetching data from {TableName}", _tableName); throw;
+                _logger.LogError(ex, "Error occurred while fetching data from {TableName}", _tableName); throw;
             }
         }
-
-        public async Task<T> GetbyIdAsync(int id)
+        // return Object of <Tdto> 
+        public async Task<T?> GetByIdAsync(int id)
         {
             try
             {
                 using var connection = CreateConnection();
-                return await connection.QuerySingleOrDefaultAsync<T>(
-                    $"SELECT * FROM {_tableName} WHERE Id = @Id", new { Id = id });
+                var result = await connection.QuerySingleOrDefaultAsync<T>(
+                    sql: $"SELECT * FROM {_tableName} WHERE {_idColumn} = @Id", new { Id = id });
+                if (result == null)
+                {
+                    _logger.LogError("record with ID {Id} Not found in Table {TableName}", id, _tableName);
+                }
+                return result;
             }
             catch (Exception ex)
             {
@@ -47,21 +58,7 @@ namespace CMS.DataAccess.Repositories
             }
         }
 
-        public async Task<int> DeleteAsync(int id)
-        {
-            try
-            {
-                using var connection = CreateConnection();
-                return await connection.ExecuteAsync(
-                    $"DELETE FROM {_tableName} WHERE Id = @Id", new { Id = id });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error deleting record with ID {Id} from {TableName}", id, _tableName);
-                throw;
-
-            }
-        }
+        
     }
 
 }
