@@ -1,6 +1,7 @@
 
 using CMS.DataAccess.Repositories;
 using Core.Interfaces;
+using Serilog;
 
 namespace Club_Managment_System
 {
@@ -10,6 +11,11 @@ namespace Club_Managment_System
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Serilog
+              Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("Logs/api_logs.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            builder.Host.UseSerilog();
             // Add services to the container.
 
             builder.Services.AddControllers();
