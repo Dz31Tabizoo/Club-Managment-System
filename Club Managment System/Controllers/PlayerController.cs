@@ -30,11 +30,6 @@ namespace Club_Managment_System.Controllers
             return Ok(players);
         }
 
-
-
-
-
-
         [HttpPost("add", Name = "AddPlayer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -43,7 +38,6 @@ namespace Club_Managment_System.Controllers
         {
             if (playerDTO == null || !ModelState.IsValid)
                 return BadRequest(ModelState);
-
             try
             {
                 var newPlayerID = await _playerRepo.AddPlayerAsync(playerDTO);
@@ -55,11 +49,6 @@ namespace Club_Managment_System.Controllers
             }
 
         }
-
-
-
-
-
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -85,13 +74,7 @@ namespace Club_Managment_System.Controllers
                 
             }
             catch (Exception ex) { return StatusCode(500, "Erreur lors de la mise à jour."); }
-
         }
-
-
-
-
-
 
         [HttpDelete("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -112,12 +95,6 @@ namespace Club_Managment_System.Controllers
                 return StatusCode(500, "Erreur lors de la suppression.");
             }
         }
-
-
-
-
-
-
 
         [HttpGet("{id}",Name = "GetPlayerInfo")]
         [ProducesResponseType(StatusCodes.Status200OK)]
