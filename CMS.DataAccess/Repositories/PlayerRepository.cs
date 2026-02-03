@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,7 @@ namespace CMS.DataAccess.Repositories
 {
     public class PlayerRepository : GenericRepository<PlayerDTO>, IPlayerRepository
     {
-        public PlayerRepository(string connectionString,ILogger<PlayerRepository> logger) : base(connectionString, "Players", "PlayerID",logger)
-        {
-        }
+        public PlayerRepository(string connectionString,ILogger<PlayerRepository> logger) : base(connectionString, "Players", "PlayerID",logger) { }
 
 
 
@@ -30,13 +29,22 @@ namespace CMS.DataAccess.Repositories
 
                 var parameter = new 
                 {
-                    player.FirstName, player.LastName,player.DateOfBirth,player.Gender,
-                    player.Email,player.Phone,player.Address,player.CategoryID,player.isActive};
-                return await connection.ExecuteScalarAsync<int>("sp_AddPlayer", parameter, commandType: System.Data.CommandType.StoredProcedure);
+                    player.FirstName, 
+                    player.LastName,
+                    player.DateOfBirth,
+                    player.Gender,
+                    player.Email,
+                    player.Phone,
+                    player.Address,
+                    player.CategoryID,
+                    player.isActive
+                };
+
+                return await connection.ExecuteScalarAsync<int>("sp_AddPlayer", parameter, commandType: CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "failed to execue  sp_AddPlayer for player: {FullName}", player.FullName);
+                _logger.LogError(ex, "failed to execue sp_AddPlayer for player: {FullName}", player.FullName);
                 throw;
             }
         }
@@ -45,12 +53,23 @@ namespace CMS.DataAccess.Repositories
         {
             try
             {
-                _logger.LogInformation("Getting All Players With Details");
+                _logger.LogInformation("Getting All Players With Person Details.");
                 string sql = @"
-                       SELECT p.PersonID,p.FirstName, p.LastName,p.DateOfBirth,p.Phone,
-                               p.Address,p.Email,p.Gender,pl.CategoryID,pl.isActive
-                        FROM Persons p INNER JOIN Players pl
-                        ON p.PersonID = pl.PlayerID";
+                      SELECT 
+                              p.PersonID,
+                              p.FirstName,
+                              p.LastName,
+                              p.DateOfBirth,
+                              p.Phone,
+                              p.Address,
+                              p.Email,
+                              p.Gender,
+                              pl.CategoryID,
+                              pl.isActive
+                      FROM 
+                              Persons p INNER JOIN Players pl
+                        ON    p.PersonID = pl.PlayerID";
+
                 using var connection = CreateConnection();
                 return await connection.QueryAsync<PlayerDTO>(sql);
                 
@@ -86,24 +105,45 @@ namespace CMS.DataAccess.Repositories
                         parameters,
                         commandType: CommandType.StoredProcedure
                     );
-
+                    if (affectedRows == 0)
+                    {
+                        _logger.LogWarning("Mise à jour ignorée: La catégorie {Id} n'existe pas dans la base.", player.PersonID);
+                        return false;
+                    }
+                    _logger.LogInformation("Player {Id} mise à jour avec succès.", player.PersonID);
+                    
                     return affectedRows > 0;
                 }
             }catch(Exception ex)
             {
-                _logger.LogError(ex, "Failed to update Player: {FullName} ",player.FullName);
+                _logger.LogError(ex, "Failed to update Player: {id} ",player.PersonID);
                 throw;
             }
         }
 
         public async Task<bool> DeletePlayerAsync(int id)
         {
-            using var connection = CreateConnection();
-            // سنقوم فقط بتحديث حالة النشاط إلى "False"
-            string sql = "UPDATE Players SET IsActive = 0 WHERE PlayerID = @id";
+            try
+            {
+                _logger.LogInformation("Deleting Player ID = {id}.", id);
 
-            var affectedRows = await connection.ExecuteAsync(sql, new { id });
-            return affectedRows > 0;
+                using var connection = CreateConnection();
+                // سنقوم فقط بتحديث حالة النشاط إلى "False"
+                string sql = "UPDATE Players SET IsActive = 0 WHERE PlayerID = @id";
+
+                var affectedRows = await connection.ExecuteAsync(sql, new { id });
+                if (affectedRows == 0)
+                {
+                    _logger.LogWarning("Suppresion ignorée pour player {id}", id);
+                    return false;
+                }
+                return affectedRows > 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete Player: {id} ", id);
+                throw;
+            }
         }
     }
 }

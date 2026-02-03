@@ -15,7 +15,7 @@ namespace Club_Managment_System.Controllers
 
         public PlayerController(IPlayerRepository playerRepo)
         {
-            _playerRepo = playerRepo;
+            _playerRepo = playerRepo ?? throw new ArgumentNullException(nameof(playerRepo));
         }
 
 
@@ -50,11 +50,13 @@ namespace Club_Managment_System.Controllers
 
         }
 
+
+
+        [HttpPut("update/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpPut("update/{id}")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)] 
         public async Task<IActionResult> UpdatePlayerAsync(int id, [FromBody] PlayerDTO player_dto)
         {
             if (player_dto == null || id != player_dto.PersonID) 
@@ -76,6 +78,9 @@ namespace Club_Managment_System.Controllers
             catch (Exception ex) { return StatusCode(500, "Erreur lors de la mise à jour."); }
         }
 
+
+
+
         [HttpDelete("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -95,6 +100,9 @@ namespace Club_Managment_System.Controllers
                 return StatusCode(500, "Erreur lors de la suppression.");
             }
         }
+
+
+
 
         [HttpGet("{id}",Name = "GetPlayerInfo")]
         [ProducesResponseType(StatusCodes.Status200OK)]

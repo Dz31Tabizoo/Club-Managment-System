@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces
 {
-    public interface ICategories : IGenericRepository<CategoryDTO>
+    public interface ICategoryRepository : IGenericRepository<CategoryDTO>
     {
-       Task <IEnumerable<CategoryDTO>> GetAllCategoriesAsync();
+               
+        Task <bool> UpdateCategoryAsync (CategoryDTO categoryDTO);
+
+
     }
 }
