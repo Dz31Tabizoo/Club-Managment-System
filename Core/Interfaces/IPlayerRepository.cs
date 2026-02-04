@@ -14,7 +14,6 @@ namespace Core.Interfaces
         Task<int> AddPlayerAsync(PlayerDTO player);
         Task<IEnumerable<PlayerDTO>> GetAllPlayersWithDetailsAsync();
         Task<bool>UpdatePlayerAsync(int id,PlayerDTO player);
-        Task<bool> DeletePlayerAsync(int id);
 
     }
 }

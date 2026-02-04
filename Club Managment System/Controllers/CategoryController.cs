@@ -21,8 +21,7 @@ namespace Club_Managment_System.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCategories()
-        {
-            
+        {            
             var categories = await _categoriesRepo.GetAllAsync();
             if (categories == null || !categories.Any())
             {
@@ -47,8 +46,7 @@ namespace Club_Managment_System.Controllers
             if (!editedCategory)
             {
                 return StatusCode(500,"Erreur a la base de donnes.");
-            }
-          
+            }          
             return Ok();
         }
 

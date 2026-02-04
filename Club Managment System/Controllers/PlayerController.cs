@@ -1,36 +1,36 @@
 ﻿
+using Club_Management_System.Controllers;
 using CMS.DTOs;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
-namespace Club_Managment_System.Controllers
+namespace Club_Management_System.Controllers
 {
     [Route("api/Players")]
     [ApiController]
-    public class PlayerController : ControllerBase
+    public class PlayerController : BaseController<PlayerDTO,IPlayerRepository>
     {
-        private readonly IPlayerRepository _playerRepo;
 
-        public PlayerController(IPlayerRepository playerRepo)
+        public PlayerController(IPlayerRepository playerRepo,ILogger<PlayerController> logger): base (playerRepo,logger)
         {
-            _playerRepo = playerRepo ?? throw new ArgumentNullException(nameof(playerRepo));
         }
 
 
-        [HttpGet("playersWithDetails", Name = "GetDetailsPLayers")]
+        [HttpGet("playersWithDetails")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllPlayers()
         {
 
-            var players = await _playerRepo.GetAllPlayersWithDetailsAsync();
+            var players = await _repository.GetAllPlayersWithDetailsAsync();
             if (players == null) { return StatusCode(500, "Problème au connection avec le server"); }
             return Ok(players);
         }
 
-        [HttpPost("add", Name = "AddPlayer")]
+
+        [HttpPost("add")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -40,12 +40,13 @@ namespace Club_Managment_System.Controllers
                 return BadRequest(ModelState);
             try
             {
-                var newPlayerID = await _playerRepo.AddPlayerAsync(playerDTO);
+                var newPlayerID = await _repository.AddPlayerAsync(playerDTO);
                 return Ok(new { id = newPlayerID, message = "Joueur ajouté avec succès" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Une erreur interne s'est produite : {ex.Message}");
+                _logger.LogError(ex, "Erreur Lors de l'ajout d'un joueur");
+                return StatusCode(500, $"Erreur interne");
             }
 
         }
@@ -90,7 +91,8 @@ namespace Club_Managment_System.Controllers
         {
             try
             {
-                var result = await _playerRepo.DeletePlayerAsync(id);
+                // var result = await _playerRepo.DeletePlayerAsync(id);
+                var result = await _playerRepo.DeleteSoftByID(id);
                 if (!result) return NotFound($"Joueur avec ID {id} n'existe pas.");
 
                 return Ok(new { message = "Joueur désactivé (supprimé) avec succès." });

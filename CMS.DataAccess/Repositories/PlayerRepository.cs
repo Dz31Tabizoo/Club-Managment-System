@@ -121,29 +121,8 @@ namespace CMS.DataAccess.Repositories
             }
         }
 
-        public async Task<bool> DeletePlayerAsync(int id)
-        {
-            try
-            {
-                _logger.LogInformation("Deleting Player ID = {id}.", id);
+        
 
-                using var connection = CreateConnection();
-                // سنقوم فقط بتحديث حالة النشاط إلى "False"
-                string sql = "UPDATE Players SET IsActive = 0 WHERE PlayerID = @id";
-
-                var affectedRows = await connection.ExecuteAsync(sql, new { id });
-                if (affectedRows == 0)
-                {
-                    _logger.LogWarning("Suppresion ignorée pour player {id}", id);
-                    return false;
-                }
-                return affectedRows > 0;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to delete Player: {id} ", id);
-                throw;
-            }
-        }
+      
     }
 }
