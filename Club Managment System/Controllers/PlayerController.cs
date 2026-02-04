@@ -70,7 +70,7 @@ namespace Club_Management_System.Controllers
 
             try
             {
-                var result = await _playerRepo.UpdatePlayerAsync(id,player_dto);
+                var result = await _repository.UpdatePlayerAsync(id,player_dto);
                 if (!result) return NotFound($"le Joueur avec id:{id} est introuvable.");
 
                 return Ok(result);
@@ -92,7 +92,7 @@ namespace Club_Management_System.Controllers
             try
             {
                 // var result = await _playerRepo.DeletePlayerAsync(id);
-                var result = await _playerRepo.DeleteSoftByID(id);
+                var result = await _repository.DeleteSoftByID(id);
                 if (!result) return NotFound($"Joueur avec ID {id} n'existe pas.");
 
                 return Ok(new { message = "Joueur désactivé (supprimé) avec succès." });
@@ -111,7 +111,7 @@ namespace Club_Management_System.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPlayerById(int id)
         {
-            var player = await _playerRepo.GetByIdAsync(id);
+            var player = await _repository.GetByIdAsync(id);
 
             if (player == null) return NotFound("Not found");
             
