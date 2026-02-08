@@ -10,10 +10,11 @@ namespace CMS.Core.Interfaces
     public interface IGenericRepository<T> where T : class
     {
         Task<IEnumerable<T>> GetAllAsync();
+
         Task<T?> GetByIdAsync(int id);
 
         Task<bool> ToggleActivationAsync(int id);
 
-        Task<bool> DeleteSoftByID (int id);
+        
     }
 }

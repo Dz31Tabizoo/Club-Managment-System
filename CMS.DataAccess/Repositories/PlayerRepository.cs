@@ -119,9 +119,7 @@ namespace CMS.DataAccess.Repositories
                 _logger.LogError(ex, "Failed to update Player: {id} ",player.PersonID);
                 throw;
             }
-        }
-
-        
+        }        
 
       
     }

@@ -25,7 +25,6 @@
   <ItemGroup>
     <Folder Include="Assets\Fonts\" />
     <Folder Include="Assets\Images\" />
-    <Folder Include="Components\" />
     <Folder Include="Views\" />
     <Folder Include="Services\" />
   </ItemGroup>

@@ -39,6 +39,7 @@ namespace CMS.DataAccess.Repositories
             }
         }
         // return Object of <T=dto> 
+        
         public async Task<T?> GetByIdAsync(int id)
         {
             try
@@ -59,6 +60,8 @@ namespace CMS.DataAccess.Repositories
             }
         }
 
+
+        [Obsolete("This method is deprecated. Use ToggleActivationAsync instead.")]
         public async Task<bool> DeleteSoftByID(int id)
         {
             try
@@ -83,7 +86,7 @@ namespace CMS.DataAccess.Repositories
                 throw;
             }
         }
-
+        
         public async Task<bool> ToggleActivationAsync (int id)
         {
             try
@@ -107,5 +110,4 @@ namespace CMS.DataAccess.Repositories
             }
 }
     }
-
 }

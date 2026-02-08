@@ -10,8 +10,7 @@ namespace CMS.DTOs
     {
         public int PersonID { get; set; }
         public Byte[]? Photo { get; set; }
-
-        // add more properties as needed
+        public DateTime? LastUpdate { get; set; }
 
     }
 }
