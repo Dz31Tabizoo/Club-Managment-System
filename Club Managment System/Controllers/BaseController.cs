@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Club_Management_System.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Base")]
     [ApiController]
     public abstract class BaseController<T, TRepo> : ControllerBase where TRepo : IGenericRepository<T> where T: class
     {
         protected readonly TRepo _repository;
-        protected readonly ILogger<BaseController<T, TRepo>> _logger;
+        protected readonly ILogger _logger;
 
 
-        protected BaseController(TRepo repository,ILogger<BaseController<T, TRepo>> logger)
+        protected BaseController(TRepo repository,ILogger logger)
         {
             _repository = repository;
             _logger = logger;
@@ -46,20 +46,42 @@ namespace Club_Management_System.Controllers
         }
 
 
+        [HttpGet("GetEntity/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var item = await _repository.GetByIdAsync(id);
+
+            if (item == null) return NotFound("Not found");
+
+            return Ok(item);
+        }
+
+
+        [HttpGet("GetData")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            try
+            {
+                var categories = await _repository.GetAllAsync();
+                if (categories == null || !categories.Any())
+                {
+                    return NotFound("Aucune catégorie trouvée");
+                }
+                return Ok(categories);
+            }
+            catch
+            {
+                return StatusCode(500, "Problème interne.");
+            }
+
+        }
 
 
 
 
-
-
-
-
-
-
-
-    }
-
-
-
-    
+    }    
 }

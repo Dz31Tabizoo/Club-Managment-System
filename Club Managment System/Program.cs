@@ -26,15 +26,23 @@ namespace Club_Managment_System
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             //Repo Providers
-            builder.Services.AddScoped<ICategoryRepository>(sp => new CategoryRepository(connectionString, sp.GetRequiredService<ILogger<CategoryRepository>>()));
+            builder.Services.AddScoped<ICategoryRepository>(sp => new CategoryRepository(connectionString!, sp.GetRequiredService<ILogger<CategoryRepository>>()));
             builder.Services.AddScoped<IPlayerRepository>(provider =>
             {
-                // ???? ??? ??? Logger ?????? ???? ??? Repository
+                
                 var logger = provider.GetRequiredService<ILogger<PlayerRepository>>();
 
-                // ???? ???? ????? ????? ??? ??? ??????? ???????
+                
                 return new PlayerRepository(connectionString!, logger);
             });
+            builder.Services.AddScoped<IEventsRepository>(provider =>
+            {
+                var logger = provider.GetRequiredService<ILogger<EventsRepository>>();
+
+                
+                return new EventsRepository(connectionString!, logger);
+            });
+
 
             var app = builder.Build();
 

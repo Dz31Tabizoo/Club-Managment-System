@@ -76,7 +76,7 @@ namespace Club_Management_System.Controllers
                 return Ok(result);
                 
             }
-            catch (Exception ex) { return StatusCode(500, "Erreur lors de la mise à jour."); }
+            catch { return StatusCode(500, "Erreur lors de la mise à jour."); }
         }
 
 
@@ -89,18 +89,7 @@ namespace Club_Management_System.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeletePlayer(int id)
         {
-            try
-            {
-                // var result = await _playerRepo.DeletePlayerAsync(id);
-                var result = await _repository.DeleteSoftByID(id);
-                if (!result) return NotFound($"Joueur avec ID {id} n'existe pas.");
-
-                return Ok(new { message = "Joueur désactivé (supprimé) avec succès." });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Erreur lors de la suppression.");
-            }
+            return await base.ToggleActivation(id);
         }
 
 
@@ -110,12 +99,8 @@ namespace Club_Management_System.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPlayerById(int id)
-        {
-            var player = await _repository.GetByIdAsync(id);
-
-            if (player == null) return NotFound("Not found");
-            
-            return Ok(player);  
+        { 
+            return await base.GetByIdAsync(id);
         }
 
     }

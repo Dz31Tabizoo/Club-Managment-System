@@ -1,4 +1,5 @@
-﻿using CMS.DTOs;
+﻿using Club_Management_System.Controllers;
+using CMS.DTOs;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,38 +9,17 @@ namespace Club_Managment_System.Controllers
 {
     [Route("api/Category")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController : BaseController<CategoryDTO, ICategoryRepository>
     {
-        private readonly ICategoryRepository _categoriesRepo;
+        
         //contructor
-        public CategoryController(ICategoryRepository categories)
+        public CategoryController(ICategoryRepository categoryRepo, ILogger<CategoryController> logger) : base(categoryRepo, logger)
         {
-            _categoriesRepo = categories;
+            
         }
 
         
-        [HttpGet("Categories", Name = "GetAllCategories")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetCategories()
-        {
-            try
-            {
-                var categories = await _categoriesRepo.GetAllAsync();
-                if (categories == null || !categories.Any())
-                {
-                    return NotFound("Aucune catégorie trouvée");
-                }
-                return Ok(categories);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Problème interne.");
-            }
-
-        }
-
-
+        
         [HttpPut("UpdateCategory", Name = "UpdateCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -52,7 +32,7 @@ namespace Club_Managment_System.Controllers
                 {
                     return BadRequest("Données de catégorie invalides");
                 }
-                var editedCategory = await _categoriesRepo.UpdateCategoryAsync(category);
+                var editedCategory = await _repository.UpdateCategoryAsync(category);
 
                 if (!editedCategory)
                 {
@@ -61,35 +41,15 @@ namespace Club_Managment_System.Controllers
                 return Ok();
 
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode(500, "Problème interne.");
             }
         }
 
 
-        [HttpGet("Category/{id}", Name = "GetCategoryByID")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetCategoryById(int id)
-        {
-            try
-            {
 
-                var category = await _categoriesRepo.GetByIdAsync(id);
-
-                if (category == null) return NotFound("Not found");
-
-                return Ok(category);
-
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Problème interne");
-            }
-        }
+        
 
 
     }

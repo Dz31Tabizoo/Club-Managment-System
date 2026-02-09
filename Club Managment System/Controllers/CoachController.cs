@@ -1,4 +1,5 @@
-﻿using CMS.DTOs;
+﻿using Club_Management_System.Controllers;
+using CMS.DTOs;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,13 +8,13 @@ namespace Club_Managment_System.Controllers
 {
     [Route("api/Coach")]
     [ApiController]
-    public class CoachController : ControllerBase
+    public class CoachController : BaseController<CoachDTO,ICoachRepository>
     {
-        private readonly ICoachRepository _coachRepo;
+        
 
-        public CoachController(ICoachRepository coachRepo)
+        public CoachController(ICoachRepository coachRepo, ILogger <CoachController> logger) : base(coachRepo, logger)
         {
-            _coachRepo = coachRepo;
+            
         }
 
         [HttpGet("Coachs", Name = "GetAllCoachs")]
@@ -23,14 +24,14 @@ namespace Club_Managment_System.Controllers
         {
             try
             {
-                var coachs = await _coachRepo.GetAllAsync();
+                var coachs = await _repository.GetAllAsync();
                 if (coachs == null || !coachs.Any())
                 {
                     return NotFound("Aucune catégorie trouvée");
                 }
                 return Ok(coachs);
             }
-            catch 
+            catch
             {
                 return StatusCode(500, "Problème interne.");
             }
@@ -50,7 +51,7 @@ namespace Club_Managment_System.Controllers
                 {
                     return BadRequest("Données de catégorie invalides");
                 }
-                var editedCoach = await _coachRepo.UpdateCoachAsync(Coach);
+                var editedCoach = await _repository.UpdateCoachAsync(Coach);
 
                 if (!editedCoach)
                 {
@@ -59,11 +60,12 @@ namespace Club_Managment_System.Controllers
                 return Ok();
 
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode(500, "Problème interne.");
             }
         }
 
-
     }
+
+}
