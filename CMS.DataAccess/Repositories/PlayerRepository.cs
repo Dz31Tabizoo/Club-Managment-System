@@ -17,6 +17,8 @@ namespace CMS.DataAccess.Repositories
         public PlayerRepository(string connectionString,ILogger<PlayerRepository> logger) : base(connectionString, "Players", "PlayerID",logger) { }
 
 
+        // we should add player details + Attendance || player details + subscription
+
 
         public async Task<int> AddPlayerAsync(PlayerDTO player)
         {
