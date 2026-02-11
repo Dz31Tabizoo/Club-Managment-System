@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS.DTOs
 {
-    public class SubscriptionSubscriptionDTO
+    public class SubscriptionDTO
     {
         public int SubscriptionID { get; set; }
         public int PlayerID { get; set; }

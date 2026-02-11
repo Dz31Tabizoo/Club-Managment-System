@@ -41,7 +41,7 @@ namespace Club_Management_System.Controllers
             try
             {
                 var newPlayerID = await _repository.AddPlayerAsync(playerDTO);
-                return Ok(new { id = newPlayerID, message = "Joueur ajouté avec succès" });
+                return CreatedAtRoute("GetPlayerInfo",new { id = newPlayerID, message = "Joueur ajouté avec succès" },playerDTO);
             }
             catch (Exception ex)
             {

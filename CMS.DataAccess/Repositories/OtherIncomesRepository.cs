@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace CMS.DataAccess.Repositories
 {
-   
-    public class ExtraInfoRepository : GenericRepository<ExtraPersonInfo>, IExtraInfoRepository
+    public class OtherIncomesRepository : GenericRepository<OtherIncomeDTO> , IOtherIncomesRepository
     {
-        public ExtraInfoRepository(string ConnectionString, ILogger<ExtraInfoRepository> logger) : base(ConnectionString, "ExtraInfo", "PersonID", logger)
+        public OtherIncomesRepository(string ConnectionString, ILogger<OtherIncomesRepository> logger) : base(ConnectionString, "OtherIncomes", "IncomeID", logger)
         {
         }
     }

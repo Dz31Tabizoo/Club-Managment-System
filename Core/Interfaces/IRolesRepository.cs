@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CMS.Core.Interfaces
 {
-    public interface IRoleRepository
+    public interface IRoleRepository : IGenericRepository<RolesDTO>
     {
         
     }

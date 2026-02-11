@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CMS.Core.Interfaces;
+using CMS.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces
 {
-    public interface IplayerAttendanceRepository
+    public interface IPlayerAttendanceRepository : IGenericRepository<PlayerAttendanceDTO>
     {
     }
 }

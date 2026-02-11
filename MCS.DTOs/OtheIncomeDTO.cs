@@ -12,7 +12,7 @@ namespace CMS.DTOs
         public string SourceTitle { get; set; }
         public decimal Amount { get; set; }
         public DateTime IncomeDate { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         // لربط الدخل بالشخص الذي استلمه (الموظف أو الأدمن)
         public int? ReceivedByUserID { get; set; }

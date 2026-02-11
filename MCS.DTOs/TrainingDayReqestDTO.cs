@@ -10,7 +10,7 @@ namespace CMS.DTOs
     {
         public int TrainingDayID { get; set; }
         public DateTime TrainingDate { get; set; }
-        public string Note { get; set; }
+        public string? Note{ get; set; }
         public bool IsClosed { get; set; } //To prevent Edit
         public List<SessionDTO> Sessions { get; set; } = new();
 
