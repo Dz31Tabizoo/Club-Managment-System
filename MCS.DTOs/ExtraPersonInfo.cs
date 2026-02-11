@@ -8,7 +8,7 @@ namespace CMS.DTOs
 {
     public class ExtraPersonInfo
     {
-        public int PersonID { get; set; }
+        
         public Byte[]? Photo { get; set; }
         public DateTime? LastUpdate { get; set; }
 

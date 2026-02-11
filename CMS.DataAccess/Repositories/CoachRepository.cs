@@ -16,7 +16,7 @@ namespace CMS.DataAccess.Repositories
 {
     public class CoachRepository : GenericRepository<CoachDTO> , ICoachRepository
     {
-        public CoachRepository(string connectionString, ILogger<CoachRepository> logger) : base(connectionString, "Coaches", "CoacheID", logger)
+        public CoachRepository(string connectionString, ILogger<CoachRepository> logger) : base(connectionString, "Coaches", "CoachID", logger)
         {
 
         }

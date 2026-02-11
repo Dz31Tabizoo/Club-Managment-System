@@ -8,7 +8,7 @@ using CMS.DTOs;
 
 namespace Core.Interfaces
 {
-    public interface IExpencesRepository : IGenericRepository<Expenses>
+    public interface IExpencesRepository : IGenericRepository<ExpensesDTO>
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS.DTOs
 {
-    public class Expenses
+    public class ExpensesDTO
     {
         public int ExpenseID { get; set; }
         public string ItemName { get; set; }
