@@ -45,12 +45,7 @@
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <WrapPanel Orientation="Horizontal">
-                    <components:PlayerCard />
-                    <components:PlayerCard />
-                    <components:PlayerCard />
-                    <components:PlayerCard />
-                    <components:PlayerCard />
-                    <components:PlayerCard />
+                    
                 </WrapPanel>
             </ScrollViewer>
         </Grid>
