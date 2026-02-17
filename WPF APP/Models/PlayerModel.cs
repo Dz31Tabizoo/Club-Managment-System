@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WPF_APP.Models
 {
-    public partial class PlayerModel : ObservableObject
+    public partial class PlayerModel : PersonModel
     {
         [ObservableProperty]
         private int _playerID;

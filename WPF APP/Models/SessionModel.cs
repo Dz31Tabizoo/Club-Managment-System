@@ -28,7 +28,7 @@ namespace WPF_APP.Models
         private CoachModel _sessionCoach;
 
         [ObservableProperty]
-        private ObservableCollection<playerAttendanceModel> _playerAttendance = new();
+        private ObservableCollection<PlayerAttendanceModel> _playerAttendance = new();
 
     }
 }

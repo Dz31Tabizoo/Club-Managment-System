@@ -11,13 +11,13 @@ namespace WPF_APP.Models
     {
         private int _personID;
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(FullName))]
+        [NotifyPropertyChangedFor(nameof(FullName))]
         private string _firstName;
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(FullName))]
+        [NotifyPropertyChangedFor(nameof(FullName))]
         private string _lastName;
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(Age))]
+        [NotifyPropertyChangedFor(nameof(Age))]
         private DateTime _dateOfBirth;
         [ObservableProperty]
         private string _email;

@@ -1,0 +1,153 @@
+﻿<Window x:Class="WPF_APP.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_APP"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="550" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+    
+    <Border CornerRadius="15"
+            BorderThickness="4">
+        <Border.Background>
+            <ImageBrush ImageSource="/Assets/Images/football-trainer-teaching-his-pupils.jpg"
+                        Stretch="Fill"/>
+        
+        </Border.Background>
+
+        <Border CornerRadius="15"            
+            BorderThickness="4"
+                Opacity="0.85">
+            
+            <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#CCB3E5FC" Offset="0.0" />
+                <GradientStop Color="#229799" Offset="0.74" />
+                <GradientStop Color="#0b3233" Offset="1.0" />
+            </LinearGradientBrush>
+            </Border.Background>
+
+            <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#CCB3E5FC" Offset="0.0" />
+                <GradientStop Color="#229799" Offset="0.74" />
+                <GradientStop Color="#0b3233" Offset="1.0" />
+            </LinearGradientBrush>
+             </Border.BorderBrush>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="80" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Text= "Club Management Ecosystem"
+                           Foreground="#161616"
+                           FontSize="18"
+                           FontFamily="/Resources/Roboto/Roboto-Black.ttf#Roboto Black"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           FontWeight="DemiBold"
+                           Margin="10,0,0,0"/>
+
+                 <Button x:Name="btnMinimize"
+                        BorderThickness="0"
+                        Content="-"
+                        
+                        FontSize="14"
+                        FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
+                        Cursor="Hand"
+                        Grid.Column="1" 
+                        Click="btnMinimize_Click"
+                        >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Beige"/>
+                            <Setter Property="Foreground" Value="#424242"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Gray"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"/>
+
+                            </Border>
+
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                
+                
+
+                <Button x:Name="btnClose"
+                                               
+                        BorderThickness="0"
+                        Content="x"
+                        
+                        FontSize="14"
+                        FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
+                        Cursor="Hand"
+                        Grid.Column="2" Click="btnClose_Click"
+                        >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="MistyRose"/>
+                            <Setter Property="Foreground" Value="#424242"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                 CornerRadius="9"
+                 Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"/>
+
+                            </Border>
+
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+
+
+            </Grid>
+
+
+
+
+        </Border>
+    </Border>
+</Window>
