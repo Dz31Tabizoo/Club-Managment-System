@@ -67,7 +67,7 @@
                            Opacity="0.75"/>
 
                 <Image Source="/Assets/Images/logo-Photoroom.png" 
-                       Height="264"
+                       Height="65"
                        Grid.Row="2"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center" />
@@ -90,6 +90,7 @@
                     <Image Source="/Assets/Images/ClubLOGO-Photoroom.png" 
                                                Width="100"
                                                Height="100"
+                           
                                                Margin="0,0,0,5"/>
 
                     
@@ -195,7 +196,6 @@
 
                     </Button>
 
-
                 </StackPanel>
 
                 <Button x:Name="btnMinimize"
@@ -277,3 +277,5 @@
         </Border>
     </Border>
 </Window>
+
+
