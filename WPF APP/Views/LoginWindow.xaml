@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_APP"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="550" Width="800"
+        Title="LoginWindow" Height="500" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -13,7 +13,7 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
-    <Border CornerRadius="15"
+    <!--<Border CornerRadius="15"
             BorderThickness="4"
             ClipToBounds="True">
         <Border.Background>
@@ -294,7 +294,154 @@
 
             
         </Border>
-    </Border>
+    </Border>-->
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1.5*" />
+
+        </Grid.ColumnDefinitions>
+
+
+
+
+        <Border CornerRadius="10 0 0 10">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="1">
+                    <GradientStop Color="#2a93d5" Offset="1.1" />
+                    <GradientStop Color="#154a6a" Offset="0.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Canvas>
+                    <Polygon Points="0,120 220,200 0,330" Fill="#62A7CF" Opacity="0.2" />
+                    <Polygon Points="100,400 200,370, 180,470" Fill="#62A7CF" Opacity="0.28" HorizontalAlignment="Left" Canvas.Top="-38" VerticalAlignment="Top" Canvas.Left="10" />
+                    <Ellipse Width="40" Height="40" Fill="#62A7CF" Opacity="0.35" Canvas.Left="246" Canvas.Top="340" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Ellipse Width="20" Height="20" Fill="#62A7CF" Opacity="0.35" Canvas.Left="59" Canvas.Top="335" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                </Canvas>
+
+                <StackPanel >
+
+                    <TextBlock Text="Club Management Ecosystem" 
+                               Foreground="#F1F7F6"
+                               FontFamily="Segoe UI" 
+                               FontSize=" 20" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center" 
+                               Margin="0,50,0,0"/>
+
+                    <Image Source="/Assets/Images/CMS LOGO.png" Stretch="Fill" Height="220" Width="200" Margin="0,25,0,0" />
+                    <Image Source="/Assets/Images/logo-Photoroom.png " Width="180" Margin="0,30" OverridesDefaultStyle="True"/>
+                    <TextBlock Text="Gérer. Performer. Réussir." 
+                               Foreground="#F1F7F6"
+                               FontFamily="/Resources/Noto/NotoSans-Regular.ttf#Noto Sans" 
+                               FontSize=" 20" 
+                               FontWeight="SemiBold"
+                               
+                               HorizontalAlignment="Center" 
+                               Margin="0,0,0,0"/>
+
+
+                </StackPanel>
+
+
+
+            </Grid>
+        </Border>
+
+
+
+
+        <Border Background="#FFFFFF" 
+                Grid.Column="1" 
+                CornerRadius="0 10 10 0" 
+                HorizontalAlignment="Center" 
+                Width="480" Height="500" 
+                VerticalAlignment="Top" >
+                    
+                    
+                    
+            
+            
+            
+            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" Width="330" Height="300">
+
+               
+
+                <Button x:Name="btnLogin"                                
+                        BorderThickness="0"
+                        Content="Se connecter"        
+                        FontSize="14"
+                        FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
+                        Cursor="Hand"
+                        Margin="0,20,0,0">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#0E3739" Offset="0.0"/>
+                                        <GradientStop Color="#2a93d5" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground" Value="White"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#154a6a" Offset="0.0"/>
+                                                <GradientStop Color="#2a93d5" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#082223" Offset="0.0"/>
+                                                <GradientStop Color="#2a93d5" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" 
+                    Height="35"
+                    CornerRadius="10"
+                    Background="{TemplateBinding Background}"
+                    SnapsToDevicePixels="True">
+                                <ContentPresenter VerticalAlignment="Center" 
+                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+
+
 </Window>
 
 

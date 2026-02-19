@@ -19,6 +19,7 @@
     <None Remove="Assets\Images\football-trainer-teaching-his-pupils.jpg" />
     <None Remove="Assets\Images\key.png" />
     <None Remove="Assets\Images\logo-Photoroom.png" />
+    <None Remove="Assets\Images\logo-Photoroom.psd" />
     <None Remove="Assets\Images\soccer-field-with-net-sun.jpg" />
     <None Remove="Assets\Images\Username Icon.png" />
   </ItemGroup>
@@ -51,6 +52,7 @@
     <Resource Include="Assets\Images\football-trainer-teaching-his-pupils.jpg" />
     <Resource Include="Assets\Images\key.png" />
     <Resource Include="Assets\Images\logo-Photoroom.png" />
+    <Resource Include="Assets\Images\logo-Photoroom.psd" />
     <Resource Include="Assets\Images\Username Icon.png" />
   </ItemGroup>
 
