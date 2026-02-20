@@ -13,288 +13,6 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
-    <!--<Border CornerRadius="15"
-            BorderThickness="4"
-            ClipToBounds="True">
-        <Border.Background>
-            <ImageBrush ImageSource="/Assets/Images/football-trainer-teaching-his-pupils.jpg"
-                        Stretch="Fill" Opacity="0.9"/>
-        </Border.Background>
-
-
-        <Border CornerRadius="15"            
-            BorderThickness="4"
-                Opacity="0.9">
-
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0.0,0" EndPoint="1,1" Opacity="1">
-                    <GradientStop Color="#CCB3E5FC" Offset="0.0" />
-                    <GradientStop Color="#229799" Offset="0.74" />
-                    <GradientStop Color="#0b3233" Offset="1.0" />
-                </LinearGradientBrush>
-            </Border.Background>
-
-            <Border.BorderBrush>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" >
-                    <GradientStop Color="#CCB3E5FC" Offset="0.0" />
-                    <GradientStop Color="#229799" Offset="0.74" />
-                    <GradientStop Color="#0b3233" Offset="1.0" />
-                </LinearGradientBrush>
-            </Border.BorderBrush>
-
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="70" />
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="25" />
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="5" />
-                </Grid.ColumnDefinitions>
-
-
-                <TextBlock Text= "Club Management Ecosystem"
-                           Foreground="#161616"
-                           FontSize="18"
-                           FontFamily="/Resources/Roboto/Roboto-Black.ttf#Roboto Black"
-                           Grid.Column="0"
-                           VerticalAlignment="Center"
-                           FontWeight="Regular"
-                           Margin="10,0,0,0"
-                           Padding="0,0,0,0"
-                           Opacity="0.75"/>
-
-                <Image Source="/Assets/Images/CMS LOGO.png" 
-                       
-                       Opacity="0.2"
-                       Grid.Row="1"                         
-                       Height="341" 
-                       Width="282" 
-                       Margin="420,15,15,15"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       
-                       />
-
-                <Image Source="/Assets/Images/logo-Photoroom.png" 
-                       Height="58"
-                       Grid.Row="2"                       
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"   />
-
-                <StackPanel Width="250" 
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Orientation="Vertical" 
-                            Margin="0,30,387,10">
-
-
-
-                    <TextBlock Text="Utilisateur"
-                                   Foreground="#F1F6F7"
-                                   FontSize="16"
-                                   FontFamily="Segoe UI"
-                                   FontWeight="Normal"
-                                   VerticalAlignment="Center"
-                                   
-                                   Margin="0,10,0,0"/>
-
-                    <TextBox x:Name="txtUser" 
-                             
-                                     FontSize="15"
-                                     Foreground="#042222"
-                                     BorderThickness="0,0,0,2"
-                                     FontFamily="Segoe UI"
-                                     FontWeight="SemiBold"
-                                     Height="24"
-                                     BorderBrush="Cornsilk"
-                                     VerticalContentAlignment="Center" 
-                                     Margin="0,5,0,15"
-                                     Padding="25,0,0,0"
-                                     >
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="/Assets/Images/Username Icon.png" 
-                                        AlignmentX="Left" 
-                                        AlignmentY="Center" 
-                                        Stretch="None"/>
-                        </TextBox.Background>
-
-
-
-                    </TextBox>
-
-                    <TextBlock Text="Mot de passe"
-                               Foreground="#F1F6F7"
-                               FontSize="16"
-                               FontFamily="Segoe UI"
-                               FontWeight="Normal"
-                               VerticalAlignment="Center"
-               
-                               Margin="0,10,0,0"/>
-
-                    <PasswordBox x:Name="txtPassword"          
-                             FontSize="15"
-                             Foreground="#042222"
-                             BorderThickness="0,0,0,2"
-                             FontFamily="Segoe UI"
-                             FontWeight="SemiBold"
-                             Height="24"
-                             BorderBrush="Cornsilk"
-                             VerticalContentAlignment="Center" 
-                             Margin="0,5,0,15"
-                             Padding="25,0,0,0"
-                             >
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Assets/Images/key.png" 
-                            AlignmentX="Left" 
-                            AlignmentY="Center" 
-                            Stretch="None"/>
-                        </PasswordBox.Background>
-
-                    </PasswordBox>
-
-                    <Button x:Name="btnLogin"                               
-                            BorderThickness="0"
-                            Content="Se connecter"        
-                            FontSize="14"
-                            FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
-                            Cursor="Hand"
-                            Grid.Column="2" Click="btnClose_Click"
-                            Margin="0,20,0,0"
-                            Opacity="0.78"
-                            >
-
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#0E3739"/>
-                                <Setter Property="Foreground" Value="White"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="White"/>
-                                        <Setter Property="Foreground" Value="#0E3739"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border 
-                                    Width="120" Height="30"
-                                        CornerRadius="9"
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-
-                    </Button>
-
-                    <Image Source="/Assets/Images/ClubLOGO-Photoroom.png"
-                           Width="100"
-                           Margin="0,15,0,0"/>
-
-                    <TextBlock Text="ATHLETIC CITY NASR"
-                               Foreground="White"
-                               FontSize="25"
-                               Margin="0,15,0,0"
-                               FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
-                               />
-
-
-
-                </StackPanel>
-
-
-
-
-                <Button x:Name="btnMinimize"
-                        BorderThickness="0"
-                        Content="-"
-                        
-                        FontSize="14"
-                        FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
-                        Cursor="Hand"
-                        Grid.Column="1" 
-                        Click="btnMinimize_Click"
-                        >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="Beige"/>
-                            <Setter Property="Foreground" Value="#424242"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Gray"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="18" Height="18"
-                                    CornerRadius="9"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center"/>
-
-                            </Border>
-
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-                <Button x:Name="btnClose"
-                                               
-                        BorderThickness="0"
-                        Content="x"
-                        
-                        FontSize="14"
-                        FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
-                        Cursor="Hand"
-                        Grid.Column="2" Click="btnClose_Click"
-                        >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="MistyRose"/>
-                            <Setter Property="Foreground" Value="#424242"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Red"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="18" Height="18"
-                 CornerRadius="9"
-                 Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"/>
-
-                            </Border>
-
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
-
-
-            </Grid>
-
-
-            
-        </Border>
-    </Border>-->
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -341,8 +59,7 @@
                                FontSize=" 20" 
                                FontWeight="SemiBold"
                                
-                               HorizontalAlignment="Center" 
-                               Margin="0,0,0,0"/>
+                               HorizontalAlignment="Center"                              Margin="0,0,0,0"/>
 
 
                 </StackPanel>
@@ -355,89 +72,75 @@
 
 
 
+       
+        
+        
+        
+        
         <Border Background="#FFFFFF" 
                 Grid.Column="1" 
                 CornerRadius="0 10 10 0" 
                 HorizontalAlignment="Center" 
                 Width="480" Height="500" 
                 VerticalAlignment="Top" >
-                    
-                    
-                    
-            
-            
             
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" Width="330" Height="300">
 
-               
+                <Border BorderThickness="1" BorderBrush="Black" Margin="70 7" CornerRadius="0 10 0 15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Button x:Name="btnLogin"                                
-                        BorderThickness="0"
-                        Content="Se connecter"        
-                        FontSize="14"
-                        FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
-                        Cursor="Hand"
-                        Margin="0,20,0,0">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#0E3739" Offset="0.0"/>
-                                        <GradientStop Color="#2a93d5" Offset="1.0"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Foreground" Value="White"/>
-
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="#154a6a" Offset="0.0"/>
-                                                <GradientStop Color="#2a93d5" Offset="1.0"/>
-                                            </LinearGradientBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="#082223" Offset="0.0"/>
-                                                <GradientStop Color="#2a93d5" Offset="1.0"/>
-                                            </LinearGradientBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="RenderTransform">
-                                        <Setter.Value>
-                                            <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" 
-                    Height="35"
-                    CornerRadius="10"
-                    Background="{TemplateBinding Background}"
-                    SnapsToDevicePixels="True">
-                                <ContentPresenter VerticalAlignment="Center" 
-                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
+                       <Image Source="/Assets/Images/Username Icon.png" Height="20" Stretch="Uniform" Margin="10,0,0,0"/>
+                        <TextBlock x:Name="UserName" Text="Nom d'itulisateur" Grid.Column="1">
+                            
+                        </TextBlock>
+                    </Grid>                                                                                      
+                </Border>                                            
+                           
             </StackPanel>
+            
+            <!--<Button x:Name="btnLogin2"                               
+                            BorderThickness="0"
+                            Content="Se connecter"        
+                            FontSize="14"
+                            FontFamily="/Resources/Roboto/Roboto-Bold.ttf#Roboto"
+                            Cursor="Hand"
+                            Grid.Column="2" Click="btnClose_Click"
+                            Margin="0,20,0,0"
+                            Opacity="0.78"
+                            >
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#0E3739"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="#0E3739"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                                    Width="120" Height="30"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>-->
+            
+            
         </Border>
     </Grid>
 
