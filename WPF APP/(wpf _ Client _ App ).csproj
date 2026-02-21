@@ -14,14 +14,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\cadenas.png" />
     <None Remove="Assets\Images\ClubLOGO-Photoroom.png" />
     <None Remove="Assets\Images\CMS LOGO.png" />
     <None Remove="Assets\Images\football-trainer-teaching-his-pupils.jpg" />
-    <None Remove="Assets\Images\key.png" />
     <None Remove="Assets\Images\logo-Photoroom.png" />
     <None Remove="Assets\Images\logo-Photoroom.psd" />
+    <None Remove="Assets\Images\mot-de-passe.png" />
     <None Remove="Assets\Images\soccer-field-with-net-sun.jpg" />
-    <None Remove="Assets\Images\Username Icon.png" />
+    <None Remove="Assets\Images\utilisateur.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,13 +48,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\cadenas.png" />
     <Resource Include="Assets\Images\ClubLOGO-Photoroom.png" />
     <Resource Include="Assets\Images\CMS LOGO.png" />
     <Resource Include="Assets\Images\football-trainer-teaching-his-pupils.jpg" />
-    <Resource Include="Assets\Images\key.png" />
     <Resource Include="Assets\Images\logo-Photoroom.png" />
     <Resource Include="Assets\Images\logo-Photoroom.psd" />
-    <Resource Include="Assets\Images\Username Icon.png" />
+    <Resource Include="Assets\Images\mot-de-passe.png" />
+    <Resource Include="Assets\Images\utilisateur.png" />
   </ItemGroup>
 
 </Project>
