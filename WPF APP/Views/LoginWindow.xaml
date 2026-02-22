@@ -110,8 +110,8 @@
                             Grid.Row="0">
                     <TextBlock.Foreground>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#154a6a" Offset="0.0"/>
-                            <GradientStop Color="#3A9ECF" Offset="1.0"/>
+                            <GradientStop Color="#154a6a" Offset="0.3"/>
+                            <GradientStop Color="#3A9ECF" Offset="1.1"/>
                         </LinearGradientBrush>
                     </TextBlock.Foreground>
                     <TextBlock.Effect>
@@ -137,19 +137,19 @@
                             <Image Source="/Assets/Images/utilisateur.png" Height="24" Width="24" Margin="8,8,8,8" Grid.RowSpan="2" />
 
                             <TextBox x:Name="txtUserName" 
-                             Grid.Column="1" 
-                             Text="Nom d'utilisateur" 
-                             VerticalAlignment="Center"
-                             Background="Transparent"
-                             FontSize="15"
+                                     Grid.Column="1" 
+                                     Text="Nom d'utilisateur" 
+                                     VerticalAlignment="Center"
+                                     Background="Transparent"
+                                     FontSize="15"
                                      Opacity="0.5"
-                             BorderThickness="0"
-                             Margin="8,0,0,0"
-                             Foreground="#0E3739"
+                                     BorderThickness="0"
+                                     Margin="8,0,0,0"
+                                     Foreground="#0E3739"
                                      Width="225"
                                      GotFocus="txtUserName_GotFocus"
                                      LostFocus="txtUserName_LostFocus"
-                             VerticalContentAlignment="Center"
+                                     VerticalContentAlignment="Center"
                                      HorizontalAlignment="Left" Grid.RowSpan="2"/>
                         </Grid>
                     </Border>
@@ -166,26 +166,26 @@
                             <Image Source="/Assets/Images/mot-de-passe.png" Height="24" Width="24" Margin="8" />
 
                             <TextBlock Text="Mot de passe"
-                   x:Name="textPasswordPlaceholder"
-                   Grid.Column="1"
-                   VerticalAlignment="Center"
+                                       x:Name="textPasswordPlaceholder"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
                                        FontSize="15"
-                   Margin="10,0,0,0"
-                   Foreground="#0E3739"
-                   Opacity="0.5"
-                   IsHitTestVisible="False"
-                   Visibility="Visible"/>
+                                       Margin="10,0,0,0"
+                                       Foreground="#0E3739"
+                                       Opacity="0.5"
+                                       IsHitTestVisible="False"
+                                       Visibility="Visible"/>
 
                             <PasswordBox x:Name="txtPassWord" 
-                     Grid.Column="1" 
-                     PasswordChar="●"
-                     Background="Transparent"
-                     BorderThickness="0"
-                     FontSize="15"
-                     Foreground="#0E3739"
-                     VerticalContentAlignment="Center"
-                     Margin="8,0,0,0"
-                     PasswordChanged="txtPassWord_PasswordChanged"/>
+                                         Grid.Column="1" 
+                                         PasswordChar="●"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         FontSize="15"
+                                         Foreground="#0E3739"
+                                         VerticalContentAlignment="Center"
+                                         Margin="10,0,5,8"
+                                         PasswordChanged="txtPassWord_PasswordChanged"/>
                         </Grid>
                     </Border>
 
