@@ -45,15 +45,14 @@
 
                     <TextBlock Text="Club Management Ecosystem" 
                                Foreground="#F1F7F6"
-                               FontFamily="/Resources/Noto/NotoSans-Regular.ttf#Noto Sans" 
+                               FontFamily="/Assets/Fonts/#Montserrat"
+                               FontWeight="Bold"
                                FontSize=" 20" 
-                               FontWeight="Bold" 
+                               
                                HorizontalAlignment="Center" 
                                Margin="0,40,0,10">
 
-                        <TextBlock.Effect>
-                            <DropShadowEffect BlurRadius="5" ShadowDepth="1" Opacity="0.2" Color="White"/>
-                        </TextBlock.Effect>
+                        
                     </TextBlock>
 
                     <Image Source="/Assets/Images/CMS LOGO.png" Stretch="Fill" Height="220" Width="200" Margin="0,25,0,0" />
@@ -63,15 +62,15 @@
 
                     <TextBlock Text="Gérer. Performer. Réussir." 
                                Foreground="#F1F7F6"
-                               FontFamily="/Resources/Noto/NotoSans-Regular.ttf#Noto Sans" 
+                               FontFamily="/Assets/Fonts/#Montserrat"
+                               FontWeight="DemiBold"
                                FontSize=" 20" 
-                               FontWeight="SemiBold"                               
+                               FontStretch="UltraExpanded"
+                                                              
                                HorizontalAlignment="Center"  
                                Margin="0,0,0,0">
 
-                        <TextBlock.Effect>
-                            <DropShadowEffect BlurRadius="5" ShadowDepth="1" Opacity="0.2" Color="White"/>
-                        </TextBlock.Effect>
+                        
                     </TextBlock>
 
 
@@ -84,12 +83,12 @@
 
 
         <Border x:Name="bord1" 
-        Background="#FFFFFF"
-        Grid.Column="1" 
-        CornerRadius="0 10 10 0" 
-        HorizontalAlignment="Center" 
-        Width="480" Height="500" 
-        VerticalAlignment="Top">
+                Background="#FFFFFF"
+                Grid.Column="1" 
+                CornerRadius="0 10 10 0" 
+                HorizontalAlignment="Center" 
+                Width="480" Height="500" 
+                VerticalAlignment="Top">
 
 
             <Grid>
@@ -103,8 +102,8 @@
 
                 <TextBlock Text="Connexion à l'application"
                             FontSize="28"
-                            FontWeight="Bold"
-                            FontFamily="/Resources/Noto/NotoSans-Bold.ttf#Noto Sans"
+                            FontWeight="DemiBold"
+                            FontFamily="/Assets/Fonts/#Montserrat"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Grid.Row="0">
@@ -114,16 +113,14 @@
                             <GradientStop Color="#3A9ECF" Offset="1.1"/>
                         </LinearGradientBrush>
                     </TextBlock.Foreground>
-                    <TextBlock.Effect>
-                        <DropShadowEffect BlurRadius="5" ShadowDepth="1" Opacity="0.2" Color="Black"/>
-                    </TextBlock.Effect>
+                    
                 </TextBlock>
 
-                <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Height="330" Width="330" >
+                <StackPanel  Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Height="330" Width="330" >
 
 
 
-                    <Border BorderThickness="1" BorderBrush="#154a6a" Margin="0,80,0,15" CornerRadius="5 0 5 0" Width="280" >
+                    <Border BorderThickness="1" BorderBrush="#154a6a" Margin="0,70,0,20" CornerRadius="5 0 5 0" Width="280" >
                         <Grid Height="40">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="31*"/>
@@ -153,8 +150,6 @@
                                      HorizontalAlignment="Left" Grid.RowSpan="2"/>
                         </Grid>
                     </Border>
-
-
 
                     <Border BorderThickness="1" BorderBrush="#154a6a" Margin="0,7" CornerRadius="5 0 5 0" Width="280">
                         <Grid Height="40">
@@ -192,10 +187,11 @@
                     <Button x:Name="btnLogin2"                                
                                 BorderThickness="0"
                                 Content="Se connecter"         
-                                FontSize="14"
-                                FontFamily="Roboto"
+                                FontSize="18"
+                                FontFamily="/Assets/Fonts/#Montserrat"
+                                FontWeight="DemiBold"
                                 Cursor="Hand"
-                                Margin="0,25,0,0"
+                                Margin="0,30,0,0"
                                 Height="35"
                                 Width="150" >
                         <Button.Style>

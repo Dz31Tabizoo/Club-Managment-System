@@ -14,6 +14,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\Arsenal-Bold.ttf" />
+    <None Remove="Assets\Fonts\Arsenal-BoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Arsenal-Italic.ttf" />
+    <None Remove="Assets\Fonts\Arsenal-Regular.ttf" />
+    <None Remove="Assets\Fonts\MarkaziText-Bold.ttf" />
+    <None Remove="Assets\Fonts\MarkaziText-Medium.ttf" />
+    <None Remove="Assets\Fonts\MarkaziText-Regular.ttf" />
+    <None Remove="Assets\Fonts\MarkaziText-SemiBold.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Black.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-BlackItalic.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Bold.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-BoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-ExtraBold.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-ExtraBoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-ExtraLight.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-ExtraLightItalic.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Italic.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Light.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-LightItalic.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Medium.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-MediumItalic.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Regular.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-SemiBold.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-SemiBoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Thin.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-ThinItalic.ttf" />
     <None Remove="Assets\Images\cadenas.png" />
     <None Remove="Assets\Images\ClubLOGO-Photoroom.png" />
     <None Remove="Assets\Images\CMS LOGO.png" />
@@ -36,7 +62,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Fonts\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
@@ -48,6 +73,84 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Fonts\Arsenal-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Arsenal-BoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Arsenal-Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Arsenal-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\MarkaziText-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\MarkaziText-Medium.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\MarkaziText-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\MarkaziText-SemiBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-Black.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-BlackItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-BoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-ExtraBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-ExtraBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-ExtraLight.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-ExtraLightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-LightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-Medium.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-MediumItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-SemiBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-SemiBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-Thin.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Montserrat-ThinItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Images\cadenas.png" />
     <Resource Include="Assets\Images\ClubLOGO-Photoroom.png" />
     <Resource Include="Assets\Images\CMS LOGO.png" />
