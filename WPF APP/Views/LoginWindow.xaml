@@ -109,8 +109,8 @@
                             VerticalAlignment="Center"
                             Grid.Row="0">
                     <TextBlock.Foreground>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#154a6a" Offset="0.3"/>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,8">
+                            <GradientStop Color="#154a6a" Offset="0"/>
                             <GradientStop Color="#3A9ECF" Offset="1.1"/>
                         </LinearGradientBrush>
                     </TextBlock.Foreground>
