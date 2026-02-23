@@ -54,8 +54,8 @@ namespace WPF_APP.ViewModels
 
         private void NavigateToMainShell()
         {
-            var mainShell = new MainWindow();
-            mainShell.Show();
+            //var mainShell = new MainWindow();
+            //mainShell.Show();
 
             Application.Current.MainWindow.Close(); 
         }

@@ -47,8 +47,14 @@
     <None Remove="Assets\Images\logo-Photoroom.png" />
     <None Remove="Assets\Images\logo-Photoroom.psd" />
     <None Remove="Assets\Images\mot-de-passe.png" />
+    <None Remove="Assets\Images\NumidixLogo.png" />
+    <None Remove="Assets\Images\NumidixLogoSQR.png" />
     <None Remove="Assets\Images\soccer-field-with-net-sun.jpg" />
     <None Remove="Assets\Images\utilisateur.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Styles\UIColors.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -157,8 +163,21 @@
     <Resource Include="Assets\Images\football-trainer-teaching-his-pupils.jpg" />
     <Resource Include="Assets\Images\logo-Photoroom.png" />
     <Resource Include="Assets\Images\logo-Photoroom.psd" />
-    <Resource Include="Assets\Images\mot-de-passe.png" />
-    <Resource Include="Assets\Images\utilisateur.png" />
+    <Resource Include="Assets\Images\mot-de-passe.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\NumidixLogo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\NumidixLogoSQR.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\utilisateur.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\UIColors.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
