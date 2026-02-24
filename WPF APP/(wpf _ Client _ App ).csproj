@@ -50,6 +50,7 @@
     <None Remove="Assets\Images\NumidixLogo.png" />
     <None Remove="Assets\Images\NumidixLogoSQR.png" />
     <None Remove="Assets\Images\soccer-field-with-net-sun.jpg" />
+    <None Remove="Assets\Images\training.png" />
     <None Remove="Assets\Images\utilisateur.png" />
   </ItemGroup>
 
@@ -171,6 +172,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\NumidixLogoSQR.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\training.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\utilisateur.png">

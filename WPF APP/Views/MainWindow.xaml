@@ -24,31 +24,35 @@
 
                 <StackPanel 
                             Height="100"
-                            Margin="0,25,0,40">
+                            Margin="0,25,0,25"
+                    VerticalAlignment="Center">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
 
-                        <Image Grid.Column="0" Source= "/Assets/Images/CMS LOGO.png" Width="80" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        <!--Image Grid.Column="0" Source= "/Assets/Images/CMS LOGO.png" Width="80" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"/-->
 
                     <TextBlock Text="Club Management" 
                                 Foreground="#FFFFFF"
                                 FontFamily="/Assets/Fonts/#Montserrat"
                                 FontWeight="Bold"
                                 FontSize="15"
-                               Margin="0,20,0,0"
-                               Grid.Column="1"/>
+                               Margin="45,0,0,0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               />
                     
                     <TextBlock Text="Ecosystem" 
                                 Foreground="#FFFFFF"
                                 FontFamily="/Assets/Fonts/#Montserrat"
                                 FontWeight="Bold"
                                 FontSize="15"
-                               Margin="30,45,0,0"
-                               Grid.Column="1"/>
+                               Margin="50,25,0,0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"/>
                     </Grid>
                 </StackPanel>
                 
@@ -56,11 +60,11 @@
                 
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
-             Tag="{StaticResource GreenLimeBrush}" 
-             GroupName="MenuPrincipal">
+                             Tag="{StaticResource GreenLimeBrush}" 
+                             GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Dashboard" Style="{StaticResource menuButtonsIcon}"/>
-                        <TextBlock Text="Tableau de bord" Style="{StaticResource menuButtonText}"/>
+                        <fa:ImageAwesome Icon="Bars" Style="{StaticResource menuButtonsIcon}"/>
+                        <TextBlock Text="Menu Principale" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </RadioButton>
 
@@ -69,16 +73,16 @@
                              GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Users" Style="{StaticResource menuButtonsIcon}"/>
-                        <TextBlock Text="Effectif" Style="{StaticResource menuButtonText}" Margin="25,0,0,0"/>
+                        <TextBlock Text="Effectif" Style="{StaticResource menuButtonText}" />
                     </StackPanel>
                 </RadioButton>
-                
+
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
-             Tag="{StaticResource GreenLimeBrush}" 
-             GroupName="MenuPrincipal">
+                                Tag="{StaticResource GreenLimeBrush}" 
+                                GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="CalendarTimesOutline" Style="{StaticResource menuButtonsIcon}"/>
-                        <TextBlock Text="Événements" Style="{StaticResource menuButtonText}" Margin="25,0,0,0"/>
+                        <fa:ImageAwesome Icon="FutbolOutline" Style="{StaticResource menuButtonsIcon}"/>
+                        <TextBlock Text="Entrainements" Style="{StaticResource menuButtonText}" />
                     </StackPanel>
                 </RadioButton>
 
@@ -86,27 +90,118 @@
              Tag="{StaticResource GreenLimeBrush}" 
              GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="CartArrowDown" Style="{StaticResource menuButtonsIcon}"/>
-                        <TextBlock Text="Dépenses" Style="{StaticResource menuButtonText}" Margin="25,0,0,0"/>
+                        <fa:ImageAwesome Icon="Bullhorn" Style="{StaticResource menuButtonsIcon}"/>
+                        <TextBlock Text="Évenements" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </RadioButton>
 
-               
+                <RadioButton Style="{StaticResource MenuButtonStyle}" 
+                            Tag="{StaticResource GreenLimeBrush}" 
+                            GroupName="MenuPrincipal">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="CheckSquareOutline" Style="{StaticResource menuButtonsIcon}"/>
+                        <TextBlock Text="Inscriptions" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource MenuButtonStyle}" 
+             Tag="{StaticResource GreenLimeBrush}" 
+             GroupName="MenuPrincipal">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Exchange" Style="{StaticResource menuButtonsIcon}"/>
+                        <TextBlock Text="Transactions" Style="{StaticResource menuButtonText}" />
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource MenuButtonStyle}" 
+                            Tag="{StaticResource GreenLimeBrush}" 
+                            GroupName="MenuPrincipal">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Cubes" Style="{StaticResource menuButtonsIcon}"/>
+                        <TextBlock Text="Stock" Style="{StaticResource menuButtonText}" />
+                    </StackPanel>
+                </RadioButton>
                 
+                <RadioButton Style="{StaticResource MenuButtonStyle}" 
+            Tag="{StaticResource GreenLimeBrush}" 
+            GroupName="MenuPrincipal">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Money" Style="{StaticResource menuButtonsIcon}"/>
+                        <TextBlock Text="Finannces" Style="{StaticResource menuButtonText}" />
+                    </StackPanel>
+                </RadioButton>
+                
+                <RadioButton Style="{StaticResource MenuButtonStyle}" 
+                        Tag="{StaticResource GreenLimeBrush}" 
+                        GroupName="MenuPrincipal">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Gear"  Style="{StaticResource menuButtonsIcon}"/>
+                        <TextBlock Text="Paramettres" Style="{StaticResource menuButtonText}" />
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource MenuButtonStyle}" 
+                                Tag="{StaticResource GreenLimeBrush}" 
+                                GroupName="MenuPrincipal"
+                             Margin="0,90,0,0"
+                             >
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Forward"  Style="{StaticResource menuButtonsIcon}" />
+                        <TextBlock Text="Quitter C.M Ecosystem" Style="{StaticResource menuButtonText}" FontStyle="Italic" />
+                    </StackPanel>
+                </RadioButton>
+
+
 
             </StackPanel>
-            
-        
-        
-        
-        
         </Border>
-
-
-
+        
         <!--Main Content Section-->
 
-        <Border Grid.Column="1" Background="{StaticResource WhiteBrush}" CornerRadius="0,15,15,0">
+        <Border Grid.Column="1" Background="{StaticResource WhiteBrush}" CornerRadius="0,15,15,0" BorderThickness="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!--Controle Bar-->
+                    <RowDefinition Height="25"/>
+                    <!--Header / Caption-->
+                    <RowDefinition Height="35"/>
+                    <!--Content section / child views-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="pnlControlBar" 
+                            Grid.Row="0"
+                            Orientation="Horizontal"
+                            FlowDirection="RightToLeft"
+                            Background="Transparent"
+                            Margin="0,0,0,0"
+                            MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown"
+                            MouseEnter="pnlControlBar_MouseEnter">
+
+                    <Button x:Name="btnClose" 
+                            Style="{StaticResource CB_ButtonStyle}" 
+                            
+                            Tag="{StaticResource PrimaryGreenBrush}">
+                        <fa:ImageAwesome Icon="Close"  Style="{StaticResource CrtlBar_IconStyle}"/>
+                    </Button>
+
+                    <Button x:Name="btnMaximize" 
+                            Style="{StaticResource CB_ButtonStyle}" 
+                            Tag="{StaticResource PrimaryGreenBrush}">
+                        <fa:ImageAwesome Icon="WindowMaximize"  Style="{StaticResource CrtlBar_IconStyle}"/>
+                    </Button>
+
+                    <Button x:Name="BtnMinmize" 
+                            Style="{StaticResource CB_ButtonStyle}"        
+                            Tag="{StaticResource PrimaryGreenBrush}">
+                        <fa:ImageAwesome Icon="Minus"  Style="{StaticResource CrtlBar_IconStyle}"/>
+                    </Button>
+
+
+
+                </StackPanel>
+
+            </Grid>
         </Border>
 
 
