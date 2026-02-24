@@ -24,14 +24,14 @@
 
                 <StackPanel 
                             Height="100"
-                            Margin="0,25,0,25"
+                              Margin="0,25,0,25"
                     VerticalAlignment="Center">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-
+ 
 
                         <!--Image Grid.Column="0" Source= "/Assets/Images/CMS LOGO.png" Width="80" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"/-->
 
@@ -57,7 +57,7 @@
                 </StackPanel>
                 
                 <!--MenuButtons-->
-                
+                 
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
                              Tag="{StaticResource GreenLimeBrush}" 
@@ -169,6 +169,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <!--Controle Bar-->
+                
                 <StackPanel x:Name="pnlControlBar" 
                             Grid.Row="0"
                             Orientation="Horizontal"
@@ -181,25 +183,126 @@
                     <Button x:Name="btnClose" 
                             Style="{StaticResource CB_ButtonStyle}" 
                             
-                            Tag="{StaticResource PrimaryGreenBrush}">
+                            Tag="{StaticResource PrimaryGreenBrush}"
+                            Click="btnClose_Click">
                         <fa:ImageAwesome Icon="Close"  Style="{StaticResource CrtlBar_IconStyle}"/>
                     </Button>
 
                     <Button x:Name="btnMaximize" 
                             Style="{StaticResource CB_ButtonStyle}" 
-                            Tag="{StaticResource PrimaryGreenBrush}">
+                            Tag="{StaticResource PrimaryGreenBrush}"
+                             Click="btnMaximize_Click" >
                         <fa:ImageAwesome Icon="WindowMaximize"  Style="{StaticResource CrtlBar_IconStyle}"/>
                     </Button>
 
                     <Button x:Name="BtnMinmize" 
                             Style="{StaticResource CB_ButtonStyle}"        
-                            Tag="{StaticResource PrimaryGreenBrush}">
+                            Tag="{StaticResource PrimaryGreenBrush}"
+                            Click="BtnMinmize_Click">
                         <fa:ImageAwesome Icon="Minus"  Style="{StaticResource CrtlBar_IconStyle}"/>
                     </Button>
 
 
 
                 </StackPanel>
+                
+                <!-- Header Section-->
+                
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+
+                    </Grid.ColumnDefinitions>  
+                    
+                    <!--Caption-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <fa:ImageAwesome Icon="Home" Width="20" Foreground="{StaticResource PrimaryGreenBrush}" Margin="35,0,10,0"/>
+                        <TextBlock Text="Dashboard" FontFamily="/Assets/Fonts/#Montserrat" FontSize="16" FontWeight="Medium" Foreground="{StaticResource PrimaryGreenBrush}"/>
+                    </StackPanel>
+
+                    <!--User Options-->
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                FlowDirection="RightToLeft"
+                                Margin="0,0,10,0">
+
+
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                Tag="{StaticResource PrimaryGreenBrush}"
+                                FontSize="14">
+                            
+                            <fa:ImageAwesome Icon="AngleDown" 
+                                             Style="{StaticResource IconbuttonIcon}"/>
+                            
+                        </Button>
+
+                        <TextBlock Text="Bind Later" 
+                                     Foreground="{StaticResource PrimaryGreenBrush}"
+                                     FontFamily="/Assets/Fonts/#Montserrat"
+                                     FontSize="12"
+                                     VerticalAlignment="Center" 
+                                   Margin="10,0,10,0"/>
+
+                        <Ellipse Height="35" Width="35"
+                                 Stroke="{StaticResource PrimaryGreenBrush}"  
+                                 Margin="10,0,10,0" 
+                                 StrokeThickness="2"
+                                 >
+
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Assets/Images/NumidixLogoSQR.png"/>
+                            </Ellipse.Fill>
+                           
+
+
+                        </Ellipse>
+
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                Tag="{StaticResource PrimaryGreenBrush}"
+                                Margin="10,0,0,0">
+
+                            <fa:ImageAwesome Icon="ClockOutline" 
+                                                Style="{StaticResource IconbuttonIcon}"/>
+
+                        </Button>
+
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                Tag="{StaticResource PrimaryGreenBrush}"
+                                Margin="10,0,0,0">
+
+                               <fa:ImageAwesome Icon="Envelope" 
+                                                Style="{StaticResource IconbuttonIcon}"/>
+
+                        </Button>
+
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                Tag="{StaticResource PrimaryGreenBrush}"
+                                Margin="10,0,0,0">
+
+                            <fa:ImageAwesome Icon="Bell" 
+                                             Style="{StaticResource IconbuttonIcon}"/>
+
+                        </Button>
+
+
+
+                    </StackPanel>
+                    
+                    
+                    
+                    
+                    
+                </Grid>
+
+                <!--Content section / child views-->
+                <ContentControl Content=""
+                                Grid.Row="2"
+                                Margin="20"/>
 
             </Grid>
         </Border>

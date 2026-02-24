@@ -3,11 +3,11 @@
 
 
     
-    <SolidColorBrush x:Key="PrimaryGreenBrush" Color="#315844"/>
+    <SolidColorBrush x:Key="PrimaryGreenBrush" Color="#40916c"/>
     <SolidColorBrush x:Key="GreenLimeBrush" Color="#BDF03e"/>
     <SolidColorBrush x:Key="LightGrayBgBrush" Color="#E3e5e5"/>
     <SolidColorBrush x:Key="WhiteBrush" Color="#FcFcFc"/>
-    <SolidColorBrush x:Key="GreenClaireBrush" Color="#ADD171"/>
+    <SolidColorBrush x:Key="GreenClaireBrush" Color="#d8f3dc"/>
     <SolidColorBrush x:Key="MidumGreenBgBrush" Color="#59955D"/>
 
 

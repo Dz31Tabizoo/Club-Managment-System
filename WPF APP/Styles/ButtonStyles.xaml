@@ -66,7 +66,7 @@
         <Setter Property="Height" Value="25"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Background" Value="{StaticResource WhiteBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource MidumGreenBgBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryGreenBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -96,5 +96,46 @@
         <Setter Property="Width" Value="13"/>
         <Setter Property="Height" Value="13"/>
     </Style>
+
+
+
+
+    <!-- Icon button -->
+
+    <Style x:Key="IconButtonStyle" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryGreenBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource LightGrayBgBrush}"/>
+                <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource self}}"/>
+            </Trigger>
+
+
+
+        </Style.Triggers>
+    </Style>
+
+    <!--Controle bar icon style-->
+    <Style x:Key="IconbuttonIcon" TargetType="fa:ImageAwesome">
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+        <Setter Property="Width" Value="18"/>
+        <Setter Property="Height" Value="18"/>
+    </Style>
+
+
 
 </ResourceDictionary>
