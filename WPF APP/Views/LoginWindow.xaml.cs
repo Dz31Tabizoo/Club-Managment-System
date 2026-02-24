@@ -28,15 +28,8 @@ namespace WPF_APP.Views
             WindowHelper.EnableDrag(this, e);
         }
 
-        private void btnMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            WindowHelper.CloseApp();
-        }
+        
+        
 
         private void txtUserName_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -68,6 +61,11 @@ namespace WPF_APP.Views
             {
                 textPasswordPlaceholder.Visibility = Visibility.Visible;
             }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            WindowHelper.CloseApp();
         }
     }
 }
