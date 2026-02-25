@@ -21,8 +21,10 @@ namespace WPF_APP.Models
         [ObservableProperty] private string _password;
 
         [ObservableProperty] private int _roleID;
-
         //pour UI
         [ObservableProperty] private bool _rememberMe;
+
+
+
     }
 }

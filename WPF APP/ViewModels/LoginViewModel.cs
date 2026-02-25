@@ -10,18 +10,24 @@ namespace WPF_APP.ViewModels
     public  partial class LoginViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _username;
+        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
+        private string? _username;      
 
         [ObservableProperty]
-        private bool _rememberMe;
+        private string? _errorMessage;
 
         [ObservableProperty]
-        private string _errorMessage;
+        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
+        private bool _isLoggingIn;
 
-        [RelayCommand]
-        private async Task Login(Object parameter)
+
+        [RelayCommand(CanExecute = nameof(CanLogin))]
+        private async Task LoginAsync(Object? parameter)
         {
             var passwordBox = parameter as System.Windows.Controls.PasswordBox;
+            if (passwordBox == null) return;
+
+
             string password = passwordBox.Password;
 
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(password))
@@ -30,34 +36,44 @@ namespace WPF_APP.ViewModels
                 return;
             }
 
-            // login dev time
-            if (Username == "admin" && password == "admin")
+            IsLoggingIn = true;
+            ErrorMessage = string.Empty; // Clear previous error message
+
+            try
             {
-                if(RememberMe)
+                
+
+
+                // login dev time
+                if ()
                 {
-                    // Save credentials logic here (e.g., using secure storage)
 
+                    
                 }
-                ErrorMessage = string.Empty; // Clear error message on successful login
-
-                // Navigate to the next view or perform other actions on successful login
-
-                NavigateToMainShell();
+                else
+                {
+                    ErrorMessage = "Nom d'utilisateur ou mot de passe incorrect.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ErrorMessage = "Nom d'utilisateur ou mot de passe incorrect.";
+                ErrorMessage = $"An error occurred during login: {ex.Message}";
+            }
+            finally
+            {
+                IsLoggingIn = false;
             }
         }
 
-
+        private bool CanLogin(Object? parameter) => !string.IsNullOrEmpty(Username) && !IsLoggingIn;
+        
 
         private void NavigateToMainShell()
         {
             //var mainShell = new MainWindow();
             //mainShell.Show();
 
-            Application.Current.MainWindow.Close(); 
+            Application.Current.Windows[0]?.Close(); 
         }
     }
 }
