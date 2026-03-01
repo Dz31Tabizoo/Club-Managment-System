@@ -4,6 +4,8 @@ using System.Text;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using WPF_APP.Core;
+using WPF_APP.Views;
 
 namespace WPF_APP.ViewModels
 {
@@ -25,7 +27,7 @@ namespace WPF_APP.ViewModels
         private async Task LoginAsync(Object? parameter)
         {
             var passwordBox = parameter as System.Windows.Controls.PasswordBox;
-            if (passwordBox == null) return;
+            if (passwordBox == null ) return;
 
 
             string password = passwordBox.Password;
@@ -41,18 +43,22 @@ namespace WPF_APP.ViewModels
 
             try
             {
-                
+                var authService = new Services.AuthService();
+                var response = await authService.LoginAsync(Username, password);
 
 
                 // login dev time
-                if ()
+                if (response.Success)
                 {
-
-                    
+                    UserSession.UserId = response.Id;
+                    UserSession.DisplayName = response.DisplayName;
+                    UserSession.Token = response.Token;
+                    UserSession.Role = response.Role;
+                    NavigateToMainShell();
                 }
                 else
                 {
-                    ErrorMessage = "Nom d'utilisateur ou mot de passe incorrect.";
+                    ErrorMessage = response.Message ?? "Nom d'utilisateur ou mot de passe incorrect.";
                 }
             }
             catch (Exception ex)
@@ -70,8 +76,8 @@ namespace WPF_APP.ViewModels
 
         private void NavigateToMainShell()
         {
-            //var mainShell = new MainWindow();
-            //mainShell.Show();
+            var mainShell = new MainWindow();
+            mainShell.Show();
 
             Application.Current.Windows[0]?.Close(); 
         }

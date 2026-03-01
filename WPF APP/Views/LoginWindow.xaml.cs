@@ -21,6 +21,8 @@ namespace WPF_APP.Views
         public LoginWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new ViewModels.LoginViewModel();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -13,7 +13,7 @@ namespace WPF_APP
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var mainView = new MainWindow();
+            var mainView = new LoginWindow();
             MainWindow.Show();
         }
 

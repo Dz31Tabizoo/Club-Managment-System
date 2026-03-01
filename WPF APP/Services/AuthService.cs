@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
+using WPF_APP.Models;
+
+namespace WPF_APP.Services
+{
+    public class AuthService
+    {
+
+        private readonly HttpClient _httpClient = new HttpClient
+        {
+            BaseAddress = new Uri("https://localhost:7135/")
+        };
+
+
+        public async Task<LoginResponseModel> LoginAsync(string username, string password)
+        {
+            var LoginData = new LoginRequestModel
+            {
+                Username = username,
+                Password = password
+            };
+
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync("api/auth/login", LoginData);
+
+                var result = await response.Content.ReadFromJsonAsync<LoginResponseModel>();
+
+                return result ?? new LoginResponseModel
+                {
+                    Success = false,
+                    Message = "Erreur serveur."
+                };
+            }
+            catch(Exception)
+            {
+                return new LoginResponseModel
+                {
+                    Success = false,
+                    Message = "Erreur de connexion au serveur."
+                };
+            }
+
+        }
+
+    }
+}

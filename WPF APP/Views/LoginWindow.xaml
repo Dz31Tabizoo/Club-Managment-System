@@ -168,10 +168,11 @@
 
                             <TextBox x:Name="txtUserName" 
                                      Grid.Column="1" 
-                                     Text="Nom d'utilisateur" 
+                                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" 
                                      VerticalAlignment="Center"
                                      Background="Transparent"
                                      FontSize="15"
+                                     
                                      Opacity="0.6"
                                      BorderThickness="0"
                                      Margin="8,0,0,0"
@@ -215,8 +216,16 @@
                                          PasswordChanged="txtPassWord_PasswordChanged"/>
                         </Grid>
                     </Border>
-
-                    <Button x:Name="btnLogin2"                                 
+                    <TextBlock Text="{Binding ErrorMessage}" 
+                               Foreground="#D32F2F" 
+                               FontSize="12" 
+                               HorizontalAlignment="Center" 
+                               Margin="0,10,0,0" 
+                               TextWrapping="Wrap"
+                               FontWeight="SemiBold"/>
+                    <Button x:Name="btnLogin2"  
+                                 Command="{Binding LoginCommand}"
+                                 CommandParameter="{Binding ElementName=txtPassWord}"
                                  BorderThickness="0"
                                  Content="Se connecter"          
                                  FontSize="18"
