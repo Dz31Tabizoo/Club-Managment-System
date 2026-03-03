@@ -1,4 +1,5 @@
-﻿using CMS.DTOs;
+﻿using Club_Managment_System.Services;
+using CMS.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,12 @@ namespace Club_Managment_System.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly TokenService _tokenService;
+
+        public AuthController(TokenService tokenService)
+        {
+            _tokenService = tokenService;
+        }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
@@ -16,7 +23,9 @@ namespace Club_Managment_System.Controllers
             // For example, validate the user's credentials and generatlogic heree a JWT token
             if (request.Username == "admin" && request.Password == "123")
             {
-                // Generate a JWT token (this is just a placeholder, implement proper token generation)
+                //get db user and check role
+                //var token = _tokenService.GenerateToken()// Role 0 for admin
+
                 var token = "your_generated_jwt_token";
                 return Ok(new LoginResponseDto
                 {
@@ -28,7 +37,11 @@ namespace Club_Managment_System.Controllers
                     Message = "Connexion réussie !"
                 });
             }
-            return Unauthorized();
+            return Unauthorized(new LoginResponseDto
+            {
+                Success = false,                
+                Message = "Nom d'utilisateur ou mot de passe incorrect."
+            });
         }
 
 
