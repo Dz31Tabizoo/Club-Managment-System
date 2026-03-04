@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.Business", "CMS.Busines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{64118B23-E695-4614-92F7-12A9D9D5DA09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "(wpf _ Client _ App )", "WPF APP\(wpf _ Client _ App ).csproj", "{28F2AD0B-9FBB-4C1D-B06F-6859C031A198}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientWPF_App", "WPF APP\ClientWPF_App.csproj", "{28F2AD0B-9FBB-4C1D-B06F-6859C031A198}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

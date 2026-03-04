@@ -1,5 +1,4 @@
-﻿
-using Club_Management_System.Controllers;
+﻿using Club_Management_System.Controllers;
 using CMS.DTOs;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -23,10 +22,17 @@ namespace Club_Management_System.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllPlayers()
         {
-
-            var players = await _repository.GetAllPlayersWithDetailsAsync();
-            if (players == null) { return StatusCode(500, "Problème au connection avec le server"); }
-            return Ok(players);
+            try
+            {
+                var players = await _repository.GetAllPlayersWithDetailsAsync();
+                if (players == null) { return StatusCode(500, "Problème au connection avec le server"); }
+                return Ok(players);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur Lors d'avoir les joueurs");
+                return StatusCode(500, $"Erreur interne");
+            }
         }
 
 
