@@ -3,6 +3,7 @@ using CMS.DTOs;
 using Core.Interfaces;
 using Dapper;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,6 +20,7 @@ namespace CMS.DataAccess.Repositories
         {
         }
 
+       // private readonly IConfigurationManager _configuration;  ??
         public async Task<UserDTO?> GetUserByUsernameAsync(string username)
         {
             try
