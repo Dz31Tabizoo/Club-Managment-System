@@ -10,5 +10,10 @@ namespace Core.Interfaces
 {
     public interface IUsersRepository : IGenericRepository<UserDTO>
     {
+         Task<UserDTO?> GetUserByUsernameAsync(string username);
+
+
+
+         Task<bool> UpdateLastLogin(int userID, UserDTO user);
     }
 }

@@ -84,7 +84,8 @@ namespace CMS.DataAccess.Repositories
         }
 
         public async Task<bool> UpdatePlayerAsync(int id, PlayerDTO player)
-        { try
+        { 
+            try
             {
                 using var connection = CreateConnection();
                 {
