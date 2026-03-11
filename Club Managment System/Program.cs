@@ -6,6 +6,7 @@ using Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Club_Managment_System.Services;
 /*
 namespace Club_Managment_System
 {
@@ -147,8 +148,6 @@ namespace Club_Managment_System
             builder.Services.AddScoped<IPlayerAttendanceRepository>(sp =>
                 new PlayerAttendanceRepository(connectionString, sp.GetRequiredService<ILogger<PlayerAttendanceRepository>>()));
 
-            builder.Services.AddScoped<IExtraInfoRepository>(sp =>
-                new ExtraInfoRepository(connectionString, sp.GetRequiredService<ILogger<ExtraInfoRepository>>()));
 
             // 4. Generic Fallback
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -187,6 +186,7 @@ namespace Club_Managment_System
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
             app.Run();

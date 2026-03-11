@@ -9,7 +9,7 @@ namespace CMS.DTOs
 {
     public class PersonDTO
     {
-        public int?  PersonID { get; set; }
+        public int  PersonID { get; set; }
 
         [Required(ErrorMessage = "Le nom est obligatoire")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Le nom ne peut pas dépasser 50 caractères")]
@@ -26,14 +26,16 @@ namespace CMS.DTOs
         [StringLength(20)]
         public string? Phone { get; set; }
 
-        [EmailAddress(ErrorMessage = "Format d'email invalide")]
-        [StringLength(100)]
-        public string? Email { get; set; }
-        [StringLength(250)]
+        [EmailAddress(ErrorMessage = "Format d'email invalide")] 
+        [StringLength(100, ErrorMessage = "L'email ne peut pas dépasser 100 caractères")]
+        public string? Email { get; set; }        
         public string? Address { get; set; }
+
         [Required]
-        [RegularExpression("^[GF]$", ErrorMessage = "Le genre doit être 'G' pour garçon ou 'F' pour Fille")]
-        public char? Gender { get; set; } 
+        public char Gender { get; set; } 
+
+        public byte[]? Photo { get; set; }
+        public DateTime? LastUpdate { get; set; }
 
     }
 }

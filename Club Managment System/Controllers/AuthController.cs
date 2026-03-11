@@ -2,6 +2,7 @@
 using CMS.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Core.Interfaces;
 
 namespace Club_Managment_System.Controllers
 {
@@ -10,11 +11,14 @@ namespace Club_Managment_System.Controllers
     public class AuthController : ControllerBase
     {
         private readonly TokenService _tokenService;
+        private readonly IUsersRepository _usersRepo;
 
-        public AuthController(TokenService tokenService)
+        public AuthController(TokenService tokenService, IUsersRepository usersRepository)
         {
             _tokenService = tokenService;
+            _usersRepo = usersRepository;
         }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
