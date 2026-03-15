@@ -46,39 +46,28 @@ namespace CMS.DataAccess.Repositories
             {
                 using var connection = CreateConnection();
                 {
-                    var parameters = new
-                    {
-                        // fix userDTO to match 
-                    };
 
-                    var affectedRows = await connection.ExecuteAsync(
-                        "sp_UpdatePlayer",
-                        parameters,
-                        commandType: CommandType.StoredProcedure
-                    );
+                    int affectedRows = 1; //await connection.ExecuteAsync(
+                    //    "sp_UpdatePlayer",
+                    //    parameters,
+                    //    commandType: CommandType.StoredProcedure
+                    //);
                     if (affectedRows == 0)
                     {
-                        _logger.LogWarning("Mise à jour ignorée: La catégorie {Id} n'existe pas dans la base.", player.PersonID);
+                        _logger.LogWarning("Mise à jour ignorée: La catégorie {Id} n'existe pas dans la base.", user.PersonID);
                         return false;
                     }
-                    _logger.LogInformation("Player {Id} mise à jour avec succès.", player.PersonID);
+                    _logger.LogInformation("Player {Id} mise à jour avec succès.", user.PersonID);
 
                     return affectedRows > 0;
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to update Player: {id} ", player.PersonID);
+                _logger.LogError(ex, "Failed to update User: {id} ", user.PersonID);
                 throw;
             }
-
-            return true;
-        
-        
         }
-
-
-
     }
 }
 

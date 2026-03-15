@@ -38,7 +38,7 @@ namespace WPF_APP.ViewModels
         private async Task LoginAsync(Object? parameter)
         {
             var passwordBox = parameter as System.Windows.Controls.PasswordBox;
-            if (passwordBox == null ) return;
+            if (passwordBox == null) return;
 
 
             string password = passwordBox.Password;
@@ -71,6 +71,16 @@ namespace WPF_APP.ViewModels
                 {
                     ErrorMessage = response.Message ?? "Nom d'utilisateur ou mot de passe incorrect.";
                 }
+
+                _authService.Login(new CMS.DTOs.UserDTO
+                {
+                    PersonID = response.Id,
+                    RoleId = response.Role,
+                    //display name fix
+
+                });
+
+                NavigateToMainShell();
             }
             catch (Exception ex)
             {
