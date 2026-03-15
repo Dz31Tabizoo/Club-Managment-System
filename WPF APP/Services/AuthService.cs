@@ -18,8 +18,17 @@ namespace WPF_APP.Services
         {
             BaseAddress = new Uri("https://localhost:7135/")
         };
+
+
         public UserDTO? CurrentUser { get; private set; }
         public event Action? OnAuthenticationStateChanged;
+
+
+
+        public AuthService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;            
+        }
 
         public async Task<LoginResponseModel> LoginAsync(string username, string password)
         {

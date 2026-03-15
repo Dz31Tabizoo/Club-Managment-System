@@ -4,7 +4,7 @@
 
     
     <SolidColorBrush x:Key="PrimaryGreenBrush" Color="#40916c"/>
-    <SolidColorBrush x:Key="GreenLimeBrush" Color="#BDF03e"/>
+    <SolidColorBrush x:Key="GreenLimeBrush" Color="#095544"/>
     <SolidColorBrush x:Key="LightGrayBgBrush" Color="#E3e5e5"/>
     <SolidColorBrush x:Key="WhiteBrush" Color="#FcFcFc"/>
     <SolidColorBrush x:Key="GreenClaireBrush" Color="#d8f3dc"/>

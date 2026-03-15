@@ -39,8 +39,7 @@
             </Trigger>
 
         </Style.Triggers>        
-    </Style>
-    
+    </Style>    
     <!--Menu buttons Icon-->
     <Style x:Key="menuButtonsIcon" TargetType="fa:ImageAwesome">
         <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
@@ -56,9 +55,6 @@
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
-
-
-
 
     <!--Controle Bar -->
     <Style x:Key="CB_ButtonStyle" TargetType="Button">
@@ -89,19 +85,13 @@
 
         </Style.Triggers>
     </Style>
-
     <!--Controle bar icon style-->
     <Style x:Key="CrtlBar_IconStyle" TargetType="fa:ImageAwesome">
         <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
         <Setter Property="Width" Value="13"/>
         <Setter Property="Height" Value="13"/>
     </Style>
-
-
-
-
     <!-- Icon button -->
-
     <Style x:Key="IconButtonStyle" TargetType="Button">
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Width" Value="25"/>
@@ -128,14 +118,50 @@
 
         </Style.Triggers>
     </Style>
-
     <!--Controle bar icon style-->
     <Style x:Key="IconbuttonIcon" TargetType="fa:ImageAwesome">
         <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
         <Setter Property="Width" Value="18"/>
         <Setter Property="Height" Value="18"/>
     </Style>
+    <Style x:Key="LoginButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource WhiteBrush}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="btnBorder" CornerRadius="22">
+                        <Border.Background>
+                            <LinearGradientBrush x:Name="btnGradient" StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="{Binding Color, Source={StaticResource PrimaryGreenBrush}}" Offset="0.65"/>
+                                <GradientStop Color="{Binding Color, Source={StaticResource GreenLimeBrush}}" Offset="1.1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
 
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
 
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="btnBorder" Property="Opacity" Value="0.9"/>
+                            <Setter Property="Foreground" Value="{StaticResource GreenLimeBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="btnBorder" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="{Binding Color, Source={StaticResource GreenLimeBrush}}" Offset="0"/>
+                                        <GradientStop Color="{Binding Color, Source={StaticResource PrimaryGreenBrush}}" Offset="0.8"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

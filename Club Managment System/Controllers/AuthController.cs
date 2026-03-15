@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Core.Interfaces;
 using BCrypt.Net;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Club_Managment_System.Controllers
 {
@@ -24,13 +25,13 @@ namespace Club_Managment_System.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
+            // 1. Récupérer l'utilisateur
             var user = await _usersRepo.GetUserByUsernameAsync(request.Username);
-            // Implement your authentication 
-            // For example, validate the user's credentials and generatlogic heree a JWT token
-            if (user != null || !BCrypt.Net.BCrypt.Verify(request.Password,user.Password))
-            {
-                //get db user and check role
 
+            // 2. Vérification : Utilisateur inexistant OU Mot de passe incorrect
+            // Note : On utilise BCrypt.Verify (sans le !) pour valider que ça CORRESPOND
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            {
                 return Unauthorized(new LoginResponseDto
                 {
                     Success = false,
@@ -38,17 +39,18 @@ namespace Club_Managment_System.Controllers
                 });
             }
 
-            var token = _tokenService.GenerateToken(user.PersonID, user.RoleId); // Role 0 for admin
+            // 3. Si on arrive ici, l'authentification est réussie
+            var token = _tokenService.GenerateToken(user.PersonID, user.RoleId);
 
-            return Unauthorized(new LoginResponseDto
+            return Ok(new LoginResponseDto
             {
                 Id = user.PersonID,
                 DisplayName = user.FullName,
                 Success = true,
                 Token = token,
-                Role = user.RoleId
-            }
-            );
+                Role = user.RoleId,
+                Message = "Connexion réussie !"
+            });
         }
 
 

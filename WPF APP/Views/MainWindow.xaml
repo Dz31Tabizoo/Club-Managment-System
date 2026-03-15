@@ -241,7 +241,7 @@
                             
                         </Button>
 
-                        <TextBlock Text="Bind Later" 
+                        <TextBlock Text="{Binding CurrentUserName}" 
                                      Foreground="{StaticResource PrimaryGreenBrush}"
                                      FontFamily="/Assets/Fonts/#Montserrat"
                                      FontSize="12"
@@ -255,7 +255,7 @@
                                  >
 
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="/Assets/Images/NumidixLogoSQR.png"/>
+                                <ImageBrush ImageSource="{Binding CurrentUserPicture}"/>
                             </Ellipse.Fill>
                            
 
