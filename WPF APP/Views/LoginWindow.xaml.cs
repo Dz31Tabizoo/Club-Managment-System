@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPF_APP.Helpers;
+using WPF_APP.ViewModels;
 
 namespace WPF_APP.Views
 {
@@ -18,11 +19,11 @@ namespace WPF_APP.Views
     /// </summary>
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        public LoginWindow(LoginViewModel viewModel)
         {
             InitializeComponent();
 
-            this.DataContext = new ViewModels.LoginViewModel();
+            this.DataContext = viewModel;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

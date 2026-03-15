@@ -11,7 +11,7 @@ namespace WPF_APP.ViewModels
         private bool _isBusy;
 
         [ObservableProperty]
-        private string? _ErrorMessage;
+        private string? _errorMessage;
 
         [ObservableProperty]
         private string? _currentUserRole;

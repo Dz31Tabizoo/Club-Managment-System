@@ -4,13 +4,18 @@ using System.Text;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Core.Interfaces;
 using WPF_APP.Core;
+using WPF_APP.Services;
 using WPF_APP.Views;
+
 
 namespace WPF_APP.ViewModels
 {
     public  partial class LoginViewModel : ObservableObject
     {
+        private readonly IAuthenticationClientService _authService;
+
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
         private string? _username;      
@@ -21,6 +26,12 @@ namespace WPF_APP.ViewModels
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
         private bool _isLoggingIn;
+
+
+        public LoginViewModel(IAuthenticationClientService authService)
+        {
+            _authService = authService;
+        }
 
 
         [RelayCommand(CanExecute = nameof(CanLogin))]
@@ -43,8 +54,8 @@ namespace WPF_APP.ViewModels
 
             try
             {
-                var authService = new Services.AuthService();
-                var response = await authService.LoginAsync(Username, password);
+
+                var response = await _authService.LoginAsync(Username, password);
 
 
                 // login dev time

@@ -6,18 +6,20 @@ using System.Net.Http.Json;
 using System.Text;
 using WPF_APP.Models;
 using CMS.Core.Interfaces;
+using CMS.DTOs;
 
 
 namespace WPF_APP.Services
 {
-    public class AuthService : 
+    public class AuthService : IAuthenticationClientService
     {
 
         private readonly HttpClient _httpClient = new HttpClient
         {
             BaseAddress = new Uri("https://localhost:7135/")
         };
-
+        public UserDTO? CurrentUser { get; private set; }
+        public event Action? OnAuthenticationStateChanged;
 
         public async Task<LoginResponseModel> LoginAsync(string username, string password)
         {
@@ -50,5 +52,10 @@ namespace WPF_APP.Services
 
         }
 
+        public void Login(UserDTO user)
+        {
+            CurrentUser = user;
+            OnAuthenticationStateChanged?.Invoke();
+        }
     }
 }

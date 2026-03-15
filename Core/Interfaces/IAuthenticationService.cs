@@ -7,11 +7,10 @@ using CMS.DTOs;
 
 namespace Core.Interfaces
 {
-    internal interface IAuthenticationService
+    public interface IAuthenticationService
     {
         UserDTO? CurrentUser { get; }
         bool IsLoggedIn { get; }
-
 
         event Action? OnAuthenticationStateChanged;
 

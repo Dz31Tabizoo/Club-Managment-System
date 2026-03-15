@@ -19,17 +19,17 @@
         <Border CornerRadius="10 0 0 10">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#59955D" Offset="1.1" />
-                    <GradientStop Color="#315844" Offset="0.0" />
+                    <GradientStop Color="#40916c" Offset="1.1" />
+                    <GradientStop Color="#40916c" Offset="0.0" />
                 </LinearGradientBrush>
             </Border.Background>
 
             <Grid>
                 <Canvas>
-                    <Polygon Points="0,120 220,200 0,330" Fill="#BDF03E" Opacity="0.1" />
-                    <Polygon Points="100,400 200,370, 180,470" Fill="#BDF03E" Opacity="0.15" Canvas.Top="-38" Canvas.Left="10" />
-                    <Ellipse Width="40" Height="40" Fill="#BDF03E" Opacity="0.2" Canvas.Left="246" Canvas.Top="340"/>
-                    <Ellipse Width="20" Height="20" Fill="#BDF03E" Opacity="0.2" Canvas.Left="59" Canvas.Top="335"/>
+                    <Polygon Points="0,120 220,200 0,330" Fill="White" Opacity="0.15" />
+                    <Polygon Points="100,400 200,370, 180,470" Fill="White" Opacity="0.2" Canvas.Top="-38" Canvas.Left="10" />
+                    <Ellipse Width="40" Height="40" Fill="White" Opacity="0.2" Canvas.Left="246" Canvas.Top="340"/>
+                    <Ellipse Width="20" Height="20" Fill="White" Opacity="0.2" Canvas.Left="59" Canvas.Top="335"/>
                 </Canvas>
 
                 <StackPanel>
@@ -48,7 +48,7 @@
                                 HorizontalAlignment="Center" 
                                 Height="35"/>
 
-                    <Image Source="/Assets/Images/CMS LOGO.png" Stretch="Fill" Height="220" Width="200" Margin="0,20,0,0" Opacity="0.7"/>
+                    <Image Source="/Assets/Images/CMS LOGO.png" Stretch="Fill" Height="220" Width="200" Margin="0,20,0,0" Opacity="0.9"/>
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
@@ -75,6 +75,7 @@
                                Margin="0,25,0,0"
                                FontStretch="UltraExpanded"
                                HorizontalAlignment="Center"/>
+                    
                 </StackPanel>
             </Grid>
         </Border>
