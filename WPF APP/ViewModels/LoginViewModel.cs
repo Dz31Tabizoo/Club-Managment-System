@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Core.Interfaces;
-using WPF_APP.Core;
-using WPF_APP.Services;
-using WPF_APP.Views;
+using ClubManagementSystem.Core;
+using ClubManagementSystem.Services;
+using ClubManagementSystem.Views;
 
 
-namespace WPF_APP.ViewModels
+namespace ClubManagementSystem.ViewModels
 {
     public  partial class LoginViewModel : ObservableObject
     {
@@ -45,7 +46,7 @@ namespace WPF_APP.ViewModels
 
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(password))
             {
-                ErrorMessage = "Entrez le nom d'utilisateur et le mot de pass S.V.P";
+                ErrorMessage = "Veuillez entrez vos identifiqnts.";
                 return;
             }
 
@@ -59,28 +60,33 @@ namespace WPF_APP.ViewModels
 
 
                 // login dev time
-                if (response.Success)
+                if (response != null && response.Success)
                 {
                     UserSession.UserId = response.Id;
                     UserSession.DisplayName = response.DisplayName;
                     UserSession.Token = response.Token;
                     UserSession.Role = response.Role;
-                    NavigateToMainShell();
+
+
+                    _authService.Login(new Models.UserModel
+                    {
+                        UserID = response.Id,
+                        RoleID = response.Role,
+                        LastLogin = DateTime.Now,                        
+                        UserName = response.DisplayName                   
+
+                    });
+
+
+                    NavigateToMainShell(passwordBox);
                 }
                 else
                 {
                     ErrorMessage = response.Message ?? "Nom d'utilisateur ou mot de passe incorrect.";
                 }
 
-                _authService.Login(new CMS.DTOs.UserDTO
-                {
-                    PersonID = response.Id,
-                    RoleId = response.Role,
-                    //display name fix
-
-                });
-
-                NavigateToMainShell();
+                
+               
             }
             catch (Exception ex)
             {
@@ -95,12 +101,13 @@ namespace WPF_APP.ViewModels
         private bool CanLogin(Object? parameter) => !string.IsNullOrEmpty(Username) && !IsLoggingIn;
         
 
-        private void NavigateToMainShell()
+        private void NavigateToMainShell(PasswordBox passwordBox)
         {
             var mainShell = new MainWindow();
             mainShell.Show();
 
-            Application.Current.Windows[0]?.Close(); 
+            var currentWindow = Window.GetWindow(passwordBox);
+            currentWindow?.Close();
         }
     }
 }

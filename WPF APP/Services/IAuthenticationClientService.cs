@@ -2,18 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WPF_APP.Models;
+using ClubManagementSystem.Models;
 
-namespace WPF_APP.Services
+namespace ClubManagementSystem.Services
 {
     public interface IAuthenticationClientService
     {
         Task<LoginResponseModel> LoginAsync(string username, string password);
-        void Login(UserDTO user); 
+        void Login(UserModel user); 
         
         // Pour notifier l'UI
         event Action OnAuthenticationStateChanged;
-        UserDTO? CurrentUser { get; }
+        UserModel? CurrentUser { get; }
     }
 }
 

@@ -6,12 +6,12 @@ using System.Data;
 using System.Net.Http;
 using System.ServiceProcess;
 using System.Windows;
-using WPF_APP.Core;
-using WPF_APP.Services;
-using WPF_APP.ViewModels;
-using WPF_APP.Views;
+using ClubManagementSystem.Core;
+using ClubManagementSystem.Services;
+using ClubManagementSystem.ViewModels;
+using ClubManagementSystem.Views;
 
-namespace WPF_APP
+namespace ClubManagementSystem
 {
     /// <summary>
     /// Interaction logic for App.xaml

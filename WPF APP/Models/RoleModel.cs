@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace WPF_APP.Models
+namespace ClubManagementSystem.Models
 {
     public partial class RoleModel : ObservableObject
     {

@@ -1,6 +1,6 @@
-﻿using WPF_APP.Core;
+﻿using ClubManagementSystem.Core;
 using System;
-using WPF_APP.ViewModels;
+using ClubManagementSystem.ViewModels;
 using System.Net;
 using Core.Interfaces;
 using CMS.DTOs;

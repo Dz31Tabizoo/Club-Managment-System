@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Data;
 
-namespace WPF_APP.Helpers
+namespace ClubManagementSystem.Helpers
 {
     public class StringToVisibilityConverter : IValueConverter
     {

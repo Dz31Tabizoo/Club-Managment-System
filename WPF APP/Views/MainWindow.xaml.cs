@@ -3,20 +3,20 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using WPF_APP.Helpers;
+using ClubManagementSystem.Helpers;
 
 
-namespace WPF_APP.Views
+namespace ClubManagementSystem.Views
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainWindow viewModel)
         {
             InitializeComponent();
-            
+            this.DataContext = viewModel;
         }
 
         [DllImport("user32.dll")]

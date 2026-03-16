@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace WPF_APP.Models
+namespace ClubManagementSystem.Models
 {
     public partial class ExtraInfoModel : ObservableObject
     {

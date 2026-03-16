@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace WPF_APP.ViewModels
+namespace ClubManagementSystem.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {

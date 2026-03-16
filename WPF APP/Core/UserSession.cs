@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WPF_APP.Core
+namespace ClubManagementSystem.Core
 {
     public static class UserSession
     {

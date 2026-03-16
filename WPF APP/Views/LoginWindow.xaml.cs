@@ -9,10 +9,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WPF_APP.Helpers;
-using WPF_APP.ViewModels;
+using ClubManagementSystem.Helpers;
+using ClubManagementSystem.ViewModels;
 
-namespace WPF_APP.Views
+namespace ClubManagementSystem.Views
 {
     /// <summary>
     /// Logique d'interaction pour LoginWindow.xaml
@@ -29,30 +29,10 @@ namespace WPF_APP.Views
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             WindowHelper.EnableDrag(this, e);
-        }
-
-        
+        }       
         
 
-        private void txtUserName_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (txtUserName.Text == "Nom d'utilisateur")
-            {
-                txtUserName.Text = "";
-                txtUserName.Opacity = 1; 
-            }
-        }
-
-        private void txtUserName_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtUserName.Text))
-            {
-                txtUserName.Text = "Nom d'utilisateur";
-                txtUserName.Opacity = 0.5; 
-            }
-        }
-
-
+        
         private void txtPassWord_PasswordChanged(object sender, RoutedEventArgs e)
         {
             // Si l'utilisateur a tapé quelque chose, on cache le texte "Mot de passe"

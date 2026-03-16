@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ClubManagementSystem.Core;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Net.Http.Headers;
 
-namespace ClubManagementSystem.Core
+namespace ClubManagementSystem.Helpers
 {
     public class AuthenticationHandler : DelegatingHandler
     {
@@ -14,12 +15,12 @@ namespace ClubManagementSystem.Core
 
             if (!String.IsNullOrEmpty(token))
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             }
 
             return await base.SendAsync(request, cancellationToken);
-                  
         }
+
+
     }
 }

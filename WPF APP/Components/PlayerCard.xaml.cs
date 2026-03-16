@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_APP.Components
+namespace ClubManagementSystem.Components
 {
     /// <summary>
     /// Logique d'interaction pour PlayerCard.xaml

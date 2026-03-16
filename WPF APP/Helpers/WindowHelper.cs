@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
-namespace WPF_APP.Helpers
+namespace ClubManagementSystem.Helpers
 {
 
     public static class WindowHelper

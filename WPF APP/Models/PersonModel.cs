@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net.Cache;
 using System.Text;
 
-namespace WPF_APP.Models
+namespace ClubManagementSystem.Models
 {
     public partial class PersonModel : ObservableObject
     {
