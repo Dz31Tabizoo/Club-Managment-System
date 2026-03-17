@@ -9,10 +9,11 @@ namespace CMS.DTOs
 {
     public class UserDTO : PersonDTO
     {
+        public int UserID { get; set; }
         public string UserName { get; set; }
         public string? Password { get; set; }
         [Required]
-        public int RoleId { get; set; }
+        public int RoleID { get; set; }
         public string RoleName { get; set; } = string.Empty;
         public bool isActive { get; set; } = true;
 

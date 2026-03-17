@@ -20,9 +20,12 @@ namespace ClubManagementSystem
     {
         public IServiceProvider ServiceProvider { get; private set; }
 
+        public new static App Current => (App)Application.Current;
+
         public App()
         {
             var services = new ServiceCollection();
+
             services.AddTransient<AuthenticationHandler>();
             // 1. Enregistrer le HttpClient et le Service d'Auth
             services.AddHttpClient<IAuthenticationClientService, AuthService>(client =>

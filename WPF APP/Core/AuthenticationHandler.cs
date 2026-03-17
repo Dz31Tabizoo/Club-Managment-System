@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
-using System.Text;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace ClubManagementSystem.Core
 {
@@ -18,8 +19,17 @@ namespace ClubManagementSystem.Core
 
             }
 
-            return await base.SendAsync(request, cancellationToken);
-                  
+            try
+            {
+                return await base.SendAsync(request, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                // Mets un point d'arrêt ici !
+                Debug.WriteLine($"Erreur réseau : {ex.Message}");
+                throw;
+            }
+
         }
     }
 }

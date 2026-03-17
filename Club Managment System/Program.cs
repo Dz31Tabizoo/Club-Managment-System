@@ -184,6 +184,11 @@ namespace Club_Managment_System
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            //test hashed passsword check 
+            // Temporairement, juste pour générer ton hash de test
+            //var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
+            //Console.WriteLine($"MON_HASH_TEST: {hash}");
+            //System.Diagnostics.Debug.WriteLine($"MON_HASH_TEST: {hash}");
 
             app.UseHttpsRedirection();
             app.UseAuthentication();

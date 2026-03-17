@@ -30,7 +30,7 @@ namespace Club_Managment_System.Controllers
 
             // 2. Vérification : Utilisateur inexistant OU Mot de passe incorrect
             // Note : On utilise BCrypt.Verify (sans le !) pour valider que ça CORRESPOND
-            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.PassWord, user.Password))
             {
                 return Unauthorized(new LoginResponseDto
                 {
@@ -40,15 +40,15 @@ namespace Club_Managment_System.Controllers
             }
 
             // 3. Si on arrive ici, l'authentification est réussie
-            var token = _tokenService.GenerateToken(user.PersonID, user.RoleId);
+            var token = _tokenService.GenerateToken(user.PersonID, user.RoleID);
 
             return Ok(new LoginResponseDto
             {
-                Id = user.PersonID,
-                DisplayName = user.FullName,
+                Id = user.UserID,
+                DisplayName = user.UserName,
                 Success = true,
                 Token = token,
-                Role = user.RoleId,
+                Role = user.RoleID,
                 Message = "Connexion réussie !"
             });
         }

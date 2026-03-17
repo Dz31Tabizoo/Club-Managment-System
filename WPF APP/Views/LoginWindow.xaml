@@ -92,6 +92,7 @@
                                 Margin="0,40,0,0" 
                                 Style="{StaticResource LoginButtonStyle}" 
                                 Cursor="Hand"
+                                Command="{Binding LoginCommand}"
                                 CommandParameter="{Binding ElementName=txtPassWord}"/>
                     </StackPanel>
                 </Grid>

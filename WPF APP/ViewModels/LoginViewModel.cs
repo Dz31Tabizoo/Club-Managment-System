@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Club_Management_System.WPF.ViewModels;
+using ClubManagementSystem.Core;
+using ClubManagementSystem.Services;
+using ClubManagementSystem.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Core.Interfaces;
-using ClubManagementSystem.Core;
-using ClubManagementSystem.Services;
-using ClubManagementSystem.Views;
 
 
 namespace ClubManagementSystem.ViewModels
@@ -103,8 +105,8 @@ namespace ClubManagementSystem.ViewModels
 
         private void NavigateToMainShell(PasswordBox passwordBox)
         {
-            var mainShell = new MainWindow();
-            mainShell.Show();
+            var mainWindow = App.Current.ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
 
             var currentWindow = Window.GetWindow(passwordBox);
             currentWindow?.Close();

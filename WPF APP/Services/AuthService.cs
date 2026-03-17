@@ -33,7 +33,7 @@ namespace ClubManagementSystem.Services
 
         public async Task<LoginResponseModel> LoginAsync(string username, string password)
         {
-            var LoginData = new LoginRequestModel
+            var loginData = new LoginRequestModel
             {
                 Username = username,
                 Password = password
@@ -43,7 +43,7 @@ namespace ClubManagementSystem.Services
 
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("api/auth/login", LoginData);
+                var response = await _httpClient.PostAsJsonAsync("api/auth/login", loginData);
 
                 if (response.IsSuccessStatusCode)
                 {

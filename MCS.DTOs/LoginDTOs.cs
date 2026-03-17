@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS.DTOs
 {
-    public record LoginRequestDto(string Username, string Password);
+    public record LoginRequestDto(string Username, string PassWord);
 
     
     public class LoginResponseDto
