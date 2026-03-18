@@ -18,7 +18,7 @@ namespace ClubManagementSystem.Services
         private readonly HttpClient _httpClient;
         
 
-
+        public bool IsLoggedIn { get; private set; }
         public UserModel? CurrentUser { get; private set; }
         public event Action? OnAuthenticationStateChanged;
 
@@ -43,7 +43,7 @@ namespace ClubManagementSystem.Services
 
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("api/auth/login", loginData);
+                var response = await _httpClient.PostAsJsonAsync("api/auth/login", loginData).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -51,7 +51,7 @@ namespace ClubManagementSystem.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    var result = await response.Content.ReadFromJsonAsync<LoginResponseModel>(options);
+                    var result = await response.Content.ReadFromJsonAsync<LoginResponseModel>(options).ConfigureAwait(false);
 
                     return result ?? new LoginResponseModel
                     {
@@ -82,6 +82,7 @@ namespace ClubManagementSystem.Services
         public void Login(UserModel user)
         {
             CurrentUser = user;
+            IsLoggedIn = true;
             OnAuthenticationStateChanged?.Invoke();
         }
     }

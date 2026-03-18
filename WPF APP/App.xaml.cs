@@ -26,25 +26,29 @@ namespace ClubManagementSystem
         {
             var services = new ServiceCollection();
 
-            services.AddTransient<AuthenticationHandler>();
-            // 1. Enregistrer le HttpClient et le Service d'Auth
-            services.AddHttpClient<IAuthenticationClientService, AuthService>(client =>
+            // 1. On enregistre d'abord la classe AuthService comme le SEUL Singleton
+            // On ne laisse pas AddHttpClient décider du cycle de vie.
+            services.AddSingleton<AuthService>();
+
+            // 2. On lie l'interface à cette instance précise
+            services.AddSingleton<IAuthenticationClientService>(s => s.GetRequiredService<AuthService>());
+
+            // 3. On configure le HttpClient pour la classe AuthService
+            // Cette syntaxe permet de garder le Singleton tout en profitant de l'injection du HttpClient
+            services.AddHttpClient<AuthService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7135/");
-            }).AddHttpMessageHandler<AuthenticationHandler>();
+            });
 
-            //2.Enregistrer les ViewModels
+            services.AddTransient<AuthenticationHandler>();
+
+            // ViewModels
             services.AddTransient<LoginViewModel>();
-            services.AddTransient<MainViewModel>();
+            services.AddSingleton<MainViewModel>();
 
-            // 3. Enregistrer les Fenêtres
+            // Fenêtres
             services.AddTransient<LoginWindow>();
             services.AddTransient<MainWindow>();
-
-            
-
-           
-             // <--- On lie le handler ici
 
             ServiceProvider = services.BuildServiceProvider();
         }

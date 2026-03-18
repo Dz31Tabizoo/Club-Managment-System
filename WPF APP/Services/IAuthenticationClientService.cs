@@ -8,6 +8,8 @@ namespace ClubManagementSystem.Services
 {
     public interface IAuthenticationClientService
     {
+        
+        bool IsLoggedIn { get; }
         Task<LoginResponseModel> LoginAsync(string username, string password);
         void Login(UserModel user); 
         

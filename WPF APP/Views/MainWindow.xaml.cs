@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using Club_Management_System.WPF.ViewModels;
 using ClubManagementSystem.Helpers;
 
 
@@ -13,7 +14,7 @@ namespace ClubManagementSystem.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(MainWindow viewModel)
+        public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

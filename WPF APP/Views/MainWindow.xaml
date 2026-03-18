@@ -240,13 +240,23 @@
                                              Style="{StaticResource IconbuttonIcon}"/>
                             
                         </Button>
+                        
 
-                        <TextBlock Text="{Binding CurrentUserName}" 
+
+                        <TextBlock Text="{Binding CurrentUser.UserName}" 
                                      Foreground="{StaticResource PrimaryGreenBrush}"
                                      FontFamily="/Assets/Fonts/#Montserrat"
                                      FontSize="12"
                                      VerticalAlignment="Center" 
                                    Margin="10,0,10,0"/>
+
+                        <TextBlock Text=" : Utilisateur "  
+                                   Foreground="{StaticResource PrimaryGreenBrush}"
+                                    FontFamily="/Assets/Fonts/#Montserrat"
+                                    FontSize="12"
+                                    VerticalAlignment="Center" 
+                                    Margin="10,0,10,0"/>
+
 
                         <Ellipse Height="35" Width="35"
                                  Stroke="{StaticResource PrimaryGreenBrush}"  
