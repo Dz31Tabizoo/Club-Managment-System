@@ -12,6 +12,7 @@ namespace ClubManagementSystem.Services
         bool IsLoggedIn { get; }
         Task<LoginResponseModel> LoginAsync(string username, string password);
         void Login(UserModel user); 
+        void Logout();
         
         // Pour notifier l'UI
         event Action OnAuthenticationStateChanged;

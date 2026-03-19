@@ -23,5 +23,7 @@ namespace ClubManagementSystem.Models
         [ObservableProperty] private int _roleID;
         //pour UI
         [ObservableProperty] private bool? _rememberMe;
+
+        [ObservableProperty] private string? _token;
     }
 }

@@ -1,4 +1,5 @@
-﻿using ClubManagementSystem.Models;
+﻿using ClubManagementSystem.Core;
+using ClubManagementSystem.Models;
 using CMS.Core.Interfaces;
 using CMS.DTOs;
 using System;
@@ -77,7 +78,17 @@ namespace ClubManagementSystem.Services
             }
         }
 
-        
+        public void Logout()
+        {
+            CurrentUser = null;
+
+            IsLoggedIn = false;
+
+            UserSession.Token = null;
+            UserSession.DisplayName = null;
+
+            OnAuthenticationStateChanged?.Invoke();
+        }
 
         public void Login(UserModel user)
         {

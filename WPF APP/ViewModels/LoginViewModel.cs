@@ -74,8 +74,9 @@ namespace ClubManagementSystem.ViewModels
                     {
                         UserID = response.Id,
                         RoleID = response.Role,
-                        LastLogin = DateTime.Now,                        
-                        UserName = response.DisplayName                   
+                        LastLogin = DateTime.Now,
+                        Token = response.Token,
+                        UserName = response.DisplayName
 
                     });
 

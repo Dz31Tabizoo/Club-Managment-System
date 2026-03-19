@@ -141,13 +141,27 @@
                 </RadioButton>
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
-                                Tag="{StaticResource GreenLimeBrush}" 
-                                GroupName="MenuPrincipal"
+                             Tag="{StaticResource GreenLimeBrush}" 
+                             GroupName="MenuPrincipal"
                              Margin="0,90,0,0"
-                             >
+                             Command="{Binding LogoutCommand}"
+                             Cursor="Hand">
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Forward"  Style="{StaticResource menuButtonsIcon}" />
-                        <TextBlock Text="Quitter C.M Ecosystem" Style="{StaticResource menuButtonText}" FontStyle="Italic" />
+                        <fa:ImageAwesome Icon="SignOut" Style="{StaticResource menuButtonsIcon}" />
+
+                        <TextBlock Text="Se Déconnecter" 
+                    
+                                         FontStyle="Italic">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource menuButtonText}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=RadioButton}}" Value="True">
+                                            <Setter Property="Foreground" Value="OrangeRed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </StackPanel>
                 </RadioButton>
 
