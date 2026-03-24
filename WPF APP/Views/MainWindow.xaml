@@ -235,7 +235,7 @@
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
                         <fa:ImageAwesome Icon="Home" Width="20" Foreground="{StaticResource PrimaryGreenBrush}" Margin="35,0,10,0"/>
-                        <TextBlock Text="Dashboard" FontFamily="/Assets/Fonts/#Montserrat" FontSize="16" FontWeight="Medium" Foreground="{StaticResource PrimaryGreenBrush}"/>
+                        <TextBlock Text="gemini" FontFamily="/Assets/Fonts/#Montserrat" FontSize="16" FontWeight="Medium" Foreground="{StaticResource PrimaryGreenBrush}"/>
                     </StackPanel>
 
                     <!--User Options-->

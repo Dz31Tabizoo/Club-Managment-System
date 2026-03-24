@@ -10,6 +10,7 @@ using ClubManagementSystem.Core;
 using ClubManagementSystem.Services;
 using ClubManagementSystem.ViewModels;
 using ClubManagementSystem.Views;
+using Serilog;
 
 namespace ClubManagementSystem
 {
@@ -57,6 +58,12 @@ namespace ClubManagementSystem
             var LoginWindow = ServiceProvider.GetRequiredService<LoginWindow>();            
             LoginWindow.Show();
             base.OnStartup(e);
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day,retainedFileCountLimit:10)
+                .CreateLogger();
+            Log.Information("Application started");
         }
 
     }

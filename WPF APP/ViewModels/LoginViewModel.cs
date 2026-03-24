@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using Serilog;
 
 
 namespace ClubManagementSystem.ViewModels
@@ -49,6 +50,7 @@ namespace ClubManagementSystem.ViewModels
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(password))
             {
                 ErrorMessage = "Veuillez entrez vos identifiqnts.";
+                Log.Warning("Tentative de connecxion avec un champ utilisateur vide.");
                 return;
             }
 
@@ -58,7 +60,7 @@ namespace ClubManagementSystem.ViewModels
             try
             {
 
-                var response = await _authService.LoginAsync(Username, password);
+                var response = await _authService.LoginAsync(Username.Trim(), password);
 
 
                 // login dev time
@@ -85,7 +87,8 @@ namespace ClubManagementSystem.ViewModels
                 }
                 else
                 {
-                    ErrorMessage = response.Message ?? "Nom d'utilisateur ou mot de passe incorrect.";
+                    ErrorMessage = response.Message ?? "Identification incorrect. Veuillez réessayer.";
+                    Log.Information("Échec de la connexion pour l'utilisateur {Username}: {Message}", Username, response.Message);
                 }
 
                 
@@ -93,7 +96,8 @@ namespace ClubManagementSystem.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"An error occurred during login: {ex.Message}";
+                ErrorMessage = $"Une Erreur technique est survenue: {ex.Message}";
+                Log.Error(ex, "Erreur technique lors de la tentative de connexion pour l'utilisateur {Username}", Username);
             }
             finally
             {
@@ -101,7 +105,7 @@ namespace ClubManagementSystem.ViewModels
             }
         }
 
-        private bool CanLogin(Object? parameter) => !string.IsNullOrEmpty(Username) && !IsLoggingIn;
+        private bool CanLogin(Object? parameter) => !IsLoggingIn;
         
 
         private void NavigateToMainShell(PasswordBox passwordBox)
