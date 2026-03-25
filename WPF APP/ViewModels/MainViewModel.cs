@@ -40,7 +40,7 @@ namespace Club_Management_System.WPF.ViewModels
 
                 case "Effectif": // Doit correspondre exactement au CommandParameter du XAML
                     Caption = "Gestion de l'Effectif";
-                    // CurrentChildView = new MembersViewModel();
+                     CurrentChildView = new MembersViewModel();
                     break;
 
                 case "Entrainements":

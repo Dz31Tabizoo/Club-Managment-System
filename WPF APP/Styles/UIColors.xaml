@@ -10,6 +10,9 @@
     <SolidColorBrush x:Key="GreenClaireBrush" Color="#d8f3dc"/>
     <SolidColorBrush x:Key="MidumGreenBgBrush" Color="#59955D"/>
 
+    
+    
+    
 
     <Style x:Key="BorderStyle" TargetType="Border">
         <Setter Property="BorderBrush" Value="{StaticResource PrimaryGreenBrush}"/>

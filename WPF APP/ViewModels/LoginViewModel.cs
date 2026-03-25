@@ -16,7 +16,7 @@ using Serilog;
 
 namespace ClubManagementSystem.ViewModels
 {
-    public  partial class LoginViewModel : ObservableObject
+    public  partial class LoginViewModel : BaseViewModel
     {
         private readonly IAuthenticationClientService _authService;
 
