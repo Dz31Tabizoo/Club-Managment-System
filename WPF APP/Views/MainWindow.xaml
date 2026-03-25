@@ -60,7 +60,8 @@
                  
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
-                             Tag="{StaticResource GreenLimeBrush}" 
+                             Tag="{StaticResource GreenLimeBrush}"
+                             IsEnabled="False"
                              GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Bars" Style="{StaticResource menuButtonsIcon}"/>
@@ -69,7 +70,9 @@
                 </RadioButton>
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
-                             Tag="{StaticResource GreenLimeBrush}" 
+                             Tag="{StaticResource GreenLimeBrush}"
+                             Command="{Binding ExecuteShowViewCommand}"
+                                CommandParameter="Effectif"
                              GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Users" Style="{StaticResource menuButtonsIcon}"/>
@@ -79,6 +82,8 @@
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
                                 Tag="{StaticResource GreenLimeBrush}" 
+                             Command="{Binding ExecuteShowViewCommand}"
+                              CommandParameter="Entrainements"
                                 GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="FutbolOutline" Style="{StaticResource menuButtonsIcon}"/>
@@ -87,8 +92,10 @@
                 </RadioButton>
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
-             Tag="{StaticResource GreenLimeBrush}" 
-             GroupName="MenuPrincipal">
+                             Tag="{StaticResource GreenLimeBrush}" 
+                             GroupName="MenuPrincipal"
+                             Command="{Binding ExecuteShowViewCommand}"
+                            CommandParameter="Evenements">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Bullhorn" Style="{StaticResource menuButtonsIcon}"/>
                         <TextBlock Text="Évenements" Style="{StaticResource menuButtonText}"/>
@@ -97,6 +104,8 @@
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
                             Tag="{StaticResource GreenLimeBrush}" 
+                             Command="{Binding ExecuteShowViewCommand}"
+                            CommandParameter="Inscriptions"
                             GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="CheckSquareOutline" Style="{StaticResource menuButtonsIcon}"/>
@@ -105,7 +114,9 @@
                 </RadioButton>
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
-             Tag="{StaticResource GreenLimeBrush}" 
+             Tag="{StaticResource GreenLimeBrush}"
+                             Command="{Binding ExecuteShowViewCommand}"
+                    CommandParameter="Transactions"
              GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Exchange" Style="{StaticResource menuButtonsIcon}"/>
@@ -115,7 +126,9 @@
 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
                             Tag="{StaticResource GreenLimeBrush}" 
-                            GroupName="MenuPrincipal">
+                            Command="{Binding ExecuteShowViewCommand}"
+                            CommandParameter="Stock"
+                             GroupName="MenuPrincipal">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Cubes" Style="{StaticResource menuButtonsIcon}"/>
                         <TextBlock Text="Stock" Style="{StaticResource menuButtonText}" />
@@ -124,7 +137,9 @@
                 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
             Tag="{StaticResource GreenLimeBrush}" 
-            GroupName="MenuPrincipal">
+            GroupName="MenuPrincipal"
+                             Command="{Binding ExecuteShowViewCommand}"
+                             CommandParameter="Finannces">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Money" Style="{StaticResource menuButtonsIcon}"/>
                         <TextBlock Text="Finannces" Style="{StaticResource menuButtonText}" />
@@ -133,7 +148,9 @@
                 
                 <RadioButton Style="{StaticResource MenuButtonStyle}" 
                         Tag="{StaticResource GreenLimeBrush}" 
-                        GroupName="MenuPrincipal">
+                        GroupName="MenuPrincipal"
+                             Command="{Binding ExecuteShowViewCommand}"
+                                CommandParameter="Paramettres">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Gear"  Style="{StaticResource menuButtonsIcon}"/>
                         <TextBlock Text="Paramettres" Style="{StaticResource menuButtonText}" />
@@ -235,7 +252,7 @@
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
                         <fa:ImageAwesome Icon="Home" Width="20" Foreground="{StaticResource PrimaryGreenBrush}" Margin="35,0,10,0"/>
-                        <TextBlock Text="gemini" FontFamily="/Assets/Fonts/#Montserrat" FontSize="16" FontWeight="Medium" Foreground="{StaticResource PrimaryGreenBrush}"/>
+                        <TextBlock Text="{Binding Caption, FallbackValue='Tableau de Bord'}" FontFamily="/Assets/Fonts/#Montserrat" FontSize="16" FontWeight="Medium" Foreground="{StaticResource PrimaryGreenBrush}"/>
                     </StackPanel>
 
                     <!--User Options-->
@@ -324,7 +341,7 @@
                 </Grid>
 
                 <!--Content section / child views-->
-                <ContentControl Content=""
+                <ContentControl Content="{Binding CurrentChildView}"
                                 Grid.Row="2"
                                 Margin="20"/>
 

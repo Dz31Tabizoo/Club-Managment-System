@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ClubManagementSystem.Views;
 using System.Windows;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Club_Management_System.WPF.ViewModels
 {
@@ -21,6 +22,58 @@ namespace Club_Management_System.WPF.ViewModels
 
         public bool IsLoggedIn => _authenticationService.IsLoggedIn;
 
+        [ObservableProperty]
+        private string? _caption;
+
+        [ObservableProperty]
+        private object? _currentChildView;
+
+        [RelayCommand]
+        public void ExecuteShowView(string viewName)
+        {
+            switch (viewName)
+            {
+                case "Inscriptions":
+                    Caption = "Gestion des inscriptions";
+                    // CurrentChildView = new DashboardViewModel();
+                    break;
+
+                case "Effectif": // Doit correspondre exactement au CommandParameter du XAML
+                    Caption = "Gestion de l'Effectif";
+                    // CurrentChildView = new MembersViewModel();
+                    break;
+
+                case "Entrainements":
+                    Caption = "Séances d'Entraînement";
+                    break;
+
+                case "Evenements":
+                    Caption = "Gestion Des évenements";
+                    break;
+
+                case "Transactions":
+                    Caption = "Flux Financiers";
+                    break;
+
+                case "Stock":
+                    Caption = "Stock";
+                    break;
+
+                case "Finannces":
+                    Caption = "Finannces";
+                    break;
+
+                case "Paramettres":
+                    Caption = "Configuration";
+                    break;
+
+                default:
+                    Caption = "Club Management Ecosystem";
+                    break;
+            }
+        }
+
+
         public MainViewModel(IAuthenticationClientService authenticationService)
         {
             _authenticationService = authenticationService;
@@ -28,6 +81,8 @@ namespace Club_Management_System.WPF.ViewModels
             _authenticationService.OnAuthenticationStateChanged += UpdateUI;
 
             UpdateUI();
+
+            ExecuteShowView("Tableau de bord");
         }
 
         public void UpdateUI()
