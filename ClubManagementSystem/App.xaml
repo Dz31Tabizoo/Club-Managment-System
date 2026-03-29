@@ -19,6 +19,8 @@
 
             <helpers:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
             <helpers:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <helpers:ActiveToColorConverter x:Key="ActiveColorConverter"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
