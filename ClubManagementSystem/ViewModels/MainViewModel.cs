@@ -18,6 +18,7 @@ namespace Club_Management_System.WPF.ViewModels
     public partial class MainViewModel : BaseViewModel
     {
         private readonly IAuthenticationClientService _authenticationService;
+        private readonly IMemberService _memberService;
         public UserModel? CurrentUser => _authenticationService.CurrentUser;
 
         public bool IsLoggedIn => _authenticationService.IsLoggedIn;
@@ -40,7 +41,7 @@ namespace Club_Management_System.WPF.ViewModels
 
                 case "Effectif": // Doit correspondre exactement au CommandParameter du XAML
                     Caption = "Gestion de l'Effectif";
-                     CurrentChildView = new MembersViewModel();
+                     CurrentChildView = new MembersViewModel(_memberService);
                     break;
 
                 case "Entrainements":
