@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace ClubManagementSystem.Helpers
 {
-    public class AttendanceToColorConverter
+    public class AttendanceToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -16,9 +16,13 @@ namespace ClubManagementSystem.Helpers
                 if (rate >= 50) return new SolidColorBrush(Colors.Orange);     // Moyen
                 return new SolidColorBrush(Colors.Red);                        // Peu présent
             }
-
             return new SolidColorBrush(Colors.Gray);
         }
 
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return new SolidColorBrush(Colors.Gray);
+        }
     }
 }

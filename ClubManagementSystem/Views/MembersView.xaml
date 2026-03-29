@@ -7,18 +7,106 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClubManagementSystem.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <materialDesign:PackIcon Kind="People" Width="100" Height="100" Foreground="{StaticResource PrimaryGreenBrush}" Margin="50,0,0,0"/>
-            <TextBlock Text="Gestion de l'Effectif" 
-                       FontSize="24" 
-                       FontWeight="Bold" 
-                       Foreground="{StaticResource PrimaryGreenBrush}"/>
-            <TextBlock Text="La liste des joueurs apparaîtra ici." Margin="0,10,0,0"/>
-        </StackPanel>
-        
-        
-    </Grid>
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="#F5F5F7">
+
+    
+    
+    <Border Background="White" 
+            CornerRadius="15" 
+            Margin="20" 
+            Effect="{StaticResource MaterialDesignShadowDepth2}">
+
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="0,0,0,25" >
+                <TextBlock Text="GESTION DE L'EFFECTIF" 
+                           FontFamily="/Assets/Fonts/#Montserrat" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource PrimaryGreenBrush}"/>
+                <Rectangle Height="2" Fill="{StaticResource PrimaryGreenBrush}" 
+                           HorizontalAlignment="Left" Width="60" Margin="0,5,0,0"/>
+            </StackPanel>
+
+            
+
+            <Grid Grid.Row="1" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Background="#ffffff" 
+        CornerRadius="10" 
+        Padding="4" 
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <CheckBox Content="JOUEURS" 
+                  IsChecked="{Binding IsShowingPlayers}"
+                  Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
+                  FontFamily="/Assets/Fonts/#Montserrat" 
+                  FontSize="12" FontWeight="Bold"
+                  Height="32" Width="100"
+                  materialDesign:ButtonAssist.CornerRadius="8"
+                  Foreground="{StaticResource PrimaryGreenBrush}"/>
+
+                        <Separator Width="8" Background="Transparent"/>
+
+                        <CheckBox Content="STAFF" 
+                  IsChecked="{Binding IsShowingPlayers, Converter={StaticResource InverseBooleanConverter}}"
+                  Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
+                  FontFamily="/Assets/Fonts/#Montserrat" 
+                  FontSize="12" FontWeight="Bold"
+                  Height="32" Width="100"
+                  materialDesign:ButtonAssist.CornerRadius="8"
+                  Foreground="{StaticResource PrimaryGreenBrush}"/>
+
+                    </StackPanel>
+                </Border>
+
+                <TextBox Grid.Column="1" 
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+             Margin="30,0"
+             materialDesign:HintAssist.Hint="Rechercher un membre..."
+             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+             FontFamily="/Assets/Fonts/#Montserrat" FontSize="15"
+             VerticalAlignment="Center"/>
+
+                <ComboBox Grid.Column="2" 
+              Width="200"
+              ItemsSource="{Binding Categories}"
+              SelectedItem="{Binding SelectedCategory}"
+              DisplayMemberPath="Name"
+              materialDesign:HintAssist.Hint="Toutes les catégories"
+              Visibility="{Binding IsShowingPlayers, Converter={StaticResource BooleanToVisibilityConverter}}"
+              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+              VerticalAlignment="Center"/>
+            </Grid>
+            
+            
+
+            <DataGrid Grid.Row="2" 
+          ItemsSource="{Binding FilteredMembers}"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          IsReadOnly="True"
+          HeadersVisibility="Column"
+          GridLinesVisibility="None"
+          Background="Transparent">
+               
+            </DataGrid>
+
+
+        </Grid>
+    </Border>
 </UserControl>
