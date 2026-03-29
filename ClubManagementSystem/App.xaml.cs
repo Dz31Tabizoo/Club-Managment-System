@@ -55,11 +55,11 @@ namespace ClubManagementSystem
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            // var LoginWindow = ServiceProvider.GetRequiredService<LoginWindow>();            
-            // LoginWindow.Show();
+            var LoginWindow = ServiceProvider.GetRequiredService<LoginWindow>();
+            LoginWindow.Show();
 
-            var testWindow = ServiceProvider.GetRequiredService<MainWindow>();
-             testWindow.Show();
+            //var testWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            // testWindow.Show();
 
             base.OnStartup(e);
             Log.Logger = new LoggerConfiguration()

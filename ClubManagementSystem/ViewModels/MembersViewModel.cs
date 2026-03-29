@@ -52,9 +52,17 @@ namespace ClubManagementSystem.ViewModels
         partial void OnSearchTextChanged(string value) => ApplyFilter();
 
         partial void OnSelectedCategoryChanged(CategoryModel? value) => ApplyFilter();
-        partial void OnIsShowingPlayersChanged(bool value) => ApplyFilter();
+        partial void OnIsShowingPlayersChanged(bool value)
+        {
+            if (!value) SelectedCategory = null;
+            ApplyFilter();
+        }
+        
         private void ApplyFilter()
         {
+            if (_allMembers == null) return;            
+                
+            
             var filtered = _allMembers.Where(m =>
             {
                 // 1. FILTRE PRIORITAIRE : Type (Joueurs vs Staff)

@@ -12,4 +12,5 @@ namespace CMS.DTOs
         public decimal salary { get; set; }
         public bool isActive { get; set; }
     }
+
 }
