@@ -17,80 +17,129 @@
             Margin="20" 
             Effect="{StaticResource MaterialDesignElevationShadow6}">
        
-        <Grid Margin="20">
+        <Grid Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
-
-            <StackPanel Grid.Row="0" Margin="0,0,0,25" >
-                <TextBlock Text="GESTION DE L'EFFECTIF" 
+            
+            <Grid Grid.Row="0">
+                <StackPanel  Margin="0,0,0,25" >
+                    <TextBlock Text="GESTION DE L'EFFECTIF" 
                            FontFamily="/Assets/Fonts/#Montserrat" 
                            FontSize="24" 
                            FontWeight="Bold" 
                            Foreground="{StaticResource PrimaryGreenBrush}"/>
-                <Rectangle Height="2" Fill="{StaticResource PrimaryGreenBrush}" 
-                           HorizontalAlignment="Left" Width="60" Margin="0,5,0,0"/>
-            </StackPanel>
 
-            
+                    <Rectangle Height="2" Fill="{StaticResource PrimaryGreenBrush}" 
+                           HorizontalAlignment="Left" Width="60" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <Button Command="{Binding AddMemberCommand}"
+                        HorizontalAlignment="Right"
+                        
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Background="{StaticResource PrimaryGreenBrush}"
+                        Foreground="White"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Height="20" Padding="15,0"
+                        Margin="0,35,0,0">
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock VerticalAlignment="Center" FontWeight="Bold">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="NOUVEAU JOUEUR"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsShowingPlayers}" Value="False">
+                                            <Setter Property="Text" Value="NOUVEAU STAFF"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+
+            </Grid>
 
             <Grid Grid.Row="1" Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Border Background="#ffffff" 
-        CornerRadius="10" 
-        Padding="4" 
-        HorizontalAlignment="Left" 
-        VerticalAlignment="Center">
+                        CornerRadius="10" 
+                        Padding="4" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center"
+                        Grid.Column="0">
 
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel  Orientation="Horizontal">
 
-                        <CheckBox Content="JOUEURS" 
-                  IsChecked="{Binding IsShowingPlayers}"
-                  Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                  FontFamily="/Assets/Fonts/#Montserrat" 
-                  FontSize="12" FontWeight="Bold"
-                  Height="32" Width="100"
-                  materialDesign:ButtonAssist.CornerRadius="8"
-                  Foreground="{StaticResource PrimaryGreenBrush}"/>
+                        <CheckBox Content="JOUEURS"
+                                  Margin="0,5,0,0"
+                                  IsChecked="{Binding IsShowingPlayers}"
+                                  Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
+                                  FontFamily="/Assets/Fonts/#Montserrat" 
+                                  FontSize="12" FontWeight="Bold"
+                                  Height="28" Width="85"
+                                  materialDesign:ButtonAssist.CornerRadius="10"
+                                  Foreground="{StaticResource PrimaryGreenBrush}"/>
 
-                        <Separator Width="8" Background="Transparent"/>
+                        <Separator Width="5" Background="Transparent" Margin="0,5,0,0"/>
 
                         <CheckBox Content="STAFF" 
-                  IsChecked="{Binding IsShowingPlayers, Converter={StaticResource InverseBooleanConverter}}"
-                  Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                  FontFamily="/Assets/Fonts/#Montserrat" 
-                  FontSize="12" FontWeight="Bold"
-                  Height="32" Width="100"
-                  materialDesign:ButtonAssist.CornerRadius="8"
-                  Foreground="{StaticResource PrimaryGreenBrush}"/>
-
+                                  Margin="0,5,0,0"
+                                  IsChecked="{Binding IsShowingPlayers, Converter={StaticResource InverseBooleanConverter}}"
+                                  Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
+                                  FontFamily="/Assets/Fonts/#Montserrat" 
+                                  FontSize="12" FontWeight="Bold"
+                                  Height="28" Width="80"
+                                  materialDesign:ButtonAssist.CornerRadius="10"
+                                  Foreground="{StaticResource PrimaryGreenBrush}"/>
                     </StackPanel>
                 </Border>
 
                 <TextBox Grid.Column="1" 
-             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-             Margin="30,0"
-             materialDesign:HintAssist.Hint="Rechercher un membre..."
-             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-             FontFamily="/Assets/Fonts/#Montserrat" FontSize="15"
-             VerticalAlignment="Center"/>
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="30,0"
+                         materialDesign:HintAssist.Hint="Rechercher un membre..."
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         FontFamily="/Assets/Fonts/#Montserrat" FontSize="15"
+                         VerticalAlignment="Center"/>
+                
+                <Button Grid.Column="3"
+                        Command="{Binding ResetFiltersCommand}"
+                        
+                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                        ToolTip="Réinitialiser les filtres"
+                        Foreground="White"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center">
+                    
+                        <materialDesign:PackIcon Kind="FilterRemoveOutline" 
+                                                 Foreground="{StaticResource PrimaryGreenBrush}" 
+                                                 Width="24" 
+                                                 Height="24"/>
+                </Button>
 
                 <ComboBox Grid.Column="2" 
-              Width="200"
-              ItemsSource="{Binding Categories}"
-              SelectedItem="{Binding SelectedCategory}"
-              DisplayMemberPath="Name"
-              materialDesign:HintAssist.Hint="Toutes les catégories"
-              Visibility="{Binding IsShowingPlayers, Converter={StaticResource BooleanToVisibilityConverter}}"
-              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-              VerticalAlignment="Center"/>
+                          Width="200"
+                          ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding SelectedCategory}"
+                          DisplayMemberPath="Name"
+                          materialDesign:HintAssist.Hint="Toutes les catégories"
+                          Visibility="{Binding IsShowingPlayers, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          VerticalAlignment="Center"/>
             </Grid>
 
             <Grid Grid.Row="2">
@@ -111,7 +160,8 @@
                       IsReadOnly="True"
                       HeadersVisibility="Column"
                       GridLinesVisibility="None"
-                      Background="Transparent">
+                      Background="Transparent"
+                        Margin="0,0,0,5">
 
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="MEMBRE" Width="2*">
@@ -176,8 +226,39 @@
 
 
                 </DataGrid>
-            </Grid>
 
+                <StackPanel VerticalAlignment="Center" 
+                            HorizontalAlignment="Center"
+                            IsHitTestVisible="False"
+                            Visibility="{Binding HasNoResults, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                    <materialDesign:PackIcon Kind="AlertCircle" 
+                                             Width="50" Height="50" 
+                                             HorizontalAlignment="Center"
+                                             Foreground="{StaticResource MidumGreenBgBrush }" Opacity="0.5"/>
+
+                    <TextBlock Text="Aucun membre ne correspond à votre recherche" 
+                               FontSize="16" 
+                               Foreground="{StaticResource MidumGreenBgBrush }" 
+                               Margin="0,10,0,0"
+                               FontFamily="/Assets/Fonts/#Montserrat"/>
+                </StackPanel>            
+            </Grid>
+            
+            <StackPanel Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,0">
+                
+                <TextBlock Text="{Binding ResultSummary}"
+                           HorizontalAlignment="Right"  FontSize="10"
+                           Opacity="0.5"
+                           Foreground="{StaticResource GreenLimeBrush}"
+                           FontFamily="Segoe UI Semibold"/>
+
+                <Rectangle Height="1.5" 
+                           Fill="{StaticResource GreenLimeBrush}" 
+                           HorizontalAlignment="Right" Width="95" 
+                           Opacity="0.3" 
+                           Margin="0,2,0,0"/>
+            </StackPanel>
 
         </Grid>
     </Border>

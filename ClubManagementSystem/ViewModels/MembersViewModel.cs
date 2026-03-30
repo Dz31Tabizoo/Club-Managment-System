@@ -1,13 +1,15 @@
 ﻿using ClubManagementSystem.Models;
 using ClubManagementSystem.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Data;
-using Serilog;
 namespace ClubManagementSystem.ViewModels
 {
     public partial class MembersViewModel : BaseViewModel
@@ -15,10 +17,15 @@ namespace ClubManagementSystem.ViewModels
 
         public readonly IMemberService _memberService;
 
-        private ObservableCollection<PersonModel> _allMembers = new();        
-      
-        
-        private ICollectionView MembersView {  get; }
+        private ObservableCollection<PersonModel> _allMembers = new();
+
+
+        private ICollectionView MembersView { get; }
+
+        //empty MemberView
+        [ObservableProperty]
+        private bool _hasNoResults;
+
         // joueurs ou coachs
         [ObservableProperty]
         private bool _isShowingPlayers = true;
@@ -38,6 +45,10 @@ namespace ClubManagementSystem.ViewModels
         [ObservableProperty]
         private CategoryModel? _selectedCategory;
 
+        public int FilterdCont => MembersView.Cast<object>().Count();
+        public int TotalCount => _allMembers.Count;
+        public string ResultSummary => $"[{FilterdCont} members sur {TotalCount}]";
+
 
 
 
@@ -54,7 +65,7 @@ namespace ClubManagementSystem.ViewModels
 
         private async Task InitializeAsync()
         {
-            //await LoadMembersAsync();
+            await LoadMembersAsync();
         }
 
         private async Task LoadMembersAsync()
@@ -67,14 +78,14 @@ namespace ClubManagementSystem.ViewModels
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     _allMembers.Clear();
-                    foreach (var m in members)                    
+                    foreach (var m in members)
                         _allMembers.Add(m);
-                    
+
                     MembersView?.Refresh();
                 });
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Error("ErrorMessage while Loading Members: " + ex.Message);
             }
@@ -109,6 +120,12 @@ namespace ClubManagementSystem.ViewModels
         private void ApplyFilter()
         {
             MembersView.Refresh();
+
+            OnPropertyChanged(nameof(TotalCount));
+            OnPropertyChanged(nameof(FilterdCont));
+            OnPropertyChanged(nameof(ResultSummary));
+
+            HasNoResults = !MembersView.Cast<object>().Any();
         }
 
         partial void OnSearchTextChanged(string value) => ApplyFilter();
@@ -118,9 +135,29 @@ namespace ClubManagementSystem.ViewModels
         {
             if (!value) SelectedCategory = null;
             ApplyFilter();
+
         }
-        
-       
+
+        [RelayCommand]
+        private void ResetFilters()
+        {
+            SearchText = string.Empty;
+            SelectedCategory = null;
+        }
+
+        [RelayCommand]
+        private void AddMember()
+        {
+            if (IsShowingPlayers)
+            {
+                //(e.g., open a dialog or navigate to a new page)
+            }
+            else
+            {
+                //(e.g., open a dialog or navigate to a new page)
+            }
+            
+        }
     }
 }
 
