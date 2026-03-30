@@ -4,23 +4,27 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
-
+using System.Windows.Data;
+using Serilog;
 namespace ClubManagementSystem.ViewModels
 {
     public partial class MembersViewModel : BaseViewModel
     {
-        //choisir entre les joueurs et les coachs
-        [ObservableProperty]
-        private bool _isShowingPlayers = true;
-        
 
         public readonly IMemberService _memberService;
 
-        private List<PersonModel> _allMembers = new();
+        private ObservableCollection<PersonModel> _allMembers = new();        
+      
+        
+        private ICollectionView MembersView {  get; }
+        // joueurs ou coachs
+        [ObservableProperty]
+        private bool _isShowingPlayers = true;
 
         [ObservableProperty]
-        private ObservableCollection<PersonModel> _filterdmembers = new();
+        private bool _isBusy;
 
         [ObservableProperty]
         private string _searchText = string.Empty;
@@ -35,18 +39,76 @@ namespace ClubManagementSystem.ViewModels
         private CategoryModel? _selectedCategory;
 
 
+
+
         public MembersViewModel(IMemberService memberService)
         {
             _memberService = memberService;
 
-            LoadMembersAsync();
+            MembersView = CollectionViewSource.GetDefaultView(_allMembers);
+
+            MembersView.Filter = FilterLogic;
+
+            _ = InitializeAsync();
         }
 
-        private async void LoadMembersAsync()
+        private async Task InitializeAsync()
         {
-            //var members = await _memberService.GetAllMembersAsync();
-            //_allMembers = members;
-            //FilteredMembers = new ObservableCollection<PersonModel>(_allMembers);
+            //await LoadMembersAsync();
+        }
+
+        private async Task LoadMembersAsync()
+        {
+            IsBusy = true;
+            try
+            {
+                var members = await _memberService.GetAllMembersasync();
+
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    _allMembers.Clear();
+                    foreach (var m in members)                    
+                        _allMembers.Add(m);
+                    
+                    MembersView?.Refresh();
+                });
+
+            }
+            catch(Exception ex)
+            {
+                Log.Error("ErrorMessage while Loading Members: " + ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private bool FilterLogic(object obj)
+        {
+            if (obj is not PersonModel m) return false;
+
+            // joueurs ou coachs
+            if (IsShowingPlayers && m is not PlayerModel) return false;
+            if (!IsShowingPlayers && m is not CoachModel) return false;
+
+            //  Search Text Filter 
+            bool matchesText = string.IsNullOrWhiteSpace(SearchText) ||
+                              (m.FullName?.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ?? false);
+
+            // Category Filter
+            bool matchesCategory = true;
+            if (IsShowingPlayers && SelectedCategory != null && m is PlayerModel player)
+            {
+                matchesCategory = player.categoryNameDisplay == SelectedCategory.CategoryName;
+            }
+
+            return matchesText && matchesCategory;
+        }
+
+        private void ApplyFilter()
+        {
+            MembersView.Refresh();
         }
 
         partial void OnSearchTextChanged(string value) => ApplyFilter();
@@ -58,42 +120,7 @@ namespace ClubManagementSystem.ViewModels
             ApplyFilter();
         }
         
-        private void ApplyFilter()
-        {
-            if (_allMembers == null) return;            
-                
-            
-            var filtered = _allMembers.Where(m =>
-            {
-                // 1. FILTRE PRIORITAIRE : Type (Joueurs vs Staff)
-                if (IsShowingPlayers)
-                {
-                    // Si on veut les joueurs, on ignore tout ce qui n'est pas PlayerModel
-                    if (m is not PlayerModel) return false;
-                }
-                else
-                {
-                    // Si on veut le staff, on ignore tout ce qui n'est pas CoachModel
-                    if (m is not CoachModel) return false;
-                }
-
-                // 2. FILTRE NOM (Recherche textuelle)
-                bool matchesText = string.IsNullOrWhiteSpace(SearchText) ||
-                                  (m.FullName?.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ?? false);
-
-                // 3. FILTRE CATÉGORIE (Seulement pour les joueurs)
-                bool matchesCategory = true;
-                if (IsShowingPlayers && SelectedCategory != null && m is PlayerModel player)
-                {
-                    matchesCategory = player.CategoryID == SelectedCategory.Categoryid;
-                }
-
-                return matchesText && matchesCategory;
-
-            }).ToList();
-
-            Filterdmembers = new ObservableCollection<PersonModel>(filtered);
-        }
+       
     }
 }
 
