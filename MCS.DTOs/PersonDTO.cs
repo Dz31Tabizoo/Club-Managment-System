@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CMS.DTOs
 {
+    [JsonDerivedType(typeof(PlayerDTO), typeDiscriminator: "player")]
+    [JsonDerivedType(typeof(CoachDTO), typeDiscriminator: "coach")]
     public class PersonDTO
     {
         public int  PersonID { get; set; }
