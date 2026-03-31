@@ -30,6 +30,11 @@ namespace ClubManagementSystem.Services
         {
             try
             {
+
+                if (!string.IsNullOrEmpty(UserSession.Token))
+                {
+                    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserSession.Token);
+                }
                 var members = await _httpClient.GetFromJsonAsync<List<PersonModel>>("api/Members");
                 
                 return members ?? new List<PersonModel>();

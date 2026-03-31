@@ -78,7 +78,7 @@ namespace ClubManagementSystem.ViewModels
                         RoleID = response.Role,
                         LastLogin = DateTime.Now,
                         Token = response.Token,
-                        UserName = response.DisplayName
+                        UserName = response.DisplayName ?? "Utilisateur"
 
                     });
 
@@ -87,8 +87,8 @@ namespace ClubManagementSystem.ViewModels
                 }
                 else
                 {
-                    ErrorMessage = response.Message ?? "Identification incorrect. Veuillez réessayer.";
-                    Log.Information("Échec de la connexion pour l'utilisateur {Username}: {Message}", Username, response.Message);
+                    ErrorMessage = response?.Message ?? "Identification incorrect. Veuillez réessayer.";
+                    Log.Information("Échec de la connexion pour l'utilisateur {Username}: {Message}", Username, response?.Message?? "Empty Message.");
                 }
 
                 

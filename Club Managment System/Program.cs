@@ -102,8 +102,8 @@ namespace Club_Managment_System
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("Logs/api_logs.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
-            builder.Host.UseSerilog();
 
+            builder.Host.UseSerilog();
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -148,9 +148,18 @@ namespace Club_Managment_System
             builder.Services.AddScoped<IPlayerAttendanceRepository>(sp =>
                 new PlayerAttendanceRepository(connectionString, sp.GetRequiredService<ILogger<PlayerAttendanceRepository>>()));
 
+            //Member Repo
+            builder.Services.AddScoped<IMemberRepository>(sp =>
+            new MemberRepository(connectionString, sp.GetRequiredService<ILogger<MemberRepository>>())
+            );
+
+            builder.Services.AddScoped<IMemberServices, MemberServices>();
+             
+
 
             // 4. Generic Fallback
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
 
             //Jwt service

@@ -13,6 +13,7 @@ namespace CMS.DTOs
         public int CategoryID { get; set; }
         public string? CategoryName { get; set; }
         public  bool isActive { get; set; }
+        public int PlayerID { get; set; }
 
 
     }
