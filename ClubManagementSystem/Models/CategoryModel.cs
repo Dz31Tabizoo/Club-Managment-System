@@ -8,7 +8,7 @@ namespace ClubManagementSystem.Models
     public partial class CategoryModel : ObservableObject
     {
         [ObservableProperty]        
-        private int _categoryid;
+        private int _categoryID;
 
         [ObservableProperty]       
         private string _categoryName;

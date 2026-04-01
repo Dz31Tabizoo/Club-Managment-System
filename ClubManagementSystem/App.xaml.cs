@@ -41,15 +41,22 @@ namespace ClubManagementSystem
                 client.BaseAddress = new Uri("https://localhost:7135/");
             });
 
+            services.AddHttpClient<IMemberService, MembersService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7135/");
+            });
+
             services.AddTransient<AuthenticationHandler>();
 
             // ViewModels
             services.AddTransient<LoginViewModel>();
             services.AddSingleton<MainViewModel>();
+            services.AddTransient<MembersViewModel>();
 
             // Fenêtres
             services.AddTransient<LoginWindow>();
             services.AddTransient<MainWindow>();
+            services.AddTransient<MembersView>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

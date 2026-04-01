@@ -6,28 +6,32 @@ using System.Text;
 
 namespace ClubManagementSystem.Models
 {
+    
+
+
     public partial class PlayerModel : PersonModel
     {
+        public PlayerModel() : base() { }
+
         [ObservableProperty]
         private int _playerID;
 
         [ObservableProperty]
         private int _categoryID;
 
+        // This matches the "categoryName" in your JSON
+        [ObservableProperty]
+        private string? _categoryName;
+
         [ObservableProperty]
         private bool _isActive;
 
         [ObservableProperty]
-        private CategoryModel? _playerCategory;
-
-        [ObservableProperty]
-        private ExtraInfoModel? _extraDetails;
-        //pour UI logic
-        [ObservableProperty]
         private bool _hasDebts;
 
-        public string categoryNameDisplay => _playerCategory?.CategoryName ?? "No Category";
+        // Computed property for display
+        public string CategoryDisplay => CategoryName ?? "No Category";
 
-        public ObservableCollection<SubscriptionModel>? subscriptions { get; set; } 
+        public ObservableCollection<SubscriptionModel>? subscriptions { get; set; }
     }
 }

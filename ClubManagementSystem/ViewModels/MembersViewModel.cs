@@ -17,10 +17,9 @@ namespace ClubManagementSystem.ViewModels
 
         public readonly IMemberService _memberService;
 
-        private ObservableCollection<PersonModel> _allMembers = new();
+        public ObservableCollection<PersonModel> AllMembers { get; } = new ObservableCollection<PersonModel>();
 
-
-        private ICollectionView MembersView { get; }
+        public ICollectionView MembersView { get; }
 
         //empty MemberView
         [ObservableProperty]
@@ -40,13 +39,19 @@ namespace ClubManagementSystem.ViewModels
         private PersonModel _selectedMember;
 
         [ObservableProperty]
-        private ObservableCollection<CategoryModel> _categories = new();
+        private ObservableCollection<CategoryModel> _categories = new()
+{
+    new CategoryModel { CategoryID = 1, CategoryName = "U9", MinAge = 7, MaxAge = 9, MonthlyFee = 2000 },
+    new CategoryModel { CategoryID = 2, CategoryName = "U11", MinAge = 9, MaxAge = 11, MonthlyFee = 2200 },
+    new CategoryModel { CategoryID = 3, CategoryName = "U13", MinAge = 11, MaxAge = 13, MonthlyFee = 2500 },
+    new CategoryModel { CategoryID = 4, CategoryName = "U15", MinAge = 13, MaxAge = 15, MonthlyFee = 2800 }
+};
 
         [ObservableProperty]
         private CategoryModel? _selectedCategory;
 
         public int FilterdCont => MembersView.Cast<object>().Count();
-        public int TotalCount => _allMembers.Count;
+        public int TotalCount => AllMembers.Count;
         public string ResultSummary => $"[{FilterdCont} members sur {TotalCount}]";
 
 
@@ -56,7 +61,8 @@ namespace ClubManagementSystem.ViewModels
         {
             _memberService = memberService;
 
-            MembersView = CollectionViewSource.GetDefaultView(_allMembers);
+
+            MembersView = CollectionViewSource.GetDefaultView(AllMembers);
 
             MembersView.Filter = FilterLogic;
 
@@ -73,15 +79,16 @@ namespace ClubManagementSystem.ViewModels
             IsBusy = true;
             try
             {
+                if (_memberService == null) return;
                 var members = await _memberService.GetAllMembersasync();
 
                 App.Current.Dispatcher.Invoke(() =>
                 {
-                    _allMembers.Clear();
+                    AllMembers.Clear();
                     foreach (var m in members)
-                        _allMembers.Add(m);
-
-                    MembersView?.Refresh();
+                        AllMembers.Add(m);
+                    OnPropertyChanged(nameof(MembersView));
+                    ApplyFilter();
                 });
 
             }
@@ -111,7 +118,7 @@ namespace ClubManagementSystem.ViewModels
             bool matchesCategory = true;
             if (IsShowingPlayers && SelectedCategory != null && m is PlayerModel player)
             {
-                matchesCategory = player.categoryNameDisplay == SelectedCategory.CategoryName;
+                matchesCategory = player.CategoryName == SelectedCategory.CategoryName;
             }
 
             return matchesText && matchesCategory;

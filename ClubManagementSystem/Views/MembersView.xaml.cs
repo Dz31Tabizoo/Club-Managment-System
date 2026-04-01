@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ClubManagementSystem.Services;
+using ClubManagementSystem.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,9 +21,15 @@ namespace ClubManagementSystem.Views
     /// </summary>
     public partial class MembersView : UserControl
     {
-        public MembersView()
+
+        public MembersView() // Add this back!
         {
             InitializeComponent();
+            this.DataContext = App.Current.ServiceProvider.GetRequiredService<MembersViewModel>();
         }
+
+
+
+
     }
 }

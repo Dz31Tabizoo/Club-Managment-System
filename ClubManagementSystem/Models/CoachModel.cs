@@ -7,6 +7,8 @@ namespace ClubManagementSystem.Models
 {
     public partial class CoachModel : PersonModel
     {
+        public CoachModel() : base() { }
+
         [ObservableProperty]
         private int _coachID;
 
@@ -17,9 +19,8 @@ namespace ClubManagementSystem.Models
         private decimal? _salary;
 
         [ObservableProperty]
-        private bool? isActive;
+        private bool isActive;
 
-        [ObservableProperty]
-        private ExtraInfoModel? _extraInfo;
+        
     }
 }
