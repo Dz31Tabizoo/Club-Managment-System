@@ -1,19 +1,204 @@
 ﻿<UserControl x:Class="ClubManagementSystem.Components.MemberCard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ClubManagementSystem.Components"
-             xmlns:helpers="clr-namespace:ClubManagementSystem.Helpers"
-             mc:Ignorable="d" 
-             d:DesignHeight="320" d:DesignWidth="220">
-    <UserControl.Resources>
-        <helpers:SubscriptionToColorConverter x:Key="SubToColorConverter"/>
-        <helpers:ActiveToColorConverter x:Key="ActiveToColorConverter"/>
-        <helpers:AttendanceToColorConverter x:Key="AttendanceToColorConverter"/>
-    </UserControl.Resources>
-    
-    <Grid>
-            
-    </Grid>
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+
+    <Border Opacity="1" CornerRadius="20" Background="{StaticResource WhiteBrush}" ClipToBounds="True">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="15" Direction="270" Opacity="0.1" ShadowDepth="2"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Sidebar: Profile & Quick Stats -->
+            <Border Grid.Column="0" Background="{StaticResource LightGrayBgBrush}" Padding="20">
+                <StackPanel>
+                    <!-- ID Badge -->
+                    <Border Background="{StaticResource PrimaryGreenBrush}" HorizontalAlignment="Center" 
+                            Padding="12,4" CornerRadius="12" Margin="0,0,0,20">
+                        <TextBlock Text="{Binding PersonID, StringFormat='ID: {0}'}" Foreground="White" 
+                                   FontWeight="Bold" FontSize="11"/>
+                    </Border>
+
+                    <!-- Profile Image -->
+                    <Grid HorizontalAlignment="Center">
+                        <Border Width="160" Height="160" CornerRadius="80" 
+                                BorderBrush="{StaticResource PrimaryGreenBrush}" BorderThickness="3">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding PhotoPath}" Stretch="UniformToFill"/>
+                            </Border.Background>
+                        </Border>
+                        <!-- Edit Photo Overlay -->
+                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                Width="32" Height="32" Background="{StaticResource GreenLimeBrush}" BorderBrush="Transparent"
+                                Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
+                            <md:PackIcon Kind="CameraPlus" Width="16" Height="16" Foreground="{StaticResource LightGrayBgBrush}"/>
+                        </Button>
+                    </Grid>
+
+                    <TextBlock Text="{Binding Position}" Foreground="{StaticResource PrimaryGreenBrush}" 
+                               FontWeight="Black" FontSize="14" HorizontalAlignment="Center" Margin="0,15,0,5"/>
+
+                    <Separator Background="{StaticResource GreenClaireBrush}" Margin="10,10,10,20"/>
+
+                    <!-- Stats Grid -->
+                    <UniformGrid Columns="2">
+                        <StackPanel Margin="2">
+                            <TextBlock Text="DATE DE NAISSANCE" FontSize="9" Foreground="Gray" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Age}" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Margin="2">
+                            <TextBlock Text="GENRE" FontSize="9" Foreground="Gray" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Gender}" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </UniformGrid>
+
+                    <!-- Player Specific Mini Stats -->
+                    <StackPanel Visibility="{Binding IsPlayer, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,10,0,0">
+                        <Border Background="{StaticResource WhiteBrush}" CornerRadius="10" Padding="10" Margin="0,5">
+                            <DockPanel>
+                                <TextBlock Text="PRÉSENCE" FontSize="9" Foreground="Gray" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Ellipse Width="8" Height="8" Fill="{Binding AttendanceColor}" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding AttendanceRate, StringFormat='{}{0}%'}" FontWeight="Bold"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <Border Background="{Binding SubscriptionColor}" CornerRadius="10" Padding="10">
+                            <DockPanel>
+                                <TextBlock Text="STATUT" FontSize="9" Foreground="White" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding SubscriptionStatus}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Right"/>
+                            </DockPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Main Content: Details -->
+            <Grid Grid.Column="1" Margin="25">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Header Name -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Contact Info -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Role Details -->
+                    <RowDefinition Height="*"/>
+                    <!-- Spacer -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Actions -->
+                </Grid.RowDefinitions>
+
+                <!-- Name Section -->
+                <UniformGrid Columns="2" Margin="0,0,0,20">
+                    <StackPanel Margin="0,0,10,0">
+                        <TextBlock Text="PRÉNOM" FontSize="10" FontWeight="Bold" Foreground="{StaticResource PrimaryGreenBrush}" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding FirstName}" IsReadOnly="{Binding IsReadOnly}" 
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10,12" FontSize="14"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0">
+                        <TextBlock Text="NOM" FontSize="10" FontWeight="Bold" Foreground="{StaticResource PrimaryGreenBrush}" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding LastName}" IsReadOnly="{Binding IsReadOnly}" 
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10,12" FontSize="14"/>
+                    </StackPanel>
+                </UniformGrid>
+
+                <!-- Contact Info Card -->
+                <md:Card Grid.Row="1" UniformCornerRadius="12" Padding="15" Margin="0,0,0,20" Background="{StaticResource LightGrayBgBrush}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,10,15">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <md:PackIcon Kind="Phone" Width="14" Foreground="Gray" Margin="0,0,5,0"/>
+                                <TextBlock Text="TÉLÉPHONE" FontSize="10" Foreground="Gray"/>
+                            </StackPanel>
+                            <TextBox Text="{Binding Phone}" IsReadOnly="{Binding IsReadOnly}" BorderThickness="0,0,0,1" BorderBrush="{StaticResource GreenClaireBrush}" Background="Transparent"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="10,0,0,15">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <md:PackIcon Kind="Email" Width="14" Foreground="Gray" Margin="0,0,5,0"/>
+                                <TextBlock Text="E-MAIL" FontSize="10" Foreground="Gray"/>
+                            </StackPanel>
+                            <TextBox Text="{Binding Email}" IsReadOnly="{Binding IsReadOnly}" BorderThickness="0,0,0,1" BorderBrush="{StaticResource GreenClaireBrush}" Background="Transparent"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <md:PackIcon Kind="MapMarker" Width="14" Foreground="Gray" Margin="0,0,5,0"/>
+                                <TextBlock Text="ADRESSE" FontSize="10" Foreground="Gray"/>
+                            </StackPanel>
+                            <TextBox Text="{Binding Address}" IsReadOnly="{Binding IsReadOnly}" TextWrapping="Wrap" BorderThickness="0,0,0,1" BorderBrush="{StaticResource GreenClaireBrush}" Background="Transparent"/>
+                        </StackPanel>
+                    </Grid>
+                </md:Card>
+
+                <!-- Role Specific Info -->
+                <Grid Grid.Row="2">
+                    <!-- Player View -->
+                    <UniformGrid Columns="2" Visibility="{Binding IsPlayer, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <md:Card Margin="0,0,10,0" UniformCornerRadius="12" Padding="15" Background="{StaticResource GreenClaireBrush}">
+                            <StackPanel>
+                                <TextBlock Text="CATÉGORIE" FontSize="10" Foreground="{StaticResource PrimaryGreenBrush}" FontWeight="Bold"/>
+                                <TextBox Text="{Binding Category}" IsReadOnly="{Binding IsReadOnly}" FontSize="16" FontWeight="SemiBold" BorderThickness="0" Background="Transparent"/>
+                            </StackPanel>
+                        </md:Card>
+                        <md:Card Margin="10,0,0,0" UniformCornerRadius="12" Padding="15" Background="{StaticResource WhiteBrush}" BorderBrush="{StaticResource LightGrayBgBrush}" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="INSCRIPTION" FontSize="10" Foreground="Gray" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding SubscriptionStatus}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource PrimaryGreenBrush}"/>
+                            </StackPanel>
+                        </md:Card>
+                    </UniformGrid>
+
+                     <!--Staff View--> 
+                    <md:Card Visibility="{Binding IsPlayer, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" 
+                             UniformCornerRadius="12" Padding="15" Background="{StaticResource GreenClaireBrush}">
+                        <StackPanel>
+                            <TextBlock Text="SPÉCIALISATION" FontSize="10" Foreground="{StaticResource PrimaryGreenBrush}" FontWeight="Bold"/>
+                            <TextBox Text="{Binding Specialization}" IsReadOnly="{Binding IsReadOnly}" FontSize="16" FontWeight="SemiBold" BorderThickness="0" Background="Transparent"/>
+                        </StackPanel>
+                    </md:Card>
+                </Grid>
+
+                <!-- Action Footer -->
+                <Grid Grid.Row="4" Margin="0,20,0,0">
+                    <!-- Edit Mode Actions -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
+                                Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" Content="ANNULER" 
+                                Command="{Binding CancelCommand}" Margin="0,0,10,0" Foreground="Gray"/>
+                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Background="{StaticResource PrimaryGreenBrush}" BorderBrush="Transparent"
+                                Command="{Binding SaveCommand}" Width="150" Height="40" md:ButtonAssist.CornerRadius="20">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Check" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="ENREGISTRER" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- View Mode Actions -->
+                    <Button Style="{StaticResource MaterialDesignFlatMidBgButton}" Content="FERMER" 
+                            Command="{Binding CloseCommand}" Background="{StaticResource LightGrayBgBrush}" Foreground="Black"
+                            Width="100" Height="35" md:ButtonAssist.CornerRadius="18" HorizontalAlignment="Right"
+                            Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
 </UserControl>
