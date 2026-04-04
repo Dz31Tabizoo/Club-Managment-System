@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClubManagementSystem.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              Background="#F5F5F7">
@@ -39,8 +40,7 @@
                 </StackPanel>
 
                 <Button Command="{Binding AddMemberCommand}"
-                        HorizontalAlignment="Right"
-                        
+                        HorizontalAlignment="Right"                        
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         Background="{StaticResource PrimaryGreenBrush}"
                         Foreground="White"
@@ -153,15 +153,24 @@
                              Panel.ZIndex="1"/>
 
                 <DataGrid 
-                       ItemsSource="{Binding MembersView}"
-                      SelectedItem="{Binding SelectedMember}"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      IsReadOnly="True"
-                      HeadersVisibility="Column"
-                      GridLinesVisibility="None"
-                      Background="Transparent"
-                        Margin="0,0,0,5">
+                          ItemsSource="{Binding MembersView}"
+                          SelectedItem="{Binding SelectedMemberCardVM}" 
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="None"
+                          Background="Transparent"
+                          Margin="0,0,0,5"
+                          SelectionMode="Single"
+                          Style="{StaticResource MaterialDesignDataGrid}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding EditMemberCommand}" 
+                                        CommandParameter="{Binding SelectedMemberCardVM}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
 
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="MEMBRE" Width="2*">

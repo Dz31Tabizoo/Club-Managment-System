@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClubManagementSystem.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +23,8 @@ namespace ClubManagementSystem.Components
         public MemberCard()
         {
             InitializeComponent();
+            this.DataContext = App.Current.ServiceProvider.GetRequiredService<MemberCardViewModel>();
+
         }
     }
 }

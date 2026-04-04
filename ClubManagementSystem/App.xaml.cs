@@ -11,6 +11,7 @@ using ClubManagementSystem.Services;
 using ClubManagementSystem.ViewModels;
 using ClubManagementSystem.Views;
 using Serilog;
+using ClubManagementSystem.Components;
 
 namespace ClubManagementSystem
 {
@@ -52,11 +53,12 @@ namespace ClubManagementSystem
             services.AddTransient<LoginViewModel>();
             services.AddSingleton<MainViewModel>();
             services.AddTransient<MembersViewModel>();
-
+            services.AddTransient<MemberCardViewModel>();
             // Fenêtres
             services.AddTransient<LoginWindow>();
             services.AddTransient<MainWindow>();
             services.AddTransient<MembersView>();
+            services.AddTransient<MemberCard>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

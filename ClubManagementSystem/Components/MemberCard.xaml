@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             
              TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <Border Opacity="1" CornerRadius="20" Background="{StaticResource WhiteBrush}" ClipToBounds="True">
@@ -31,15 +32,15 @@
                         <Border Width="160" Height="160" CornerRadius="80" 
                                 BorderBrush="{StaticResource PrimaryGreenBrush}" BorderThickness="3">
                             <Border.Background>
-                                <ImageBrush ImageSource="{Binding PhotoPath}" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="{Binding Photo}" Stretch="UniformToFill"/>
                             </Border.Background>
                         </Border>
                         <!-- Edit Photo Overlay -->
                         <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                 VerticalAlignment="Bottom" HorizontalAlignment="Right"
                                 Width="32" Height="32" Background="{StaticResource GreenLimeBrush}" BorderBrush="Transparent"
-                                Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
-                            <md:PackIcon Kind="CameraPlus" Width="16" Height="16" Foreground="{StaticResource LightGrayBgBrush}"/>
+                                Visibility="{Binding IsReadOnly, Converter={StaticResource InverseBooleanConverter}}">
+                        <md:PackIcon Kind="CameraPlus" Width="16" Height="16" Foreground="{StaticResource LightGrayBgBrush}"/>
                         </Button>
                     </Grid>
 
@@ -167,7 +168,7 @@
                     </UniformGrid>
 
                      <!--Staff View--> 
-                    <md:Card Visibility="{Binding IsPlayer, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" 
+                    <md:Card Visibility="{Binding IsPlayer, Converter={StaticResource InverseBooleanConverter}}" 
                              UniformCornerRadius="12" Padding="15" Background="{StaticResource GreenClaireBrush}">
                         <StackPanel>
                             <TextBlock Text="SPÉCIALISATION" FontSize="10" Foreground="{StaticResource PrimaryGreenBrush}" FontWeight="Bold"/>
@@ -180,7 +181,7 @@
                 <Grid Grid.Row="4" Margin="0,20,0,0">
                     <!-- Edit Mode Actions -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
-                                Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
+                                Visibility="{Binding IsReadOnly, Converter={StaticResource InverseBooleanConverter}}">
                         <Button Style="{StaticResource MaterialDesignFlatButton}" Content="ANNULER" 
                                 Command="{Binding CancelCommand}" Margin="0,0,10,0" Foreground="Gray"/>
                         <Button Style="{StaticResource MaterialDesignRaisedButton}" Background="{StaticResource PrimaryGreenBrush}" BorderBrush="Transparent"

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -35,8 +36,7 @@ namespace ClubManagementSystem.ViewModels
         [ObservableProperty]
         private string _searchText = string.Empty;
 
-        [ObservableProperty]
-        private PersonModel _selectedMember;
+        
 
         [ObservableProperty]
         private ObservableCollection<CategoryModel> _categories = new()
@@ -54,6 +54,9 @@ namespace ClubManagementSystem.ViewModels
         public int TotalCount => AllMembers.Count;
         public string ResultSummary => $"[{FilterdCont} members sur {TotalCount}]";
 
+        //forMemberCardViewModel
+        [ObservableProperty]
+        private MemberCardViewModel? _selectedMemberCardVM = new();
 
 
 
@@ -163,8 +166,18 @@ namespace ClubManagementSystem.ViewModels
             {
                 //(e.g., open a dialog or navigate to a new page)
             }
-            
         }
+
+        public void OnSelectedMemberCardVMChanged(PersonModel value)
+        {
+            if (value == null) return;
+            SelectedMemberCardVM.Member = value;
+            SelectedMemberCardVM.IsReadOnly = true;
+        }
+
+
+
+        
     }
 }
 
