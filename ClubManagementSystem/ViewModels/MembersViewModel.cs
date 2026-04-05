@@ -17,6 +17,8 @@ namespace ClubManagementSystem.ViewModels
     {
 
         public readonly IMemberService _memberService;
+        [ObservableProperty]
+        private bool _isMemberCardOpen;
 
         public ObservableCollection<PersonModel> AllMembers { get; } = new ObservableCollection<PersonModel>();
 
@@ -58,7 +60,8 @@ namespace ClubManagementSystem.ViewModels
         [ObservableProperty]
         private MemberCardViewModel? _selectedMemberCardVM = new();
 
-
+        [ObservableProperty]
+        private PersonModel? _selectedMember;
 
         public MembersViewModel(IMemberService memberService)
         {
@@ -168,16 +171,24 @@ namespace ClubManagementSystem.ViewModels
             }
         }
 
-        public void OnSelectedMemberCardVMChanged(PersonModel value)
+        
+
+
+        [RelayCommand]
+         private void ShowMemberDetails(PersonModel? member)
         {
-            if (value == null) return;
-            SelectedMemberCardVM.Member = value;
+            if (member == null) return;
+
+            // 1. Charger les données du membre dans le ViewModel de la carte
+            SelectedMemberCardVM.Member = member;
+
+            // 2. S'assurer que la carte est en mode lecture seule (Lock)
             SelectedMemberCardVM.IsReadOnly = true;
+
+            // 3. Ouvrir le DialogHost
+            IsMemberCardOpen = true;
         }
 
-
-
-        
     }
 }
 

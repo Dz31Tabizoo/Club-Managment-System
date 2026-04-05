@@ -5,15 +5,23 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:components ="clr-namespace:ClubManagementSystem.Components"
              xmlns:local="clr-namespace:ClubManagementSystem.Views"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              Background="#F5F5F7">
+    
+    <materialDesign:DialogHost Identifier="MemberDetailsHost"
+                               IsOpen="{Binding IsMemberCardOpen}"
+                               CloseOnClickAway="True">
 
-    
-    
-    <Border Background="White" 
+        <materialDesign:DialogHost.DialogContent>
+            <components:MemberCard DataContext="{Binding SelectedMemberCardVM}" Margin="20"/>
+        </materialDesign:DialogHost.DialogContent>
+
+
+        <Border Background="White" 
             CornerRadius="15" 
             Margin="20" 
             Effect="{StaticResource MaterialDesignElevationShadow6}">
@@ -154,7 +162,7 @@
 
                 <DataGrid 
                           ItemsSource="{Binding MembersView}"
-                          SelectedItem="{Binding SelectedMemberCardVM}" 
+                          SelectedItem="{Binding SelectedMember}" 
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           IsReadOnly="True"
@@ -162,13 +170,14 @@
                           GridLinesVisibility="None"
                           Background="Transparent"
                           Margin="0,0,0,5"
+                          SelectionUnit="FullRow"
                           SelectionMode="Single"
                           Style="{StaticResource MaterialDesignDataGrid}">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding EditMemberCommand}" 
-                                        CommandParameter="{Binding SelectedMemberCardVM}"/>
+                            <i:InvokeCommandAction Command="{Binding ShowMemberDetailsCommand}" 
+                                        CommandParameter="{Binding SelectedMember}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
@@ -284,4 +293,5 @@
 
         </Grid>
     </Border>
+        </materialDesign:DialogHost>
 </UserControl>

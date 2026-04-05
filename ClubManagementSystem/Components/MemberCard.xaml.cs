@@ -23,7 +23,6 @@ namespace ClubManagementSystem.Components
         public MemberCard()
         {
             InitializeComponent();
-            this.DataContext = App.Current.ServiceProvider.GetRequiredService<MemberCardViewModel>();
 
         }
     }
