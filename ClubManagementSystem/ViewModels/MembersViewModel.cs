@@ -15,112 +15,86 @@ namespace ClubManagementSystem.ViewModels
 {
     public partial class MembersViewModel : BaseViewModel
     {
+        private readonly IMemberService _memberService;
 
-        public readonly IMemberService _memberService;
         [ObservableProperty]
         private bool _isMemberCardOpen;
 
-        public ObservableCollection<PersonModel> AllMembers { get; } = new ObservableCollection<PersonModel>();
-
-        public ICollectionView MembersView { get; }
-
-        //empty MemberView
         [ObservableProperty]
-        private bool _hasNoResults;
-
-        // joueurs ou coachs
-        [ObservableProperty]
-        private bool _isShowingPlayers = true;
-
-        [ObservableProperty]
-        private bool _isBusy;
-
-        [ObservableProperty]
-        private string _searchText = string.Empty;
-
-        
-
-        [ObservableProperty]
-        private ObservableCollection<CategoryModel> _categories = new()
-{
-    new CategoryModel { CategoryID = 1, CategoryName = "U9", MinAge = 7, MaxAge = 9, MonthlyFee = 2000 },
-    new CategoryModel { CategoryID = 2, CategoryName = "U11", MinAge = 9, MaxAge = 11, MonthlyFee = 2200 },
-    new CategoryModel { CategoryID = 3, CategoryName = "U13", MinAge = 11, MaxAge = 13, MonthlyFee = 2500 },
-    new CategoryModel { CategoryID = 4, CategoryName = "U15", MinAge = 13, MaxAge = 15, MonthlyFee = 2800 }
-};
-
-        [ObservableProperty]
-        private CategoryModel? _selectedCategory;
-
-        public int FilterdCont => MembersView.Cast<object>().Count();
-        public int TotalCount => AllMembers.Count;
-        public string ResultSummary => $"[{FilterdCont} members sur {TotalCount}]";
-
-        //forMemberCardViewModel
-        [ObservableProperty]
-        private MemberCardViewModel? _selectedMemberCardVM = new();
+        private MemberCardViewModel _selectedMemberCardVM = new();
 
         [ObservableProperty]
         private PersonModel? _selectedMember;
 
+        public ObservableCollection<PersonModel> AllMembers { get; } = new();
+        public ICollectionView MembersView { get; }
+
+        [ObservableProperty] private bool _hasNoResults;
+        [ObservableProperty] private bool _isShowingPlayers = true;
+        [ObservableProperty] private bool _isBusy;
+        [ObservableProperty] private string _searchText = string.Empty;
+
+        [ObservableProperty]
+        private ObservableCollection<CategoryModel> _categories = new()
+    {
+        new CategoryModel { CategoryID = 1, CategoryName = "U9", MinAge = 7, MaxAge = 9, MonthlyFee = 2000 },
+        new CategoryModel { CategoryID = 2, CategoryName = "U11", MinAge = 9, MaxAge = 11, MonthlyFee = 2200 },
+        new CategoryModel { CategoryID = 3, CategoryName = "U13", MinAge = 11, MaxAge = 13, MonthlyFee = 2500 },
+        new CategoryModel { CategoryID = 4, CategoryName = "U15", MinAge = 13, MaxAge = 15, MonthlyFee = 2800 }
+    };
+
+        [ObservableProperty] private CategoryModel? _selectedCategory;
+
+        public int FilteredCount => MembersView.Cast<object>().Count();
+        public int TotalCount => AllMembers.Count;
+        public string ResultSummary => $"[{FilteredCount} membres sur {TotalCount}]";
+
         public MembersViewModel(IMemberService memberService)
         {
             _memberService = memberService;
-
-
             MembersView = CollectionViewSource.GetDefaultView(AllMembers);
-
             MembersView.Filter = FilterLogic;
+
+            // --- LIAISON CRUCIALE ---
+            // On écoute quand la carte demande à se fermer
+            SelectedMemberCardVM.RequestClose += () => IsMemberCardOpen = false;
 
             _ = InitializeAsync();
         }
 
-        private async Task InitializeAsync()
-        {
-            await LoadMembersAsync();
-        }
+        private async Task InitializeAsync() => await LoadMembersAsync();
 
         private async Task LoadMembersAsync()
         {
             IsBusy = true;
             try
             {
-                if (_memberService == null) return;
                 var members = await _memberService.GetAllMembersasync();
-
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     AllMembers.Clear();
-                    foreach (var m in members)
-                        AllMembers.Add(m);
-                    OnPropertyChanged(nameof(MembersView));
+                    foreach (var m in members) AllMembers.Add(m);
                     ApplyFilter();
                 });
-
             }
             catch (Exception ex)
             {
-                Log.Error("ErrorMessage while Loading Members: " + ex.Message);
+                // Log.Error...
             }
-            finally
-            {
-                IsBusy = false;
-            }
+            finally { IsBusy = false; }
         }
 
         private bool FilterLogic(object obj)
         {
             if (obj is not PersonModel m) return false;
 
-            // joueurs ou coachs
             if (IsShowingPlayers && m is not PlayerModel) return false;
             if (!IsShowingPlayers && m is not CoachModel) return false;
 
-            //  Search Text Filter 
             bool matchesText = string.IsNullOrWhiteSpace(SearchText) ||
-                              (m.FullName?.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ?? false);
+                              (m.FirstName?.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                              (m.LastName?.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ?? false);
 
-            // Category Filter
             bool matchesCategory = true;
             if (IsShowingPlayers && SelectedCategory != null && m is PlayerModel player)
             {
@@ -133,22 +107,18 @@ namespace ClubManagementSystem.ViewModels
         private void ApplyFilter()
         {
             MembersView.Refresh();
-
             OnPropertyChanged(nameof(TotalCount));
-            OnPropertyChanged(nameof(FilterdCont));
+            OnPropertyChanged(nameof(FilteredCount));
             OnPropertyChanged(nameof(ResultSummary));
-
             HasNoResults = !MembersView.Cast<object>().Any();
         }
 
         partial void OnSearchTextChanged(string value) => ApplyFilter();
-
         partial void OnSelectedCategoryChanged(CategoryModel? value) => ApplyFilter();
         partial void OnIsShowingPlayersChanged(bool value)
         {
             if (!value) SelectedCategory = null;
             ApplyFilter();
-
         }
 
         [RelayCommand]
@@ -159,36 +129,13 @@ namespace ClubManagementSystem.ViewModels
         }
 
         [RelayCommand]
-        private void AddMember()
+        private void ShowMemberDetails()
         {
-            if (IsShowingPlayers)
-            {
-                //(e.g., open a dialog or navigate to a new page)
-            }
-            else
-            {
-                //(e.g., open a dialog or navigate to a new page)
-            }
-        }
-
-        
-
-
-        [RelayCommand]
-         private void ShowMemberDetails(PersonModel? member)
-        {
-            if (member == null) return;
-
-            // 1. Charger les données du membre dans le ViewModel de la carte
-            SelectedMemberCardVM.Member = member;
-
-            // 2. S'assurer que la carte est en mode lecture seule (Lock)
+            if (SelectedMember == null) return;
+            SelectedMemberCardVM.Member = SelectedMember;
             SelectedMemberCardVM.IsReadOnly = true;
-
-            // 3. Ouvrir le DialogHost
             IsMemberCardOpen = true;
         }
-
     }
 }
 

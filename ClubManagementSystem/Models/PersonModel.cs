@@ -43,8 +43,9 @@ namespace ClubManagementSystem.Models
         [ObservableProperty]
         private byte[]? _photo;
 
-        public string FullName => $"{FirstName} {LastName}"?? "full name not set";
-
+        public string FullName => string.IsNullOrWhiteSpace(FirstName) && string.IsNullOrWhiteSpace(LastName)
+            ? "Nom non défini"
+            : $"{FirstName} {LastName}";
         public int Age
         {
             get

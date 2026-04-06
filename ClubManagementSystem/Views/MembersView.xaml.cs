@@ -27,7 +27,15 @@ namespace ClubManagementSystem.Views
             InitializeComponent();
             this.DataContext = App.Current.ServiceProvider.GetRequiredService<MembersViewModel>();
         }
-
+        private void OnDialogClosing(object sender, MaterialDesignThemes.Wpf.DialogClosingEventArgs eventArgs)
+        {
+            // Cette sécurité permet de remettre IsMemberCardOpen à false dans le ViewModel
+            // si l'utilisateur clique en dehors de la carte pour fermer.
+            if (DataContext is MembersViewModel vm)
+            {
+                vm.IsMemberCardOpen = false;
+            }
+        }
 
 
 

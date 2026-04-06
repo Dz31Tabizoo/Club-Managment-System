@@ -19,7 +19,7 @@ namespace ClubManagementSystem.Models
         private decimal? _salary;
 
         [ObservableProperty]
-        private bool isActive;
+        private bool _isActive;
 
         
     }

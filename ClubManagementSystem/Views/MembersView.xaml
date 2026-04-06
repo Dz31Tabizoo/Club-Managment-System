@@ -14,7 +14,8 @@
     
     <materialDesign:DialogHost Identifier="MemberDetailsHost"
                                IsOpen="{Binding IsMemberCardOpen}"
-                               CloseOnClickAway="True">
+                               CloseOnClickAway="True"
+                               DialogClosing="OnDialogClosing">
 
         <materialDesign:DialogHost.DialogContent>
             <components:MemberCard DataContext="{Binding SelectedMemberCardVM}" Margin="20"/>
@@ -208,11 +209,13 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Grid>
-                                        <TextBlock Text="{Binding CategoryName}" 
-                                                Visibility="{Binding DataContext.IsShowingPlayers, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                            <TextBlock Text="{Binding CategoryName}" 
+                                                        Visibility="{Binding DataContext.IsShowingPlayers, 
+                                                        RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
+                                                        Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                                        <TextBlock Text="{Binding Specialization}" 
-                                                    Visibility="{Binding DataContext.IsShowingPlayers, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource InverseBooleanConverter}}"/>
+                                            <TextBlock Text="{Binding Specialization}" 
+                                                   Visibility="{Binding DataContext.IsShowingPlayers, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Inverse}" />
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
