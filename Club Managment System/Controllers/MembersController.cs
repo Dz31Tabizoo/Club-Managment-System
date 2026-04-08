@@ -9,7 +9,7 @@ using Core.Interfaces;
 
 namespace Club_Managment_System.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/Members")]
     [ApiController]
     public class MembersController : ControllerBase

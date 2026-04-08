@@ -22,7 +22,7 @@
                 <StackPanel>
                     <!-- ID Badge -->
                     <Border Background="{StaticResource PrimaryGreenBrush}" HorizontalAlignment="Center" 
-                            Padding="12,4" CornerRadius="12" Margin="0,0,0,20">
+                            Padding="12,4" CornerRadius="12" Margin="0,0,0,10">
                         <TextBlock Text="{Binding PersonID, StringFormat='ID: {0}'}" Foreground="White" 
                                    FontWeight="Bold" FontSize="11"/>
                     </Border>
@@ -46,16 +46,28 @@
 
                     <TextBlock Text="{Binding Position}" Foreground="{StaticResource PrimaryGreenBrush}"
                                
-                               FontWeight="Black" FontSize="14" HorizontalAlignment="Center" Margin="0,15,0,5"/>
+                               FontWeight="Black" FontSize="14" HorizontalAlignment="Center" Margin="0,10,0,5"/>
 
-                    <Separator Background="{StaticResource GreenClaireBrush}" Margin="10,10,10,20"/>
+                    <Separator Background="{StaticResource GreenClaireBrush}" Margin="10,10,10,5"/>
 
                     <!-- Stats Grid -->
                     <UniformGrid Columns="2">
                         <StackPanel Margin="2">
                             <TextBlock Text="DATE DE NAISSANCE" FontSize="9" Foreground="Gray" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding Age}" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center"/>
+
+                            <TextBlock Text="{Binding Age}" 
+                                       Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                       FontWeight="Bold" FontSize="13" HorizontalAlignment="Center"/>
+
+                            <DatePicker SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" 
+                                        
+                                        Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" 
+                                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}"
+                                        Style="{StaticResource MaterialDesignFilledDatePicker}"
+                                        md:HintAssist.Hint="Choisir une date"
+                                        FontSize="12" HorizontalAlignment="Left" Width="120"/>
                         </StackPanel>
+                        
                         <StackPanel Margin="2">
                             <TextBlock Text="GENRE" FontSize="9" Foreground="Gray" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding Gender}" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center"/>
@@ -153,11 +165,33 @@
                 <!-- Role Specific Info -->
                 <Grid Grid.Row="2">
                     <!-- Player View -->
-                    <UniformGrid Columns="2" Visibility="{Binding IsPlayer, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <UniformGrid Columns="2"  Visibility="{Binding IsPlayer, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <md:Card Margin="0,0,10,0" UniformCornerRadius="12" Padding="15" Background="{StaticResource GreenClaireBrush}">
                             <StackPanel>
-                                <TextBlock Text="CATÉGORIE" FontSize="10" Foreground="{StaticResource PrimaryGreenBrush}" FontWeight="Bold"/>
-                                <TextBox Text="{Binding Category}" IsReadOnly="{Binding IsReadOnly}" FontSize="16" FontWeight="SemiBold" BorderThickness="0" Background="Transparent"/>
+                                <StackPanel>
+                                    <TextBlock Text="CATÉGORIE" 
+                                               FontSize="10"    
+                                               Foreground="{StaticResource PrimaryGreenBrush}" 
+                                               FontWeight="Bold"/>
+
+                                    <TextBox Text="{Binding CategoryDisplay, Mode=OneWay}" 
+                                                Visibility="{Binding IsReadOnly, 
+                                                Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                IsReadOnly="True" 
+                                                FontSize="16" 
+                                                FontWeight="SemiBold" 
+                                                BorderThickness="0" 
+                                                Background="Transparent"/>
+
+                                    <ComboBox ItemsSource="{Binding Allcategories}"
+                                              SelectedItem="{Binding SelectedCategory}"
+                                              DisplayMemberPath="CategoryName" 
+                                              Visibility="{Binding IsReadOnly,Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Inverse}"
+                                              md:HintAssist.Hint="Sélectionner..."
+                                              FontSize="14" FontWeight="SemiBold"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                    
+                                </StackPanel>
                             </StackPanel>
                         </md:Card>
                         <md:Card Margin="10,0,0,0" UniformCornerRadius="12" Padding="15" Background="{StaticResource WhiteBrush}" BorderBrush="{StaticResource LightGrayBgBrush}" BorderThickness="1">
@@ -179,7 +213,7 @@
                 </Grid>
 
                 <!-- Action Footer -->
-                <Grid Grid.Row="4" Margin="0,0,0,0">
+                <Grid Grid.Row="4" Margin="0,15,0,0">
                     <!-- Edit Mode Actions -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
                                 Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Inverse}">

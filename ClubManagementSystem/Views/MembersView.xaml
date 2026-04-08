@@ -14,7 +14,7 @@
     
     <materialDesign:DialogHost Identifier="MemberDetailsHost"
                                IsOpen="{Binding IsMemberCardOpen}"
-                               CloseOnClickAway="True"
+                               CloseOnClickAway="False"
                                DialogClosing="OnDialogClosing">
 
         <materialDesign:DialogHost.DialogContent>

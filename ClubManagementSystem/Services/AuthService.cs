@@ -75,7 +75,7 @@ namespace ClubManagementSystem.Services
             }
             catch (Exception ex)
             {
-                return new LoginResponseModel { Success = false, Message = "Une erreur inattendue est survenue." };
+                return new LoginResponseModel { Success = false, Message =  $"Une erreur inattendue est survenue: {ex.Message}" };
             }
         }
 

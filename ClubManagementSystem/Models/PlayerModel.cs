@@ -30,7 +30,6 @@ namespace ClubManagementSystem.Models
         private bool _hasDebts;
 
         // Computed property for display
-        public string CategoryDisplay => CategoryName ?? "No Category";
 
         public ObservableCollection<SubscriptionModel>? subscriptions { get; set; }
     }

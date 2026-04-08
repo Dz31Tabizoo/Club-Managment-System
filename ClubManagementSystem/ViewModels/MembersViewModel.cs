@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 namespace ClubManagementSystem.ViewModels
@@ -129,8 +130,9 @@ namespace ClubManagementSystem.ViewModels
         }
 
         [RelayCommand]
-        private void ShowMemberDetails()
+        private async Task ShowMemberDetails()
         {
+
             if (SelectedMember == null) return;
             SelectedMemberCardVM.Member = SelectedMember;
             SelectedMemberCardVM.IsReadOnly = true;
