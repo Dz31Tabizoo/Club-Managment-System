@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -136,6 +137,42 @@ namespace ClubManagementSystem.ViewModels
             if (SelectedMember == null) return;
             SelectedMemberCardVM.Member = SelectedMember;
             SelectedMemberCardVM.IsReadOnly = true;
+            IsMemberCardOpen = true;
+        }
+
+        [RelayCommand]
+        private void AddMember()
+        {
+            // Create a fresh model instance, open the existing MemberCard in edit mode.
+            PersonModel newMember;
+
+            if (IsShowingPlayers)
+            {
+                var defaultCategory = SelectedMemberCardVM.Allcategories.FirstOrDefault();
+                newMember = new PlayerModel
+                {
+                    DateOfBirth = DateTime.Today,
+                    IsActive = true,
+                    CategoryID = defaultCategory?.CategoryID ?? 0,
+                    CategoryName = defaultCategory?.CategoryName
+                };
+            }
+            else
+            {
+                newMember = new CoachModel
+                {
+                    DateOfBirth = DateTime.Today,
+                    IsActive = true
+                };
+            }
+
+            // Add to in-memory list so it shows immediately in the grid
+            AllMembers.Add(newMember);
+            ApplyFilter();
+
+            SelectedMember = newMember;
+            SelectedMemberCardVM.Member = newMember;
+            SelectedMemberCardVM.IsReadOnly = false;
             IsMemberCardOpen = true;
         }
     }
