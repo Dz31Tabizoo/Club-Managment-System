@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:fa="http://schemas.fontawesome.io/icons/"             
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             UseLayoutRounding="True"
+             SnapsToDevicePixels="True"
+             TextOptions.TextFormattingMode="Display">
 
-    
-    <Border Opacity="1" CornerRadius="20" Background="{StaticResource WhiteBrush}" ClipToBounds="True">
-        <Border.Effect>
+
+    <Border md:ElevationAssist.Elevation="Dp12" CornerRadius="20" Background="{StaticResource WhiteBrush}" ClipToBounds="True">
+        <!--<Border.Effect>
             <DropShadowEffect BlurRadius="15" Direction="270" Opacity="0.1" ShadowDepth="2"/>
-        </Border.Effect>
+        </Border.Effect>-->
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -30,7 +33,8 @@
                     <!-- Profile Image -->
                     <Grid HorizontalAlignment="Center">
                         <Border Width="160" Height="160" CornerRadius="80" 
-                                BorderBrush="{StaticResource PrimaryGreenBrush}" BorderThickness="3">
+                                BorderBrush="{StaticResource PrimaryGreenBrush}" BorderThickness="3"
+                                RenderOptions.BitmapScalingMode="LowQuality">
                             <Border.Background>
                                 <ImageBrush ImageSource="{Binding Photo}" Stretch="UniformToFill"/>
                             </Border.Background>
