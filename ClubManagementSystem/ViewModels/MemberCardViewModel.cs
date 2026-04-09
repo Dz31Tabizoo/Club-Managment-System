@@ -1,7 +1,15 @@
 ﻿using ClubManagementSystem.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 
 namespace ClubManagementSystem.ViewModels
@@ -11,6 +19,8 @@ namespace ClubManagementSystem.ViewModels
     {
         public event Action? RequestClose;
 
+        private CancellationTokenSource? _photoCts;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsPlayer), nameof(IsStaff), nameof(Position), nameof(SubscriptionStatus),nameof(CategoryDisplay), nameof(SubscriptionColor))]
         [NotifyPropertyChangedFor(nameof(FirstName), nameof(LastName), nameof(Phone), nameof(Email), nameof(Address), nameof(Age), nameof(Gender), nameof(Photo), nameof(PersonID))]
@@ -18,6 +28,9 @@ namespace ClubManagementSystem.ViewModels
 
         [ObservableProperty]
         private bool _isReadOnly = true;
+
+        [ObservableProperty]
+        private ImageSource? _photoImage;
 
         #region Propriétés mappées
         public string PersonID => Member?.PersonID.ToString() ?? "0";
@@ -67,9 +80,66 @@ namespace ClubManagementSystem.ViewModels
 
         partial void OnMemberChanged(PersonModel? value)
         {
-            if(value is PersonModel p)
+            if (value is PersonModel p)
             {
                 SelectedCategory = Allcategories.FirstOrDefault(c => c.CategoryID == (p as PlayerModel)?.CategoryID);
+            }
+
+            // Start photo decoding in the background so dialog opens instantly.
+            _ = LoadPhotoImageAsync(value?.Photo);
+        }
+
+        private async Task LoadPhotoImageAsync(byte[]? photoBytes)
+        {
+            _photoCts?.Cancel();
+            _photoCts?.Dispose();
+            _photoCts = new CancellationTokenSource();
+            var ct = _photoCts.Token;
+
+            // Clear immediately (so UI can show placeholder/background)
+            PhotoImage = null;
+
+            if (photoBytes == null || photoBytes.Length == 0) return;
+
+            try
+            {
+                // Decode off the UI thread, and downscale to the actual displayed size.
+                var img = await Task.Run(() =>
+                {
+                    ct.ThrowIfCancellationRequested();
+
+                    using var ms = new MemoryStream(photoBytes, writable: false);
+                    var bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.CacheOption = BitmapCacheOption.OnLoad;
+                    bi.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+                    bi.DecodePixelWidth = 160; // matches the UI circle (160x160)
+                    bi.StreamSource = ms;
+                    bi.EndInit();
+                    bi.Freeze(); // make it cross-thread safe
+                    return (ImageSource)bi;
+                }, ct).ConfigureAwait(false);
+
+                if (ct.IsCancellationRequested) return;
+
+                // Assign on UI thread to keep PropertyChanged safe for WPF bindings.
+                if (Application.Current?.Dispatcher != null)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() => PhotoImage = img);
+                }
+                else
+                {
+                    PhotoImage = img;
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // ignore (new member selected)
+            }
+            catch
+            {
+                // If decoding fails, keep PhotoImage null (no crash / no slowdown).
+                PhotoImage = null;
             }
         }
         partial void OnSelectedCategoryChanged(CategoryModel? value)

@@ -8,8 +8,65 @@
              SnapsToDevicePixels="True"
              TextOptions.TextFormattingMode="Display">
 
+    <UserControl.Resources>
+        <!-- Instantiate only the needed role UI (Player OR Staff) -->
+        <DataTemplate x:Key="PlayerRoleTemplate">
+            <UniformGrid Columns="2">
+                <md:Card Margin="0,0,10,0" UniformCornerRadius="12" Padding="15" Background="{StaticResource GreenClaireBrush}">
+                    <StackPanel>
+                        <TextBlock Text="CATÉGORIE"
+                                   FontSize="10"
+                                   Foreground="{StaticResource PrimaryGreenBrush}"
+                                   FontWeight="Bold"/>
 
-    <Border md:ElevationAssist.Elevation="Dp12" CornerRadius="20" Background="{StaticResource WhiteBrush}" ClipToBounds="True">
+                        <TextBox Text="{Binding CategoryDisplay, Mode=OneWay}"
+                                 Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                 IsReadOnly="True"
+                                 FontSize="16"
+                                 FontWeight="SemiBold"
+                                 BorderThickness="0"
+                                 Background="Transparent"/>
+
+                        <ComboBox ItemsSource="{Binding Allcategories}"
+                                  SelectedItem="{Binding SelectedCategory}"
+                                  DisplayMemberPath="CategoryName"
+                                  Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}"
+                                  md:HintAssist.Hint="Sélectionner..."
+                                  FontSize="14"
+                                  FontWeight="SemiBold"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    </StackPanel>
+                </md:Card>
+
+                <md:Card Margin="10,0,0,0"
+                         UniformCornerRadius="12"
+                         Padding="15"
+                         Background="{StaticResource WhiteBrush}"
+                         BorderBrush="{StaticResource LightGrayBgBrush}"
+                         BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="INSCRIPTION" FontSize="10" Foreground="Gray" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding SubscriptionStatus}"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource PrimaryGreenBrush}"/>
+                    </StackPanel>
+                </md:Card>
+            </UniformGrid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="StaffRoleTemplate">
+            <md:Card UniformCornerRadius="12" Padding="15" Background="{StaticResource GreenClaireBrush}">
+                <StackPanel>
+                    <TextBlock Text="SPÉCIALISATION" FontSize="10" Foreground="{StaticResource PrimaryGreenBrush}" FontWeight="Bold"/>
+                    <TextBox Text="{Binding Specialization}" IsReadOnly="{Binding IsReadOnly}" FontSize="16" FontWeight="SemiBold" BorderThickness="0" Background="Transparent"/>
+                </StackPanel>
+            </md:Card>
+        </DataTemplate>
+    </UserControl.Resources>
+
+
+    <Border md:ElevationAssist.Elevation="Dp0" CornerRadius="20" Background="{StaticResource WhiteBrush}" ClipToBounds="True">
         <!--<Border.Effect>
             <DropShadowEffect BlurRadius="15" Direction="270" Opacity="0.1" ShadowDepth="2"/>
         </Border.Effect>-->
@@ -23,7 +80,7 @@
             <!-- Sidebar: Profile & Quick Stats -->
             <Border Grid.Column="0" Background="#f1f7f6" Padding="20">
                 <StackPanel>
-                    <!-- ID Badge -->
+                    <!-- ID Badge ([-_-]) -->
                     <Border Background="{StaticResource PrimaryGreenBrush}" HorizontalAlignment="Center" 
                             Padding="12,4" CornerRadius="12" Margin="0,0,0,10">
                         <TextBlock Text="{Binding PersonID, StringFormat='ID: {0}'}" Foreground="White" 
@@ -36,7 +93,7 @@
                                 BorderBrush="{StaticResource PrimaryGreenBrush}" BorderThickness="3"
                                 RenderOptions.BitmapScalingMode="LowQuality">
                             <Border.Background>
-                                <ImageBrush ImageSource="{Binding Photo}" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="{Binding PhotoImage}" Stretch="UniformToFill"/>
                             </Border.Background>
                         </Border>
                         <!-- Edit Photo Overlay -->
@@ -167,54 +224,18 @@
                 </md:Card>
 
                 <!-- Role Specific Info -->
-                <Grid Grid.Row="2">
-                    <!-- Player View -->
-                    <UniformGrid Columns="2"  Visibility="{Binding IsPlayer, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <md:Card Margin="0,0,10,0" UniformCornerRadius="12" Padding="15" Background="{StaticResource GreenClaireBrush}">
-                            <StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="CATÉGORIE" 
-                                               FontSize="10"    
-                                               Foreground="{StaticResource PrimaryGreenBrush}" 
-                                               FontWeight="Bold"/>
-
-                                    <TextBox Text="{Binding CategoryDisplay, Mode=OneWay}" 
-                                                Visibility="{Binding IsReadOnly, 
-                                                Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                IsReadOnly="True" 
-                                                FontSize="16" 
-                                                FontWeight="SemiBold" 
-                                                BorderThickness="0" 
-                                                Background="Transparent"/>
-
-                                    <ComboBox ItemsSource="{Binding Allcategories}"
-                                              SelectedItem="{Binding SelectedCategory}"
-                                              DisplayMemberPath="CategoryName" 
-                                              Visibility="{Binding IsReadOnly,Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Inverse}"
-                                              md:HintAssist.Hint="Sélectionner..."
-                                              FontSize="14" FontWeight="SemiBold"
-                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                                    
-                                </StackPanel>
-                            </StackPanel>
-                        </md:Card>
-                        <md:Card Margin="10,0,0,0" UniformCornerRadius="12" Padding="15" Background="{StaticResource WhiteBrush}" BorderBrush="{StaticResource LightGrayBgBrush}" BorderThickness="1">
-                            <StackPanel>
-                                <TextBlock Text="INSCRIPTION" FontSize="10" Foreground="Gray" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding SubscriptionStatus}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource PrimaryGreenBrush}"/>
-                            </StackPanel>
-                        </md:Card>
-                    </UniformGrid>
-
-                     <!--Staff View--> 
-                    <md:Card Visibility="{Binding IsStaff, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                             UniformCornerRadius="12" Padding="15" Background="{StaticResource GreenClaireBrush}">
-                        <StackPanel>
-                            <TextBlock Text="SPÉCIALISATION" FontSize="10" Foreground="{StaticResource PrimaryGreenBrush}" FontWeight="Bold"/>
-                            <TextBox Text="{Binding Specialization}" IsReadOnly="{Binding IsReadOnly}" FontSize="16" FontWeight="SemiBold" BorderThickness="0" Background="Transparent"/>
-                        </StackPanel>
-                    </md:Card>
-                </Grid>
+                <ContentControl Grid.Row="2" Content="{Binding}">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Setter Property="ContentTemplate" Value="{StaticResource StaffRoleTemplate}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource PlayerRoleTemplate}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
 
                 <!-- Action Footer -->
                 <Grid Grid.Row="4" Margin="0,15,0,0">

@@ -20,7 +20,7 @@
                                CloseOnClickAway="False"
                                DialogClosing="OnDialogClosing"
                                OverlayBackground="#22000000"
-                               >
+                               materialDesign:TransitionAssist.DisableTransitions="True">
 
         <materialDesign:DialogHost.DialogContent>
             <components:MemberCard DataContext="{Binding SelectedMemberCardVM}" Margin="20"/>
