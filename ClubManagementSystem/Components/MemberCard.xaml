@@ -65,8 +65,24 @@
         </DataTemplate>
     </UserControl.Resources>
 
-
-    <Border md:ElevationAssist.Elevation="Dp0" CornerRadius="20" Background="{StaticResource WhiteBrush}" ClipToBounds="True">
+    <Border md:ElevationAssist.Elevation="Dp0"
+            CornerRadius="20"
+            Background="{StaticResource WhiteBrush}"
+            ClipToBounds="True"
+            Opacity="0">
+        <Border.Triggers>
+            <!-- Very light fade-in (kept separate from DialogHost transitions) -->
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                         From="0"
+                                         To="1"
+                                         Duration="0:0:0.12"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Border.Triggers>
         <!--<Border.Effect>
             <DropShadowEffect BlurRadius="15" Direction="270" Opacity="0.1" ShadowDepth="2"/>
         </Border.Effect>-->
