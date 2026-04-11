@@ -142,6 +142,7 @@ namespace ClubManagementSystem.ViewModels
                 PhotoImage = null;
             }
         }
+        
         partial void OnSelectedCategoryChanged(CategoryModel? value)
         {
             if (Member is PlayerModel p && value != null)
