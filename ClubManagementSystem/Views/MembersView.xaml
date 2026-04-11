@@ -233,10 +233,10 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!--<DataGridTextColumn Header="ABONNEMENT" 
+                        <DataGridTextColumn Header="ABONNEMENT" 
                         Binding="{Binding SubStatus}" 
                         Width="120"
-                        Visibility="{Binding DataContext.IsShowingPlayers, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
+                        Visibility="{Binding DataContext.IsShowingPlayers, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                         <DataGridTemplateColumn Header="ÉTAT" Width="100">
                             <DataGridTemplateColumn.CellTemplate>

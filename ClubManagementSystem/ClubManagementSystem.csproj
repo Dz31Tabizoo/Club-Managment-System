@@ -40,10 +40,16 @@
     <None Remove="Assets\Fonts\Montserrat-SemiBoldItalic.ttf" />
     <None Remove="Assets\Fonts\Montserrat-Thin.ttf" />
     <None Remove="Assets\Fonts\Montserrat-ThinItalic.ttf" />
+    <None Remove="Assets\Images\449308-PFCG6T-330.png" />
     <None Remove="Assets\Images\cadenas.png" />
+    <None Remove="Assets\Images\club new logo.png" />
+    <None Remove="Assets\Images\club new logo_processed.png" />
     <None Remove="Assets\Images\ClubLOGO-Photoroom.png" />
     <None Remove="Assets\Images\CMS LOGO.png" />
+    <None Remove="Assets\Images\file logo test.png" />
+    <None Remove="Assets\Images\file.png" />
     <None Remove="Assets\Images\football-trainer-teaching-his-pupils.jpg" />
+    <None Remove="Assets\Images\logo new 112.png" />
     <None Remove="Assets\Images\logo-Photoroom.png" />
     <None Remove="Assets\Images\logo-Photoroom.psd" />
     <None Remove="Assets\Images\mot-de-passe.png" />
@@ -56,6 +62,10 @@
 
   <ItemGroup>
     <Page Remove="Styles\UIColors.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\file logo test.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -160,10 +170,7 @@
     <Resource Include="Assets\Fonts\Montserrat-ThinItalic.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Images\cadenas.png" />
     <Resource Include="Assets\Images\ClubLOGO-Photoroom.png" />
-    <Resource Include="Assets\Images\CMS LOGO.png" />
-    <Resource Include="Assets\Images\football-trainer-teaching-his-pupils.jpg" />
     <Resource Include="Assets\Images\logo-Photoroom.png" />
     <Resource Include="Assets\Images\logo-Photoroom.psd" />
     <Resource Include="Assets\Images\mot-de-passe.png">
@@ -173,9 +180,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\NumidixLogoSQR.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Images\training.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\utilisateur.png">
