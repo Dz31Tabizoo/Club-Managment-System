@@ -22,13 +22,18 @@ namespace Club_Managment_System
                 .CreateLogger();
 
             builder.Host.UseSerilog();
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    // PascalCase JSON so WPF GetFromJsonAsync binds without PropertyNameCaseInsensitive.
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             // 2. Connection string (Added a check to ensure not null)
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not found.");
 
             // 3. Repo Providers - Using Factory Pattern for all to pass ConnectionString
             // This ensures the DI container knows exactly how to build your repositories.
@@ -68,17 +73,13 @@ namespace Club_Managment_System
 
             //Member Repo
             builder.Services.AddScoped<IMemberRepository>(sp =>
-            new MemberRepository(connectionString, sp.GetRequiredService<ILogger<MemberRepository>>())
+                new MemberRepository(connectionString, sp.GetRequiredService<ILogger<MemberRepository>>())
             );
 
             builder.Services.AddScoped<IMemberServices, MemberServices>();
-             
-
 
             // 4. Generic Fallback
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
-
 
             //Jwt service
             // 1. Add Authentication Services
@@ -111,8 +112,8 @@ namespace Club_Managment_System
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            //test hashed passsword check 
-            // Temporairement, juste pour générer ton hash de test
+            //test hashed passsword check
+            // Temporarily: generate test hash
             //var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
             //Console.WriteLine($"MON_HASH_TEST: {hash}");
             //System.Diagnostics.Debug.WriteLine($"MON_HASH_TEST: {hash}");

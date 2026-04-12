@@ -39,7 +39,7 @@ namespace CMS.DataAccess.Repositories
                     player.Phone,
                     player.Address,
                     player.CategoryID,
-                    player.isActive
+                    player.IsActive
                 };
 
                 return await connection.ExecuteScalarAsync<int>("sp_AddPlayer", parameter, commandType: CommandType.StoredProcedure);
@@ -100,7 +100,7 @@ namespace CMS.DataAccess.Repositories
                         player.Phone,
                         player.Address,
                         player.CategoryID,
-                        player.isActive
+                        player.IsActive
                     };
 
                     var affectedRows = await connection.ExecuteAsync(

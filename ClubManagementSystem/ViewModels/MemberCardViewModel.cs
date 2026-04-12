@@ -33,7 +33,7 @@ namespace ClubManagementSystem.ViewModels
         private ImageSource? _photoImage;
 
         #region Propriétés mappées
-        public string PersonID => Member?.PersonID.ToString() ?? "0";
+        public string PersonID => Member?.PersonID.ToString() + $" Créer le {Member?.CreatedDate?.ToShortDateString()}" ?? "0";
         public byte[] Photo => Member?.Photo ?? Array.Empty<byte>();
         public string Gender => Member?.Gender ?? "N/A";
         public string Age => Member?.DateOfBirth.ToShortDateString() ?? "N/A";
@@ -96,50 +96,42 @@ namespace ClubManagementSystem.ViewModels
             _photoCts = new CancellationTokenSource();
             var ct = _photoCts.Token;
 
-            // Clear immediately (so UI can show placeholder/background)
             PhotoImage = null;
 
             if (photoBytes == null || photoBytes.Length == 0) return;
 
+            var dispatcher = Application.Current?.Dispatcher;
+            if (dispatcher == null) return;
+
             try
             {
-                // Decode off the UI thread, and downscale to the actual displayed size.
-                var img = await Task.Run(() =>
+                // WPF BitmapImage / WIC must decode on the UI (STA) thread; Task.Run often leaves PhotoImage null.
+                await dispatcher.InvokeAsync(() =>
                 {
-                    ct.ThrowIfCancellationRequested();
+                    if (ct.IsCancellationRequested) return;
 
-                    using var ms = new MemoryStream(photoBytes, writable: false);
-                    var bi = new BitmapImage();
-                    bi.BeginInit();
-                    bi.CacheOption = BitmapCacheOption.OnLoad;
-                    bi.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
-                    bi.DecodePixelWidth = 160; // matches the UI circle (160x160)
-                    bi.StreamSource = ms;
-                    bi.EndInit();
-                    bi.Freeze(); // make it cross-thread safe
-                    return (ImageSource)bi;
-                }, ct).ConfigureAwait(false);
-
-                if (ct.IsCancellationRequested) return;
-
-                // Assign on UI thread to keep PropertyChanged safe for WPF bindings.
-                if (Application.Current?.Dispatcher != null)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() => PhotoImage = img);
-                }
-                else
-                {
-                    PhotoImage = img;
-                }
+                    try
+                    {
+                        using var ms = new MemoryStream(photoBytes, writable: false);
+                        var bi = new BitmapImage();
+                        bi.BeginInit();
+                        bi.CacheOption = BitmapCacheOption.OnLoad;
+                        bi.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+                        bi.DecodePixelWidth = 160;
+                        bi.StreamSource = ms;
+                        bi.EndInit();
+                        bi.Freeze();
+                        PhotoImage = bi;
+                    }
+                    catch
+                    {
+                        PhotoImage = null;
+                    }
+                }, System.Windows.Threading.DispatcherPriority.Background);
             }
             catch (OperationCanceledException)
             {
                 // ignore (new member selected)
-            }
-            catch
-            {
-                // If decoding fails, keep PhotoImage null (no crash / no slowdown).
-                PhotoImage = null;
             }
         }
         
@@ -200,8 +192,8 @@ namespace ClubManagementSystem.ViewModels
         };
 
 
-        public string SubscriptionStatus => (Member is PlayerModel p) ? (p.HasDebts ? "IMPAYÉ" : "À JOUR") : "N/A";
-        public string SubscriptionColor => (Member is PlayerModel p) ? (p.HasDebts ? "#D32F2F" : "#2E7D32") : "#757575";
+        public string SubscriptionStatus => (Member is PlayerModel p) ? (p.HasDebts == true ? "IMPAYÉ" : "À JOUR") : "N/A";
+        public string SubscriptionColor => (Member is PlayerModel p) ? (p.HasDebts == true ? "#D32F2F" : "#2E7D32") : "#757575";
 
         public int AttendanceRate => 85;
         public string AttendanceColor => "#4CAF50";

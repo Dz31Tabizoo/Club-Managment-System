@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CMS.DTOs;
 using Core.Interfaces;
@@ -24,20 +25,16 @@ namespace Club_Managment_System.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<PersonDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<PersonDTO>>> GetAll()
         {
             try
             {
                 _logger.LogInformation("Getting all members");
-            
-        
-            var members = await _memberServices.GetAllMembersAsync();
-            if (members == null)
-            {
-                return Ok(new List<PersonDTO>());
-            }
-                return Ok(members);
+
+                var members = await _memberServices.GetAllMembersAsync();
+                return Ok(members ?? Enumerable.Empty<PersonDTO>());
             }
             catch (Exception ex)
             {

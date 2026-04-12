@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using CMS.DTOs;
+using Core.Interfaces;
 using Dapper;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,19 +11,19 @@ using System.Threading.Tasks;
 
 namespace CMS.DataAccess.Repositories
 {
-    public class MemberRepository : BaseRepository<dynamic> , IMemberRepository
+    public class MemberRepository : BaseRepository<MemberDTO> , IMemberRepository
     {
         public MemberRepository(string ConnectionString, ILogger<MemberRepository> logger) : base(ConnectionString, logger)
         {
         }
 
-        public async Task<IEnumerable<dynamic>> GetAllMembersAsync()
+        public async Task<IEnumerable<MemberDTO>> GetAllMembersAsync()
         {
             try
             {
                 using (var connection = CreateConnection())
                 {
-                    var result = await connection.QueryAsync<dynamic>(
+                    var result = await connection.QueryAsync<MemberDTO>(
                         "sp_GetAllMembers", commandType: CommandType.StoredProcedure
                         );
                     

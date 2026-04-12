@@ -36,8 +36,8 @@ namespace CMS.DataAccess.Repositories
                     coach.Email,
                     coach.Phone,
                     coach.Specialization,
-                    coach.salary,
-                    coach.isActive,
+                    coach.Salary,
+                    coach.IsActive,
                     coach.Gender
                 };
 

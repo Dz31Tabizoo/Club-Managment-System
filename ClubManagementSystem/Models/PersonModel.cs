@@ -57,5 +57,8 @@ namespace ClubManagementSystem.Models
                 return age;
             }
         }
+
+        public DateTime? LastUpdate { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }

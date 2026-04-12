@@ -1,9 +1,12 @@
 ﻿using CMS.DTOs;
 using Core.Interfaces;
-using System.Net;
-using System.Numerics;
-using System.Reflection;
-using System.Security.AccessControl;
+
+/*this service is responsible for handling all the business logic related
+to members(players and coaches).It interacts with the repository layer
+to fetch data and then maps it to the appropriate DTOs before returning it
+to the presentation layer.The service also includes error handling
+and logging to ensure that any issues during data retrieval
+or mapping are properly recorded for troubleshooting.*/
 
 namespace Club_Managment_System.Services
 {
@@ -24,65 +27,72 @@ namespace Club_Managment_System.Services
             try
             {
                 var members = await _memberRepo.GetAllMembersAsync();
-                var memberList = new List<PersonDTO>();
+
+                var personList = new List<PersonDTO>();
 
                 foreach (var m in members)
                 {
-                    // 1. Validate that we at least have a PersonID before trying to map
-                    if (m.PersonID == null) continue;
+                    if (m.PersonID <= 0)
+                        continue;
 
-                    // Use 'as int?' to safely check for the IDs
-                    int? playerId = m.PlayerID as int?;
-                    int? coachId = m.CoachID as int?;
+                    bool isPlayer = m.PlayerID is > 0;
+                    bool isCoach = m.CoachID is > 0;
 
-                    if (playerId != null)
+                    if (isPlayer && isCoach)
                     {
-                        memberList.Add(new PlayerDTO
-                        {
-                            PersonID = Convert.ToInt32(m.PersonID),
-                            FirstName = m.FirstName?.ToString() ?? string.Empty,
-                            LastName = m.LastName?.ToString() ?? string.Empty,
-                            DateOfBirth = m.DateOfBirth,
-                            Phone = m.Phone?.ToString(),
-                            Email = m.Email?.ToString(),
-                            Address = m.Address?.ToString(),
-                            // Safe char conversion
-                            Gender = !string.IsNullOrEmpty(m.Gender?.ToString()) ? m.Gender.ToString()[0] : 'M',
-                            Photo = m.Photo as byte[],
-                            LastUpdate = m.LastUpdate as DateTime?,
+                        _logger.LogWarning(
+                            "Member row PersonID={PersonID} has both PlayerID and CoachID; skipping.",
+                            m.PersonID);
+                        continue;
+                    }
 
-                            // Player specific - safe conversion
-                            PlayerID = Convert.ToInt32(playerId),
-                            CategoryID = m.CategoryID != null ? Convert.ToInt32(m.CategoryID) : 0,
-                            CategoryName = m.CategoryName?.ToString() ?? "Unknown",
-                            isActive = m.isActive ?? true
+                    char gender = !string.IsNullOrEmpty(m.Gender) ? m.Gender![0] : 'M';
+
+                    if (isPlayer)
+                    {
+                        personList.Add(new PlayerDTO
+                        {
+                            PersonID = m.PersonID,
+                            FirstName = m.FirstName,
+                            LastName = m.LastName,
+                            DateOfBirth = m.DateOfBirth,
+                            Phone = m.Phone,
+                            Email = m.Email,
+                            Address = m.Address,
+                            Gender = gender,
+                            Photo = m.Photo,
+                            LastUpdate = m.LastUpdate,
+                            CreatedDate = m.CreatedDate,
+                            PlayerID = m.PlayerID!.Value,
+                            CategoryID = m.CategoryID ?? 0,
+                            CategoryName = m.CategoryName ?? "Unknown",
+                            IsActive = m.IsActive
                         });
                     }
-                    else if (coachId != null)
+                    else if (isCoach)
                     {
-                        memberList.Add(new CoachDTO
+                        personList.Add(new CoachDTO
                         {
-                            PersonID = Convert.ToInt32(m.PersonID),
-                            FirstName = m.FirstName?.ToString() ?? string.Empty,
-                            LastName = m.LastName?.ToString() ?? string.Empty,
+                            PersonID = m.PersonID,
+                            FirstName = m.FirstName,
+                            LastName = m.LastName,
                             DateOfBirth = m.DateOfBirth,
-                            Phone = m.Phone?.ToString(),
-                            Email = m.Email?.ToString(),
-                            Address = m.Address?.ToString(),
-                            Gender = !string.IsNullOrEmpty(m.Gender?.ToString()) ? m.Gender.ToString()[0] : 'M',
-                            Photo = m.Photo as byte[],
-                            LastUpdate = m.LastUpdate as DateTime?,
-
-                            // Coach specific - safe conversion
-                            CoachID = Convert.ToInt32(coachId),
-                            Specialization = m.Specialization?.ToString() ?? "N/A",
-                            salary = m.Salary != null ? Convert.ToDecimal(m.Salary) : 0m,
-                            isActive = m.isActive ?? true
+                            Phone = m.Phone,
+                            Email = m.Email,
+                            Address = m.Address,
+                            Gender = gender,
+                            Photo = m.Photo,
+                            LastUpdate = m.LastUpdate,
+                            CreatedDate = m.CreatedDate,
+                            CoachID = m.CoachID!.Value,
+                            Specialization = m.Specialization ?? "N/A",
+                            Salary = m.Salary ?? 0m,
+                            IsActive = m.IsActive
                         });
                     }
                 }
 
-                return memberList;
+                return personList;
             }
             catch (Exception ex)
             {

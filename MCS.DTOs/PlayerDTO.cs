@@ -12,9 +12,8 @@ namespace CMS.DTOs
         [Required(ErrorMessage = "La catégorie est obligatoire")]
         public int CategoryID { get; set; }
         public string? CategoryName { get; set; }
-        public  bool isActive { get; set; }
+        public  bool IsActive { get; set; }
         public int PlayerID { get; set; }
-
 
     }
 }

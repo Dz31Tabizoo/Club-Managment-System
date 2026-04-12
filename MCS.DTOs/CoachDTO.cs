@@ -9,9 +9,9 @@ namespace CMS.DTOs
     public class CoachDTO : PersonDTO
     {
         public int CoachID { get; set; }
-        public string Specialization { get; set; }
-        public decimal salary { get; set; }
-        public bool isActive { get; set; }
+        public string? Specialization { get; set; }
+        public decimal Salary { get; set; }
+        public bool IsActive { get; set; }
     }
 
 }

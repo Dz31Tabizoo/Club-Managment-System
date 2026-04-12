@@ -9,7 +9,7 @@ namespace Core.Interfaces
 {
     public interface IMemberRepository 
     {
-        Task<IEnumerable<dynamic>> GetAllMembersAsync();        
+        Task<IEnumerable<MemberDTO>> GetAllMembersAsync();       
         
     }
 }

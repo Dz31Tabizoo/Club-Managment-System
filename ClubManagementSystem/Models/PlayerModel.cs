@@ -27,10 +27,8 @@ namespace ClubManagementSystem.Models
         private bool _isActive;
 
         [ObservableProperty]
-        private bool _hasDebts;
-
+        private bool? _hasDebts;
         // Computed property for display
-
         public ObservableCollection<SubscriptionModel>? subscriptions { get; set; }
     }
 }
