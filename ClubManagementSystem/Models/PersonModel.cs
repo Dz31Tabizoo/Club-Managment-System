@@ -8,6 +8,8 @@ using System.Text.Json.Serialization;
 
 namespace ClubManagementSystem.Models
 {
+    public enum Mode { Add=1, Edit=2 , Delete=3 };
+
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
     [JsonDerivedType(typeof(PlayerModel), "player")]
     [JsonDerivedType(typeof(CoachModel), "coach")]
@@ -60,5 +62,7 @@ namespace ClubManagementSystem.Models
 
         public DateTime? LastUpdate { get; set; }
         public DateTime? CreatedDate { get; set; }
+
+        public Mode _mode { get; set; } = Mode.Edit;
     }
 }

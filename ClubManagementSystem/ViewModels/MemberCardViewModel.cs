@@ -228,5 +228,11 @@ namespace ClubManagementSystem.ViewModels
             RequestClose?.Invoke(); // On ferme après enregistrement
         }
         #endregion
+
+        #region Editor Helpers
+
+
+
+        #endregion
     }
 }
