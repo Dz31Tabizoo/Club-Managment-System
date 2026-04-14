@@ -6,7 +6,7 @@ using Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Club_Managment_System.Services;
+using CMS.Business.Services;
 
 namespace Club_Managment_System
 {
@@ -103,6 +103,7 @@ namespace Club_Managment_System
             });
 
             // 2. Register your TokenService
+            // builder.Services.AddScoped<ITokenService, TokenService>(); i have no service interface for token service, so i will just register the class directly
             builder.Services.AddScoped<TokenService>();
             var app = builder.Build();
 

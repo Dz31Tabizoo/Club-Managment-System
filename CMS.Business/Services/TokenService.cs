@@ -1,9 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Club_Managment_System.Services
+namespace CMS.Business.Services
 {
     public class TokenService
     {

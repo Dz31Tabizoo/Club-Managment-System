@@ -1,4 +1,4 @@
-﻿using Club_Managment_System.Services;
+﻿using CMS.Business.Services;
 using CMS.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

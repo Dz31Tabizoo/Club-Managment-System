@@ -16,6 +16,6 @@ namespace CMS.DTOs
 
         // لربط الدخل بالشخص الذي استلمه (الموظف أو الأدمن)
         public int? ReceivedByUserID { get; set; }
-        public string ReceivedByUserName { get; set; } // لعرض اسم المستخدم في التقارير
+        public string? ReceivedByUserName { get; set; } // لعرض اسم المستخدم في التقارير
     }
 }

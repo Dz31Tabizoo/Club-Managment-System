@@ -1,5 +1,6 @@
 ﻿using CMS.DTOs;
 using Core.Interfaces;
+using Microsoft.Extensions.Logging;
 
 /*this service is responsible for handling all the business logic related
 to members(players and coaches).It interacts with the repository layer
@@ -8,7 +9,7 @@ to the presentation layer.The service also includes error handling
 and logging to ensure that any issues during data retrieval
 or mapping are properly recorded for troubleshooting.*/
 
-namespace Club_Managment_System.Services
+namespace CMS.Business.Services
 {
     public class MemberServices : IMemberServices
     {

@@ -3,7 +3,7 @@ using CMS.DTOs;
 using Core.Interfaces;
 
 
-namespace Club_Managment_System.Services
+namespace CMS.Business.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
