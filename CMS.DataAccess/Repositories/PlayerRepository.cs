@@ -20,7 +20,7 @@ namespace CMS.DataAccess.Repositories
         // we should add player details + Attendance || player details + subscription
 
 
-        public async Task<int> AddPlayerAsync(PlayerDTO player)
+        public async Task<PlayerDTO> AddPlayerAsync(PlayerDTO player)
         {
             try
             {
@@ -28,10 +28,11 @@ namespace CMS.DataAccess.Repositories
 
 
                     using var connection = CreateConnection();
+                
 
-                var parameter = new 
+                var parameter = new
                 {
-                    player.FirstName, 
+                    player.FirstName,
                     player.LastName,
                     player.DateOfBirth,
                     player.Gender,
@@ -39,10 +40,19 @@ namespace CMS.DataAccess.Repositories
                     player.Phone,
                     player.Address,
                     player.CategoryID,
-                    player.IsActive
+                    player.IsActive,
+                    player.Photo,
+                    player.CreatedDate
                 };
 
-                return await connection.ExecuteScalarAsync<int>("sp_AddPlayer", parameter, commandType: CommandType.StoredProcedure);
+                int newID = await connection.QuerySingleAsync<int>("sp_AddPlayer", parameter, commandType: CommandType.StoredProcedure);
+                player.PlayerID = newID;
+                player.PersonID = newID;
+                
+
+                _logger.LogInformation("Player added with ID: {Id}", newID);
+                return player;
+
             }
             catch (Exception ex)
             {

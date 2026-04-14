@@ -10,5 +10,6 @@ namespace Core.Interfaces
     public interface IMemberServices 
     {
         Task<IEnumerable<PersonDTO>> GetAllMembersAsync();
+        
     }
 }

@@ -36,8 +36,9 @@ namespace Club_Management_System.Controllers
         }
 
 
-        [HttpPost("add")]
+        [HttpPost("add",Name ="AddPlayer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreatePlayer([FromBody] PlayerDTO playerDTO)
@@ -46,8 +47,8 @@ namespace Club_Management_System.Controllers
                 return BadRequest(ModelState);
             try
             {
-                var newPlayerID = await _repository.AddPlayerAsync(playerDTO);
-                return CreatedAtRoute("GetPlayerInfo",new { id = newPlayerID, message = "Joueur ajouté avec succès" },playerDTO);
+                var newPlayer = await _repository.AddPlayerAsync(playerDTO);
+                return CreatedAtRoute("GetPlayerInfo", new { id = newPlayer.PlayerID, message = "Joueur ajouté avec succès" }, newPlayer);
             }
             catch (Exception ex)
             {
