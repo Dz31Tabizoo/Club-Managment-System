@@ -18,6 +18,8 @@ namespace ClubManagementSystem.ViewModels
     public partial class MemberCardViewModel : BaseViewModel
     {
         public event Action? RequestClose;
+        public event Action<PersonModel?>? SaveRequested;
+        public event Action? CancelRequested;
 
         private CancellationTokenSource? _photoCts;
 
@@ -208,6 +210,7 @@ namespace ClubManagementSystem.ViewModels
         private void Cancel()
         {
             IsReadOnly = true;
+            CancelRequested?.Invoke();
             // On ferme le dialogue lors de l'annulation
             RequestClose?.Invoke();
         }
@@ -225,6 +228,7 @@ namespace ClubManagementSystem.ViewModels
             // Ton code Dapper ici
             // Ex: _repository.Update(Member);
             IsReadOnly = true;
+            SaveRequested?.Invoke(Member);
             RequestClose?.Invoke(); // On ferme après enregistrement
         }
         #endregion

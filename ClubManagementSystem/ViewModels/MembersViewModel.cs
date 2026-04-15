@@ -18,6 +18,7 @@ namespace ClubManagementSystem.ViewModels
     public partial class MembersViewModel : BaseViewModel
     {
         private readonly IMemberService _memberService;
+        private PersonModel? _pendingNewMember;
 
         [ObservableProperty]
         private bool _isMemberCardOpen;
@@ -60,6 +61,8 @@ namespace ClubManagementSystem.ViewModels
             // --- LIAISON CRUCIALE ---
             // On écoute quand la carte demande à se fermer
             SelectedMemberCardVM.RequestClose += () => IsMemberCardOpen = false;
+            SelectedMemberCardVM.SaveRequested += OnMemberCardSaveRequested;
+            SelectedMemberCardVM.CancelRequested += OnMemberCardCancelRequested;
 
             _ = InitializeAsync();
         }
@@ -143,7 +146,8 @@ namespace ClubManagementSystem.ViewModels
         [RelayCommand]
         private void AddMember()
         {
-            // Create a fresh model instance, open the existing MemberCard in edit mode.
+            // Create a draft model instance and open the MemberCard in edit mode.
+            // Draft is only committed to AllMembers when Save is pressed.
             PersonModel newMember;
 
             if (IsShowingPlayers)
@@ -166,14 +170,38 @@ namespace ClubManagementSystem.ViewModels
                 };
             }
 
-            // Add to in-memory list so it shows immediately in the grid
-            AllMembers.Add(newMember);
-            ApplyFilter();
-
+            _pendingNewMember = newMember;
             SelectedMember = newMember;
             SelectedMemberCardVM.Member = newMember;
             SelectedMemberCardVM.IsReadOnly = false;
             IsMemberCardOpen = true;
+        }
+
+        private void OnMemberCardSaveRequested(PersonModel? savedMember)
+        {
+            if (_pendingNewMember == null) return;
+            if (savedMember == null) return;
+            if (!ReferenceEquals(savedMember, _pendingNewMember)) return;
+
+            if (!AllMembers.Contains(savedMember))
+            {
+                AllMembers.Add(savedMember);
+            }
+
+            SelectedMember = savedMember;
+            _pendingNewMember = null;
+            ApplyFilter();
+        }
+
+        private void OnMemberCardCancelRequested()
+        {
+            if (_pendingNewMember == null) return;
+            if (!ReferenceEquals(SelectedMemberCardVM.Member, _pendingNewMember)) return;
+
+            // Cancel discards the draft member (it was never added to AllMembers).
+            _pendingNewMember = null;
+            SelectedMember = null;
+            SelectedMemberCardVM.Member = null;
         }
     }
 }
