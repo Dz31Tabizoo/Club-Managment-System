@@ -43,7 +43,8 @@
                          Padding="15"
                          Background="{StaticResource WhiteBrush}"
                          BorderBrush="{StaticResource LightGrayBgBrush}"
-                         BorderThickness="1">
+                         BorderThickness="1"
+                          Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel>
                         <TextBlock Text="INSCRIPTION" FontSize="10" Foreground="Gray" FontWeight="Bold"/>
                         <TextBlock Text="{Binding SubscriptionStatus}"
@@ -134,7 +135,8 @@
 
                             <TextBlock Text="{Binding Age}" 
                                        Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                                       FontWeight="Bold" FontSize="13" HorizontalAlignment="Center"/>
+                                       FontWeight="Bold" FontSize="13"
+                                       Margin="5" HorizontalAlignment="Center"/>
 
                             <DatePicker SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
                                         Style="{StaticResource MaterialDesignDatePicker}"
@@ -146,15 +148,30 @@
                                         Width="160"/>
                         </StackPanel>
                         
-                        <StackPanel Margin="2">
+                        <StackPanel Margin="2" Orientation="Vertical">
                             <TextBlock Text="GENRE" FontSize="9" Foreground="Gray" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding Gender}" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Gender}" Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" Margin="5"/>
+                           
+                            <ComboBox SelectedValue="{Binding Gender, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValuePath="Tag"
+                                      Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Inverse}"
+                                      Style="{StaticResource MaterialDesignComboBox}"
+                                      HorizontalAlignment="Center"
+                                      HorizontalContentAlignment="Center"
+                                      FontSize="13"
+                                      FontWeight="Medium"
+                                      Width="90">
+
+                                <ComboBoxItem Content="Male" Tag="M" />
+                                <ComboBoxItem Content="Female" Tag="F" />
+
+                            </ComboBox>
                         </StackPanel>
                     </UniformGrid>
 
                     <!-- Player Specific Mini Stats -->
                     <StackPanel Visibility="{Binding IsPlayer, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,10,0,0">
-                        <Border Background="{StaticResource WhiteBrush}" CornerRadius="10" Padding="10" Margin="0,5">
+                        <Border Background="{StaticResource WhiteBrush}" Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}" CornerRadius="10" Padding="10" Margin="0,5">
                             <DockPanel>
                                 <TextBlock Text="PRÉSENCE" FontSize="9" Foreground="Gray" VerticalAlignment="Center"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -163,7 +180,7 @@
                                 </StackPanel>
                             </DockPanel>
                         </Border>
-                        <Border Background="{Binding SubscriptionColor}" CornerRadius="10" Padding="10">
+                        <Border Background="{Binding SubscriptionColor}" Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}" CornerRadius="10" Padding="10">
                             <DockPanel>
                                 <TextBlock Text="STATUT" FontSize="9" Foreground="White" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding SubscriptionStatus}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Right"/>

@@ -2,16 +2,9 @@
 using ClubManagementSystem.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Serilog;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+
 using System.Windows.Data;
 namespace ClubManagementSystem.ViewModels
 {
@@ -158,6 +151,8 @@ namespace ClubManagementSystem.ViewModels
                 {
                     DateOfBirth = DateTime.Today,
                     IsActive = true,
+                    // API validates Gender as required; set a safe default so Save isn't rejected.
+                    Gender = "M",
                     CategoryID = defaultCategory?.CategoryID ?? 0,
                     CategoryName = defaultCategory?.CategoryName
                 };
@@ -167,7 +162,9 @@ namespace ClubManagementSystem.ViewModels
                 newMember = new CoachModel
                 {
                     DateOfBirth = DateTime.Today,
-                    IsActive = true
+                    IsActive = true,
+                    // API validates Gender as required; set a safe default so Save isn't rejected.
+                    Gender = "M"
                 };
             }
 
@@ -182,12 +179,11 @@ namespace ClubManagementSystem.ViewModels
         {
             if (_pendingNewMember == null) return;
             if (savedMember == null) return;
-            if (!ReferenceEquals(savedMember, _pendingNewMember)) return;
-
+            
+            // We only get SaveRequested for the "new draft" flow.
+            // The server usually returns a NEW instance (different reference), so don't rely on reference equality.
             if (!AllMembers.Contains(savedMember))
-            {
                 AllMembers.Add(savedMember);
-            }
 
             SelectedMember = savedMember;
             _pendingNewMember = null;

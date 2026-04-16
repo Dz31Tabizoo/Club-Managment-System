@@ -45,7 +45,18 @@ namespace ClubManagementSystem.ViewModels
         #region Propriétés mappées
         public string PersonID => Member?.PersonID.ToString() + $" Créer le {Member?.CreatedDate?.ToShortDateString()}" ?? "0";
         public byte[] Photo => Member?.Photo ?? Array.Empty<byte>();
-        public string Gender => Member?.Gender ?? "N/A";
+        public string Gender
+        {
+            get => Member?.Gender ?? "N/A";
+            set
+            {
+                if (Member != null && Member.Gender != value)
+                {
+                    Member.Gender = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string Age => Member?.DateOfBirth.ToShortDateString() ?? "N/A";
 
         public string FirstName
@@ -85,6 +96,7 @@ namespace ClubManagementSystem.ViewModels
         new CategoryModel { CategoryID = 3, CategoryName = "U13", MinAge = 11, MaxAge = 13, MonthlyFee = 2500 },
         new CategoryModel { CategoryID = 4, CategoryName = "U15", MinAge = 13, MaxAge = 15, MonthlyFee = 2800 }
     };
+
         [ObservableProperty]
         private CategoryModel? _selectedCategory;
 
@@ -233,13 +245,12 @@ namespace ClubManagementSystem.ViewModels
         [RelayCommand]
         private async Task Save()
         {
-            //VALIDATION FIRST THAN SAVE
-            // Ton code Dapper ici
-            // Ex: _repository.Update(Member);
+            //if (VALIDATION) FIRST THAN SAVE
+            
             if (true)
             {
-                var isSaved = await _memberService.SaveMemberAsync(Member!);
-                if (!isSaved)
+                var newAddedMember = await _memberService.SaveMemberAsync(Member!);
+                if (newAddedMember == null)
                 {
                     // If API save fails, keep the dialog open for correction/retry.
                     IsReadOnly = false;
@@ -247,7 +258,7 @@ namespace ClubManagementSystem.ViewModels
                 }
 
                 IsReadOnly = true;
-                SaveRequested?.Invoke(Member);
+                SaveRequested?.Invoke(newAddedMember);
                 RequestClose?.Invoke(); // On ferme après enregistrement
             }
         }
