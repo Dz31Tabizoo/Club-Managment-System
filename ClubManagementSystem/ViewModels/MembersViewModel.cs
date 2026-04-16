@@ -142,10 +142,11 @@ namespace ClubManagementSystem.ViewModels
         {
             // Create a draft model instance and open the MemberCard in edit mode.
             // Draft is only committed to AllMembers when Save is pressed.
-            PersonModel newMember;
+            
 
             if (IsShowingPlayers)
             {
+                PlayerModel newMember;
                 var defaultCategory = SelectedMemberCardVM.Allcategories.FirstOrDefault();
                 newMember = new PlayerModel
                 {
@@ -156,9 +157,16 @@ namespace ClubManagementSystem.ViewModels
                     CategoryID = defaultCategory?.CategoryID ?? 0,
                     CategoryName = defaultCategory?.CategoryName
                 };
+
+                _pendingNewMember = newMember;
+                SelectedMember = newMember;
+                SelectedMemberCardVM.Member = newMember;
+                SelectedMemberCardVM.IsReadOnly = false;
+                IsMemberCardOpen = true;
             }
             else
             {
+                CoachModel newMember;
                 newMember = new CoachModel
                 {
                     DateOfBirth = DateTime.Today,
@@ -166,13 +174,15 @@ namespace ClubManagementSystem.ViewModels
                     // API validates Gender as required; set a safe default so Save isn't rejected.
                     Gender = "M"
                 };
+
+                _pendingNewMember = newMember;
+                SelectedMember = newMember;
+                SelectedMemberCardVM.Member = newMember;
+                SelectedMemberCardVM.IsReadOnly = false;
+                IsMemberCardOpen = true;
             }
 
-            _pendingNewMember = newMember;
-            SelectedMember = newMember;
-            SelectedMemberCardVM.Member = newMember;
-            SelectedMemberCardVM.IsReadOnly = false;
-            IsMemberCardOpen = true;
+            
         }
 
         private void OnMemberCardSaveRequested(PersonModel? savedMember)

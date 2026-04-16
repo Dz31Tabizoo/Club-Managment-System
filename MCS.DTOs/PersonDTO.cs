@@ -14,16 +14,13 @@ namespace CMS.DTOs
     {
         public int  PersonID { get; set; }
 
-        [Required(ErrorMessage = "Le nom est obligatoire")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Le nom ne peut pas dépasser 50 caractères")]
         public string FirstName { get; set; }= string.Empty;
 
-        [Required(ErrorMessage = "Le prénom est obligatoire")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Le prénom ne peut pas dépasser 50 caractères")]
         public string LastName { get; set; }= string.Empty;
 
         public string? FullName => $"{FirstName} {LastName}";
-        [Required(ErrorMessage = "La date de naissance est obligatoire")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         [StringLength(20)]
@@ -34,8 +31,8 @@ namespace CMS.DTOs
         public string? Email { get; set; }        
         public string? Address { get; set; }
 
-        [Required]
-        public char Gender { get; set; } 
+        
+        public char Gender { get; set; } = 'M';
 
         public byte[]? Photo { get; set; }
         public DateTime? LastUpdate { get; set; }

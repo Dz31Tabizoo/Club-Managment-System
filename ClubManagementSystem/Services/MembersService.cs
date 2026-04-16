@@ -51,14 +51,14 @@ namespace ClubManagementSystem.Services
             
         }
 
-        public async Task<PersonModel?> SaveMemberAsync(PersonModel member)
+        public async Task<PlayerModel?> SaveMemberAsync(PlayerModel member)
         {
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("api/Players/add", member, MembersJsonOptions);
                 if (response.IsSuccessStatusCode)
                 {
-                    var savedMember = await response.Content.ReadFromJsonAsync<PersonModel>(MembersJsonOptions);
+                    var savedMember = await response.Content.ReadFromJsonAsync<PlayerModel>(MembersJsonOptions);
                     return savedMember;
                 }
                 else

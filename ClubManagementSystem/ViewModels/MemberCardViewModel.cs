@@ -249,17 +249,22 @@ namespace ClubManagementSystem.ViewModels
             
             if (true)
             {
-                var newAddedMember = await _memberService.SaveMemberAsync(Member!);
-                if (newAddedMember == null)
+                if (Member is PlayerModel player)
                 {
-                    // If API save fails, keep the dialog open for correction/retry.
-                    IsReadOnly = false;
-                    return;
-                }
+                    var newAddedMember = await _memberService.SaveMemberAsync(player!);
 
-                IsReadOnly = true;
-                SaveRequested?.Invoke(newAddedMember);
-                RequestClose?.Invoke(); // On ferme après enregistrement
+
+                    if (newAddedMember == null)
+                    {
+                        // If API save fails, keep the dialog open for correction/retry.
+                        IsReadOnly = false;
+                        return;
+                    }
+
+                    IsReadOnly = true;
+                    SaveRequested?.Invoke(newAddedMember);
+                    RequestClose?.Invoke(); // On ferme après enregistrement
+                }
             }
         }
         #endregion
@@ -270,4 +275,5 @@ namespace ClubManagementSystem.ViewModels
 
         #endregion
     }
+
 }

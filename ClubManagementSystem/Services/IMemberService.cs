@@ -10,7 +10,7 @@ namespace ClubManagementSystem.Services
     public interface IMemberService
     {
         Task<List<PersonModel>> GetAllMembersasync();
-        Task<PersonModel?> SaveMemberAsync(PersonModel member);
+        Task<PlayerModel?> SaveMemberAsync(PlayerModel member);
 
     }
 }
