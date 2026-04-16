@@ -51,7 +51,23 @@ namespace ClubManagementSystem.Services
             
         }
 
-
-
+        public async Task<bool> SaveMemberAsync(PersonModel member)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync("api/Players/add", member, MembersJsonOptions);
+                return response.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException httpex)
+            {
+                Log.Error("Saving member failed: " + httpex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Unexpected Error: " + ex.Message);
+                return false;
+            }
+        }
     }
 }

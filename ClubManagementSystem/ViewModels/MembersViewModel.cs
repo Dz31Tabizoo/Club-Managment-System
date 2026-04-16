@@ -24,7 +24,7 @@ namespace ClubManagementSystem.ViewModels
         private bool _isMemberCardOpen;
 
         [ObservableProperty]
-        private MemberCardViewModel _selectedMemberCardVM = new();
+        private MemberCardViewModel _selectedMemberCardVM;
 
         [ObservableProperty]
         private PersonModel? _selectedMember;
@@ -55,6 +55,7 @@ namespace ClubManagementSystem.ViewModels
         public MembersViewModel(IMemberService memberService)
         {
             _memberService = memberService;
+            _selectedMemberCardVM = new MemberCardViewModel(_memberService);
             MembersView = CollectionViewSource.GetDefaultView(AllMembers);
             MembersView.Filter = FilterLogic;
 

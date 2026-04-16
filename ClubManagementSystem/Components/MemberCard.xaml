@@ -69,7 +69,7 @@
             CornerRadius="20"
             Background="{StaticResource WhiteBrush}"
             ClipToBounds="True"
-            Opacity="0">
+            Opacity="1">
         <Border.Triggers>
             <!-- Very light fade-in (kept separate from DialogHost transitions) -->
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -136,13 +136,14 @@
                                        Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}" 
                                        FontWeight="Bold" FontSize="13" HorizontalAlignment="Center"/>
 
-                            <DatePicker SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" 
-                                        
-                                        Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" 
-                                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}"
-                                        Style="{StaticResource MaterialDesignFilledDatePicker}"
-                                        md:HintAssist.Hint="Choisir une date"
-                                        FontSize="12" HorizontalAlignment="Left" Width="120"/>
+                            <DatePicker SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{StaticResource MaterialDesignDatePicker}"
+                                        md:HintAssist.Hint="Date de naissance"
+                                        md:TextFieldAssist.HasClearButton="True"
+                                        Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Inverse}"
+                                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Inverse}"
+                                        FontSize="14" 
+                                        Width="160"/>
                         </StackPanel>
                         
                         <StackPanel Margin="2">

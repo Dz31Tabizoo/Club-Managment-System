@@ -1,4 +1,5 @@
 ﻿using ClubManagementSystem.Models;
+using ClubManagementSystem.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -17,6 +18,13 @@ namespace ClubManagementSystem.ViewModels
     // Indispensable pour la génération de code
     public partial class MemberCardViewModel : BaseViewModel
     {
+        private readonly IMemberService _memberService;
+
+        public MemberCardViewModel(IMemberService memberService)
+        {
+            _memberService = memberService;
+        }
+
         public event Action? RequestClose;
         public event Action<PersonModel?>? SaveRequested;
         public event Action? CancelRequested;
@@ -223,13 +231,25 @@ namespace ClubManagementSystem.ViewModels
         }
 
         [RelayCommand]
-        private void Save()
+        private async Task Save()
         {
+            //VALIDATION FIRST THAN SAVE
             // Ton code Dapper ici
             // Ex: _repository.Update(Member);
-            IsReadOnly = true;
-            SaveRequested?.Invoke(Member);
-            RequestClose?.Invoke(); // On ferme après enregistrement
+            if (true)
+            {
+                var isSaved = await _memberService.SaveMemberAsync(Member!);
+                if (!isSaved)
+                {
+                    // If API save fails, keep the dialog open for correction/retry.
+                    IsReadOnly = false;
+                    return;
+                }
+
+                IsReadOnly = true;
+                SaveRequested?.Invoke(Member);
+                RequestClose?.Invoke(); // On ferme après enregistrement
+            }
         }
         #endregion
 
